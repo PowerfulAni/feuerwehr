@@ -5,15 +5,15 @@ import util.FahrzeugTyp;
 
 public class Einsatzfahrzeug extends Fahrzeug {
 	
-	private String dienstgraString;
+	private String dienstgrad;
 	
 	public Einsatzfahrzeug(int sitzplätze, FahrzeugTyp fahrzeugTyp, Boolean inWartung, FahrzeugStatus fahrzeugstatus, String dienstgrad) {
 		super(sitzplätze, fahrzeugTyp, inWartung, fahrzeugstatus);
-		this.dienstgraString = dienstgrad;
+		this.dienstgrad = dienstgrad;
 	}
 	public String getDienstgradString () {
 		
-		return this.dienstgraString;
+		return this.dienstgrad;
 	}
 	
 	
