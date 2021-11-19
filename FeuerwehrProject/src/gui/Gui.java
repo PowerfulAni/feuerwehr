@@ -29,7 +29,7 @@ public class Gui extends JFrame implements ActionListener {
 
     public Gui() {
     	
-    	this.setTitle("Feuerwehr Management Tool by <#ToDo Cooler Name hier einfügen>");
+    	this.setTitle("Feuerwehr Management Tool by <#ToDo Cooler Name hier einf&uuml;gen>");
         this.setSize(800, 600);
         this.setLayout(new FlowLayout());
         panelButtons = new JPanel();
