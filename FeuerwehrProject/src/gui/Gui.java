@@ -29,7 +29,7 @@ public class Gui extends JFrame implements ActionListener {
 
     public Gui() {
     	
-    	this.setTitle("Feuerwehr Management Tool by <#ToDo Cooler Name hier einf&uuml;gen>");
+    	this.setTitle("Feuerwehr Management Tool by <#ToDo Cooler Name hier einsetzen>");
         this.setSize(800, 600);
         this.setLayout(new FlowLayout());
         panelButtons = new JPanel();
@@ -111,27 +111,27 @@ public class Gui extends JFrame implements ActionListener {
         // der Buttons ist, wird der Text des JLabels entsprechend geändert
         if(ae.getSource() == this.buttonFunktion1){
         	//Hier Funktionen für Button 1 #ToDo
-        	status.setText(("Button 1 wurde bet&auml;tigt"));
+        	status.setText(("<html>Button 1 wurde bet&auml;tigt</html>"));
         }
         else if(ae.getSource() == this.buttonFunktion2){
         	//Hier Funktionen für Button 2 #ToDo
-        	status.setText("Button 2 wurde bet&auml;tigt");
+        	status.setText("<html>Button 2 wurde bet&auml;tigt</html>");
         }
         else if (ae.getSource() == this.buttonFunktion3){
         	//Hier Funktionen für Button 3 #ToDo
-        	status.setText(("Button 3 wurde bet&auml;tigt"));
+        	status.setText(("<html>Button 3 wurde bet&auml;tigt</html>"));
         }
         else if (ae.getSource() == this.buttonFunktion4){
         	//Hier Funktionen für Button 4 #ToDo
-        	status.setText(("Button 4 wurde bet&auml;tigt"));
+        	status.setText(("<html>Button 4 wurde bet&auml;tigt</html>"));
         }
         else if (ae.getSource() == this.buttonSubmit){
         	//Hier Funktionen für Button Submit #ToDo
-        	status.setText(("Button 3 wurde bet&auml;tigt"));
+        	status.setText(("<html>Button 3 wurde bet&auml;tigt</html>"));
         }
         else if (ae.getSource() == this.buttonCancel){
         	//Hier Funktionen für Button Cancel #ToDo
-        	status.setText(("Button 3 wurde bet&auml;tigt"));
+        	status.setText(("<p>Button 3 wurde bet&auml;tigt</p>"));
         }
     }
 
