@@ -11,13 +11,15 @@ public class Fahrzeug {
 	private boolean inWartung;
 	private FahrzeugTyp fahrzeugTyp;
 	private FahrzeugStatus fahrzeugStatus;
+	private String kennzeichen;
 	
-	public Fahrzeug(int sitzplätze, FahrzeugTyp fahrzeugTyp, Boolean inWartung, FahrzeugStatus fahrzeugstatus ) {
+	public Fahrzeug(int sitzplätze, FahrzeugTyp fahrzeugTyp, Boolean inWartung, FahrzeugStatus fahrzeugstatus, String kennzeichen ) {
 		
 		this.sitzplätze = sitzplätze;
 		this.fahrzeugTyp = fahrzeugTyp;
 		this.inWartung = inWartung;
 		this.fahrzeugStatus = fahrzeugstatus;
+		this.kennzeichen = kennzeichen;
 	}
 	public int getSitzplätze () {
 		
@@ -42,7 +44,10 @@ public class Fahrzeug {
 	public void setFahrzeugStatus (FahrzeugStatus fahrzeugStatus) {
 		this.fahrzeugStatus = fahrzeugStatus;
 	}
-	
+	public String getKennzeichenString () {
+		
+		return this.kennzeichen;
+	}
 		
 	
 	

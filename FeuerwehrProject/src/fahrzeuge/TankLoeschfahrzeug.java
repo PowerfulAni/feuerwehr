@@ -7,8 +7,8 @@ public class TankLoeschfahrzeug extends Fahrzeug{
 
 	private int maxTank;
 	
-	public TankLoeschfahrzeug(int sitzplätze, FahrzeugTyp fahrzeugTyp, Boolean inWartung,FahrzeugStatus fahrzeugstatus,int maxTank) {
-		super(sitzplätze, fahrzeugTyp, inWartung, fahrzeugstatus);
+	public TankLoeschfahrzeug(int sitzplätze, FahrzeugTyp fahrzeugTyp, Boolean inWartung,FahrzeugStatus fahrzeugstatus,String kennzeichen, maxTank) {
+		super(sitzplätze, fahrzeugTyp, inWartung, fahrzeugstatus, kennzeichen);
 		this.maxTank = maxTank;
 	}
 	public int getMaxTank () {

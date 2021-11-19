@@ -7,8 +7,8 @@ public class Mannschftstransporter extends Fahrzeug {
 
 	private int baujahr;
 	
-public Mannschftstransporter(int sitzplätze, FahrzeugTyp fahrzeugTyp, Boolean inWartung,FahrzeugStatus fahrzeugstatus, int baujahr) {
-		super(sitzplätze, fahrzeugTyp, inWartung, fahrzeugstatus);
+public Mannschftstransporter(int sitzplätze, FahrzeugTyp fahrzeugTyp, Boolean inWartung,FahrzeugStatus fahrzeugstatus,String kennzeichen, int baujahr) {
+		super(sitzplätze, fahrzeugTyp, inWartung, fahrzeugstatus, kennzeichen);
 		this.baujahr = baujahr;
 		
 	}
