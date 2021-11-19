@@ -1,29 +1,29 @@
 package fahrzeuge;
 
-import java.io.ObjectInputStream.GetField;
+//import java.io.ObjectInputStream.GetField;
 
 import util.FahrzeugStatus;
 import util.FahrzeugTyp;
 
 public class Fahrzeug {
 	
-	private int sitzplätze;
+	private int sitzplaetze;
 	private boolean inWartung;
 	private FahrzeugTyp fahrzeugTyp;
 	private FahrzeugStatus fahrzeugStatus;
 	private String kennzeichen;
 	
-	public Fahrzeug(int sitzplätze, FahrzeugTyp fahrzeugTyp, Boolean inWartung, FahrzeugStatus fahrzeugstatus, String kennzeichen ) {
+	public Fahrzeug(int sitzplaetze, FahrzeugTyp fahrzeugTyp, Boolean inWartung, FahrzeugStatus fahrzeugstatus, String kennzeichen ) {
 		
-		this.sitzplätze = sitzplätze;
+		this.sitzplaetze = sitzplaetze;
 		this.fahrzeugTyp = fahrzeugTyp;
 		this.inWartung = inWartung;
 		this.fahrzeugStatus = fahrzeugstatus;
 		this.kennzeichen = kennzeichen;
 	}
-	public int getSitzplätze () {
+	public int getSitzplaetze () {
 		
-		return this.sitzplätze;
+		return this.sitzplaetze;
 	}
 	public FahrzeugTyp getFahrzeugTyp () {
 		

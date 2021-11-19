@@ -1,4 +1,4 @@
-package einsätze;
+package einsaetze;
 
 public class Einsatz {
 
