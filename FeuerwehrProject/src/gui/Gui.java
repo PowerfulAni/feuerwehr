@@ -48,13 +48,13 @@ public class Gui extends JFrame implements ActionListener {
         String content = """
         		<html>
         		<body>
-        		<h1>Feuerwache Rödermark</h1>
+        		<h1>Feuerwache R&ouml;dermark</h1>
         		<table>
         		<tr><th>Fahrzeug</th><th>Kennzeichen</th><th>Status</th></tr>
-        		<tr><td>Löschfahrzeug</td><td>WI-FI 42</td><td>Bereit</td></tr>
-        		<tr><td>Löschfahrzeug</td><td>WI-FI 43</td><td>Bereit</td></tr>
-        		<tr><td>Löschfahrzeug</td><td>WI-FI 44</td><td>Bereit</td></tr>
-        		<tr><td>Löschfahrzeug</td><td>WI-FI 45</td><td>In Reparatur</td></tr>
+        		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 42</td><td>Bereit</td></tr>
+        		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 43</td><td>Bereit</td></tr>
+        		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 44</td><td>Bereit</td></tr>
+        		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 45</td><td>In Reparatur</td></tr>
         		</table>
         		<hr>
         		<table>
