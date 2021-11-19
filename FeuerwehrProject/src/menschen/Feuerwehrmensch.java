@@ -5,20 +5,20 @@ import util.MitarbeiterStatus;
 
 public class Feuerwehrmensch {
 	
-	private MitarbeiterStatus status;
+	private MitarbeiterStatus mitarbeiterStatus;
 	private String name;
 	private FahrzeugTyp fahrerlaubnis;
 	
-	public Feuerwehrmensch(MitarbeiterStatus status, String name, FahrzeugTyp fahrerlaubnis) {
+	public Feuerwehrmensch(MitarbeiterStatus mitarbeiterStatus, String name, FahrzeugTyp fahrerlaubnis) {
 		
-		this.status = status;
+		this.mitarbeiterStatus = mitarbeiterStatus;
 		this.name = name;
 		this.fahrerlaubnis = fahrerlaubnis;
 	}
 	
 	
-	public MitarbeiterStatus getStatus() {
-		return status;
+	public MitarbeiterStatus getMitarbeiterStatus() {
+		return mitarbeiterStatus;
 	}
 	
 	public String getName() {
@@ -29,7 +29,7 @@ public class Feuerwehrmensch {
 		return fahrerlaubnis;
 	}
 	
-	public void setMitarbeiterStatus(MitarbeiterStatus status) {
-		this.status = status;
+	public void setMitarbeiterStatus(MitarbeiterStatus mitarbeiterStatus) {
+		this.mitarbeiterStatus = mitarbeiterStatus;
 	}
 }
