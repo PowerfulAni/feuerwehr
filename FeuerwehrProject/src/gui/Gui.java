@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -15,7 +16,9 @@ import javax.swing.border.LineBorder;
 import main.Feuerwache;
 import util.FahrzeugStatus;
 import util.MitarbeiterStatus;
- 
+import fahrzeuge.*;
+import menschen.*;
+import util.*;
 
 public class Gui extends JFrame implements ActionListener {
 	
@@ -36,7 +39,7 @@ public class Gui extends JFrame implements ActionListener {
     public Gui(Feuerwache fw) {
         feuerwache = fw;
     	
-    	this.setTitle("Feuerwehr Management Tool by <#ToDo Cooler Name hier einsetzen>");
+    	this.setTitle("Feuerwehr Management Tool by <#ToDo Cooler Name hier einfügen>");
         this.setSize(800, 600);
         this.setLayout(new FlowLayout());
         panelButtons = new JPanel();
@@ -113,7 +116,7 @@ public class Gui extends JFrame implements ActionListener {
 		String content = """
         		<html>
         		<body>
-        		<h1>Feuerwache R&ouml;dermark</h1>
+        		<h1>Feuerwache Rödermark</h1>
         		<hr>
         		<table>
         		<tr><th>#</th><th>Verfügbar</th><th>Im Einsatz</th><th>Nicht Verfügbar</th><th>Gesamt</th></tr>
@@ -137,7 +140,15 @@ public class Gui extends JFrame implements ActionListener {
 		return content;
 	}
 	public String generateFahrzeugeListeHtml() {
-		return "";
+		ArrayList fahrzeuge = feuerwache.getFahrzeuge();
+		String erg = "<html><table><tr><th>Kennzeichen</th><th>Fahrzeugtyp</th><th>Sitzplätze</th><th>Status</th></tr>";
+		for (int i = 0; i < fahrzeuge.size(); i++) {
+			erg += "<tr><td>"+((Fahrzeug) fahrzeuge.get(i)).getKennzeichenString()+"</td><td>"+((Fahrzeug) fahrzeuge.get(i)).getFahrzeugTyp()+"</td><td>"+((Fahrzeug) fahrzeuge.get(i)).getSitzplaetze()+"</td><td>"+((Fahrzeug) fahrzeuge.get(i)).getFahrzeugStatus()+"</td></tr>";
+			
+			
+		}
+		erg += "</table></html>";
+		return erg;
 	}
 	public String generateFeuerwehrleuteListeHtml() {
 		return "";
@@ -152,24 +163,10 @@ public class Gui extends JFrame implements ActionListener {
         if(ae.getSource() == this.buttonFunktion1){
         	//Hier Funktionen für Button 1 #ToDo
         	status.setText(("<html>Button 1 wurde bet&auml;tigt</html>"));
-        	setContent("""
-            		<html>
-            		<body>
-            		<h1>Feuerwache R&ouml;dermark</h1>
-            		<table>
-            		<tr><th>Fahrzeug</th><th>Kennzeichen</th><th>Status</th></tr>
-            		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 42</td><td>Bereit</td></tr>
-            		</table>
-            		<hr>
-            		<table>
-            		<tr><th>Name</th><th>Rang</th><th>Status</th></tr>
-            		<tr><td>Reiner Zufall</td><td>Leiter</td><td>Bereit</td></tr>
-            		</table>
-            		</body>
-            		</html>"
-            				""");
+        	setContent(generateFahrzeugeListeHtml());
         }
         else if(ae.getSource() == this.buttonFunktion2){
+        	generateFahrzeugeListeHtml();
         	//Hier Funktionen für Button 2 #ToDo
         	status.setText("<html>Button 2 wurde bet&auml;tigt</html>");
         }

@@ -40,22 +40,22 @@ public class Feuerwache {
 		}
 	}
 	/**
-	 * Gibt alle Fahrzeuge zurück.
+	 * Gibt alle Fahrzeuge zurï¿½ck.
 	 * @return ArrayList von allen Fahrzeugen
 	 */
 	public ArrayList<Fahrzeug> getFahrzeuge(){
 		return fahrzeuge;
 	}
 	/**
-	 * Gibt alle Mitarbeiter zurück.
+	 * Gibt alle Mitarbeiter zurÃ¼ck.
 	 * @return ArrayList von allen Mitarbeitern
 	 */
 	public ArrayList<Feuerwehrmensch> getMitarbeiter(){
 		return mitarbeiter;
 	}
 	/**
-	 * Gibt die Absolute anzahl an fahrzeugen des angegeben status zurück.
-	 * Um z.b. alle Fahrzeuge zurückzugen die zu Hause sind:
+	 * Gibt die Absolute anzahl an fahrzeugen des angegeben status zurÃ¼ck.
+	 * Um z.b. alle Fahrzeuge zurÃ¼ckzugen die zu Hause sind:
 	 * new FahrzeugStatus[] { FahrzeugStatus.Bereit, FahrzeugStatus.Wartung }
 	 * 
 	 * @param status Ein Array an Status
@@ -75,8 +75,8 @@ public class Feuerwache {
 	}
 	
 	/**
-	 * Gibt die Absolute anzahl an Mitarbeitern des angegeben status zurück.
-	 * Um z.b. alle mitarbeiter zurückzugen die zu absolut nicht zur verfügung stehen sind:
+	 * Gibt die Absolute anzahl an Mitarbeitern des angegeben status zurÃ¼ck.
+	 * Um z.b. alle mitarbeiter zurÃ¼ckzugen die zu absolut nicht zur verfÃ¼gung stehen sind:
 	 * new MitarbeiterStatus[] { MitarbeiterStatus.Urlaub, MitarbeiterStatus.Krank }
 	 * 
 	 * @param status Ein Array an Status
