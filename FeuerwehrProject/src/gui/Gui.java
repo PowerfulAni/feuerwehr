@@ -13,6 +13,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 
 import main.Feuerwache;
+import util.FahrzeugStatus;
+import util.MitarbeiterStatus;
  
 
 public class Gui extends JFrame implements ActionListener {
@@ -28,11 +30,11 @@ public class Gui extends JFrame implements ActionListener {
     JPanel panelButtons;
     JPanel panelMain;
     JPanel panelStatus;
-    
+
     Feuerwache feuerwache;
 
     public Gui(Feuerwache fw) {
-    	feuerwache = fw;
+        feuerwache = fw;
     	
     	this.setTitle("Feuerwehr Management Tool by <#ToDo Cooler Name hier einsetzen>");
         this.setSize(800, 600);
@@ -85,20 +87,29 @@ public class Gui extends JFrame implements ActionListener {
         this.add(panelMain);
        this.add(panelStatus);
     }
-	/*public static void main(String[] args) {
-		// Ein neues Objekt der Klasse BeispielListener wird erzeugt
-        // und sichtbar gemacht
-		Gui feuerwehrApp = new Gui();
-		feuerwehrApp.setResizable(false);
-		feuerwehrApp.setVisible(true);
-
-	}*/
+//	public static void main(String[] args) {
+//		// Ein neues Objekt der Klasse BeispielListener wird erzeugt
+//        // und sichtbar gemacht
+//		Gui feuerwehrApp = new Gui();
+//		feuerwehrApp.setResizable(false);
+//		feuerwehrApp.setVisible(true);
+//
+//	}
 	
 	public void setContent(String content) {
 		mainContent.setText(content);
 	}
 	
 	public String generateMainHtml() {
+		int fahrzeugeAbsolut = feuerwache.getFahrzeuge().size();
+		int fahrzeugeVerfuegbar = feuerwache.getAbsFahrzeugStatus((new FahrzeugStatus[] { FahrzeugStatus.Bereit}));
+		int fahrzeugeWartung = feuerwache.getAbsFahrzeugStatus((new FahrzeugStatus[] { FahrzeugStatus.Wartung}));
+		int fahrzeugeEinsatz = feuerwache.getAbsFahrzeugStatus((new FahrzeugStatus[] { FahrzeugStatus.Einsatz}));
+		int feuerwehrLeuteAbsolut = feuerwache.getMitarbeiter().size();
+		int feuerwehrLeuteVerfuegbar = feuerwache.getAbsMitarbeiterStatus((new MitarbeiterStatus[] { MitarbeiterStatus.Bereit}));
+		int feuerwehrLeuteWartung = feuerwache.getAbsMitarbeiterStatus((new MitarbeiterStatus[] { MitarbeiterStatus.Krank}));
+		int feuerwehrLeuteEinsatz = feuerwache.getAbsMitarbeiterStatus((new MitarbeiterStatus[] { MitarbeiterStatus.Einsatz}));
+		
 		String content = """
         		<html>
         		<body>
@@ -106,11 +117,16 @@ public class Gui extends JFrame implements ActionListener {
         		<hr>
         		<table>
         		<tr><th>#</th><th>Verfügbar</th><th>Im Einsatz</th><th>Nicht Verfügbar</th><th>Gesamt</th></tr>
-        		<tr><td>Fahrzeuge</td><td>15</td><td>0</td><td>3</td><td>18</td></tr>
-        		<tr><td>Feuerwehrleute</td><td>70</td><td>0</td><td>10</td><td>80</td></tr>
+        		""";
+		content += "<tr><td>Fahrzeuge</td><td>"+fahrzeugeVerfuegbar+"</td><td>"+fahrzeugeEinsatz+"</td><td>"+fahrzeugeWartung+"</td><td>"+fahrzeugeAbsolut+"</td></tr>";
+		
+		content += "<tr><td>Feuerwehrleute</td><td>"+feuerwehrLeuteVerfuegbar+"</td><td>"+feuerwehrLeuteEinsatz+"</td><td>"+feuerwehrLeuteWartung+"</td><td>"+feuerwehrLeuteAbsolut+"</td></tr>";
+		
+		content +=
+				"""
         		</table>
         		</body>
-        		</html>"
+        		</html>
         				""";
 		return content;
 	}
