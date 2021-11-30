@@ -10,7 +10,6 @@ public class Mannschftstransporter extends Fahrzeug {
 public Mannschftstransporter(int sitzplaetze, FahrzeugTyp fahrzeugTyp, Boolean inWartung,FahrzeugStatus fahrzeugstatus,String kennzeichen, int baujahr) {
 		super(sitzplaetze, fahrzeugTyp, inWartung, fahrzeugstatus, kennzeichen);
 		this.baujahr = baujahr;
-		
 	}
 	public int getBaujahr () {
 		

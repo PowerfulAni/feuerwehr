@@ -11,6 +11,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
+
+import main.Feuerwache;
  
 
 public class Gui extends JFrame implements ActionListener {
@@ -26,8 +28,11 @@ public class Gui extends JFrame implements ActionListener {
     JPanel panelButtons;
     JPanel panelMain;
     JPanel panelStatus;
+    
+    Feuerwache feuerwache;
 
-    public Gui() {
+    public Gui(Feuerwache fw) {
+    	feuerwache = fw;
     	
     	this.setTitle("Feuerwehr Management Tool by <#ToDo Cooler Name hier einsetzen>");
         this.setSize(800, 600);
@@ -98,14 +103,14 @@ public class Gui extends JFrame implements ActionListener {
         this.add(panelMain);
        this.add(panelStatus);
     }
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// Ein neues Objekt der Klasse BeispielListener wird erzeugt
         // und sichtbar gemacht
 		Gui feuerwehrApp = new Gui();
 		feuerwehrApp.setResizable(false);
 		feuerwehrApp.setVisible(true);
 
-	}
+	}*/
 	
 	public void setContent(String content) {
 		mainContent.setText(content);
