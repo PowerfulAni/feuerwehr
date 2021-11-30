@@ -125,6 +125,12 @@ public class Gui extends JFrame implements ActionListener {
 		content +=
 				"""
         		</table>
+        		<hr>
+        		<h3>Status Einsätze</h3>
+        		<p>Wohnungsbrand: Bereit</p>
+        		<p>Verkehrsunfall: Bereit</p>
+        		<p>Naturkatastrophe: Bereit</p>
+        		<p>Industrieunfall: Bereit</p>
         		</body>
         		</html>
         				""";
