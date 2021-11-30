@@ -3,7 +3,7 @@ package fahrzeuge;
 import util.FahrzeugStatus;
 import util.FahrzeugTyp;
 
-public class Fahrzeug {
+public abstract class Fahrzeug {
 	
 	private int sitzplaetze;
 	private boolean inWartung;
