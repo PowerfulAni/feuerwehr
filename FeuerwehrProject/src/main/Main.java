@@ -8,7 +8,7 @@ public class Main {
 		Feuerwache fw = new Feuerwache();
 		System.out.println(fw.getFahrzeuge());
 		System.out.println(fw.getMitarbeiter());
-		System.out.println(fw.getAbsFahrzeugStatus(new FahrzeugStatus[] {FahrzeugStatus.Bereit, FahrzeugStatus.Wartung}));
+		System.out.println(fw.getAbsFahrzeugStatus(new FahrzeugStatus[] { FahrzeugStatus.Bereit, FahrzeugStatus.Wartung }));
 		Gui feuerwehrApp = new Gui(fw);
 		feuerwehrApp.setResizable(false);
 		feuerwehrApp.setVisible(true);
