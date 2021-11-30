@@ -64,7 +64,8 @@ public class Gui extends JFrame implements ActionListener {
         		</body>
         		</html>"
         				""";
-        mainContent = new JLabel(content, SwingConstants.LEFT);
+        mainContent = new JLabel("", SwingConstants.LEFT);
+        setContent(content);
         //Buttons werden erstellt
         buttonFunktion1 = new JButton("BTN - Funktion 1");
         buttonFunktion2 = new JButton ("BTN - Funktion 2");
@@ -105,6 +106,11 @@ public class Gui extends JFrame implements ActionListener {
 		feuerwehrApp.setVisible(true);
 
 	}
+	
+	public void setContent(String content) {
+		mainContent.setText(content);
+	}
+	
 	public void actionPerformed (ActionEvent ae){
         // Die Quelle wird mit getSource() abgefragt und mit den
         // Buttons abgeglichen. Wenn die Quelle des ActionEvents einer
@@ -112,6 +118,22 @@ public class Gui extends JFrame implements ActionListener {
         if(ae.getSource() == this.buttonFunktion1){
         	//Hier Funktionen für Button 1 #ToDo
         	status.setText(("<html>Button 1 wurde bet&auml;tigt</html>"));
+        	setContent("""
+            		<html>
+            		<body>
+            		<h1>Feuerwache R&ouml;dermark</h1>
+            		<table>
+            		<tr><th>Fahrzeug</th><th>Kennzeichen</th><th>Status</th></tr>
+            		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 42</td><td>Bereit</td></tr>
+            		</table>
+            		<hr>
+            		<table>
+            		<tr><th>Name</th><th>Rang</th><th>Status</th></tr>
+            		<tr><td>Reiner Zufall</td><td>Leiter</td><td>Bereit</td></tr>
+            		</table>
+            		</body>
+            		</html>"
+            				""");
         }
         else if(ae.getSource() == this.buttonFunktion2){
         	//Hier Funktionen für Button 2 #ToDo
