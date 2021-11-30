@@ -1,7 +1,5 @@
 package fahrzeuge;
 
-//import java.io.ObjectInputStream.GetField;
-
 import util.FahrzeugStatus;
 import util.FahrzeugTyp;
 
@@ -48,11 +46,5 @@ public class Fahrzeug {
 		
 		return this.kennzeichen;
 	}
-		
-	
-	
-	
-	
-	
 	
 }

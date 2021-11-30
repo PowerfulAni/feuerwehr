@@ -2,5 +2,5 @@ package util;
 
 public enum FahrzeugStatus {
 	
-	Beraeit, Einsatz, Wartung;
+	Bereit, Einsatz, Wartung;
 }
