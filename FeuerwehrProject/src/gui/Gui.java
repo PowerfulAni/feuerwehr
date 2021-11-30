@@ -45,30 +45,12 @@ public class Gui extends JFrame implements ActionListener {
         // Leeres JLabel-Objekt wird erzeugt
         status = new JLabel("", SwingConstants.CENTER);
         status.setFont(new Font("Arial", Font.BOLD, 20));
-        String content = """
-        		<html>
-        		<body>
-        		<h1>Feuerwache R&ouml;dermark</h1>
-        		<table>
-        		<tr><th>Fahrzeug</th><th>Kennzeichen</th><th>Status</th></tr>
-        		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 42</td><td>Bereit</td></tr>
-        		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 43</td><td>Bereit</td></tr>
-        		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 44</td><td>Bereit</td></tr>
-        		<tr><td>L&ouml;schfahrzeug</td><td>WI-FI 45</td><td>In Reparatur</td></tr>
-        		</table>
-        		<hr>
-        		<table>
-        		<tr><th>Name</th><th>Rang</th><th>Status</th></tr>
-        		<tr><td>Reiner Zufall</td><td>Leiter</td><td>Bereit</td></tr>
-        		</table>
-        		</body>
-        		</html>"
-        				""";
+        
         mainContent = new JLabel("", SwingConstants.LEFT);
-        setContent(content);
+        setContent(generateMainHtml());
         //Buttons werden erstellt
-        buttonFunktion1 = new JButton("BTN - Funktion 1");
-        buttonFunktion2 = new JButton ("BTN - Funktion 2");
+        buttonFunktion1 = new JButton("Fahrzeuge");
+        buttonFunktion2 = new JButton ("Feuerwehrleute");
         buttonFunktion3 = new JButton ("BTN - Funktion 3");
         buttonFunktion4 = new JButton ("BTN - Funktion 4");
         buttonSubmit = new JButton ("BTN - Bestätigen");
@@ -111,6 +93,31 @@ public class Gui extends JFrame implements ActionListener {
 		mainContent.setText(content);
 	}
 	
+	public String generateMainHtml() {
+		String content = """
+        		<html>
+        		<body>
+        		<h1>Feuerwache R&ouml;dermark</h1>
+        		<hr>
+        		<table>
+        		<tr><th>#</th><th>Verfügbar</th><th>Im Einsatz</th><th>Nicht Verfügbar</th><th>Gesamt</th></tr>
+        		<tr><td>Fahrzeuge</td><td>15</td><td>0</td><td>3</td><td>18</td></tr>
+        		<tr><td>Feuerwehrleute</td><td>70</td><td>0</td><td>10</td><td>80</td></tr>
+        		</table>
+        		</body>
+        		</html>"
+        				""";
+		return content;
+	}
+	public String generateFahrzeugeListeHtml() {
+		return "";
+	}
+	public String generateFeuerwehrleuteListeHtml() {
+		return "";
+	}
+	public String generateEinsaetzeListeHtml() {
+		return "";
+	}
 	public void actionPerformed (ActionEvent ae){
         // Die Quelle wird mit getSource() abgefragt und mit den
         // Buttons abgeglichen. Wenn die Quelle des ActionEvents einer
