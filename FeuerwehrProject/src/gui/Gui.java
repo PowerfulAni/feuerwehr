@@ -32,6 +32,7 @@ public class Gui extends JFrame {
 
 		panelMain.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
 		panelMain.setPreferredSize(new Dimension(600, 420));
+		panelMain.setEditable(false);
 		panelMain.setAutoscrolls(true);
 
 		panelStatus.setPreferredSize(new Dimension(700, 40));
