@@ -15,6 +15,7 @@ public class Feuerwache {
 	private ArrayList<Fahrzeug> fahrzeuge = new ArrayList<>();
 	private ArrayList<Feuerwehrmensch> mitarbeiter = new ArrayList<>();
 	private ArrayList<Einsatz> einsaetze = new ArrayList<>();
+	private Einsatz vorschlag;
 	private final EinsatzTyp wohungsbrand = new EinsatzTyp(22, 1, 2, 1, 1);
 	private final EinsatzTyp verkehrsunfall = new EinsatzTyp(16, 1, 1, 1, 0);
 	private final EinsatzTyp naturkatastrophe = new EinsatzTyp(55, 3, 3, 3, 2);
@@ -103,46 +104,99 @@ public class Feuerwache {
 		return sum;
 	}
 	
+	/**
+	 * Startet nach möglichkeit den Übergebenen Einsatz.
+	 * @param einsatz
+	 * @param fahrzeuge
+	 * @param mitarbeiter
+	 * @return
+	 */
 	public boolean startEinsatz(String einsatz, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
-		switch (einsatz) {
-		case "Wohnungsbrand":
-			if(checkEinsatzAnforderung(wohungsbrand, fahrzeuge, mitarbeiter))
-				return false;
-			einsaetze.add(new Einsatz(wohungsbrand, fahrzeuge, mitarbeiter));
-			return true;
-		case "Verkehrsunfall":
-			if(checkEinsatzAnforderung(verkehrsunfall, fahrzeuge, mitarbeiter))
-				return false;
-			einsaetze.add(new Einsatz(verkehrsunfall, fahrzeuge, mitarbeiter));
-			return true;
-		case "Naturkatastrophe":
-			if(checkEinsatzAnforderung(naturkatastrophe, fahrzeuge, mitarbeiter))
-				return false;
-			einsaetze.add(new Einsatz(naturkatastrophe, fahrzeuge, mitarbeiter));
-			return true;
-		case "Industrieunfall":
-			if(checkEinsatzAnforderung(industrieunfall, fahrzeuge, mitarbeiter))
-				return false;
-			einsaetze.add(new Einsatz(industrieunfall, fahrzeuge, mitarbeiter));
-			return true;
-
-		default:
+		EinsatzTyp typ = getEinsatzTyp(einsatz);
+		if(!istEinsatzAnforderung(typ, fahrzeuge, mitarbeiter))
 			return false;
-		}
+		einsaetze.add(new Einsatz(typ, fahrzeuge, mitarbeiter, false));
+		return true;
 	}
 
-	private boolean checkEinsatzAnforderung(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
-		return false;
+	private boolean istEinsatzAnforderung(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
+		int[] curFahr = new int[4];
+		for (Fahrzeug fahrzeug : fahrzeuge) {
+			switch (fahrzeug.getClass().getSimpleName()) {
+				case "Einsatzfahrzeug":
+					if(curFahr[0] < typ.minEinsatzfahrzeug) {
+						curFahr[0]++;
+					}
+					break;
+				case "TankLoeschfahrzeug":
+					if(curFahr[1] < typ.minTankLoeschfahrzeug) {
+						curFahr[1]++;
+					}
+					break;
+				case "Mannschaftstransporter":
+					if(curFahr[2] < typ.minManschaftstransporter) {
+						curFahr[2]++;
+					}
+					break;
+				case "Leiterwagen":
+					if(curFahr[3] < typ.minLeiterwagen) {
+						curFahr[3]++;
+					}
+					break;
+
+				default:
+					break;
+			}
+		}
+		if(curFahr[0] < typ.minEinsatzfahrzeug 
+			|| curFahr[1] < typ.minTankLoeschfahrzeug
+			|| curFahr[2] < typ.minManschaftstransporter
+			|| curFahr[3] < typ.minLeiterwagen)
+			return false;
+			
+		int minLKW = typ.minTankLoeschfahrzeug + typ.minManschaftstransporter + typ.minLeiterwagen;
+		/*
+		 * 0 -> LKW
+		 * 1 -> PWK
+		 */
+		int[] curWagen = new int[2];
+		for (Feuerwehrmensch mensch : mitarbeiter) {
+			if(mensch.getMitarbeiterStatus() == MitarbeiterStatus.Bereit) {
+				switch (mensch.getFahrerlaubnis()) {
+				case LKW:
+					if(curWagen[0] < minLKW) {
+						curWagen[0]++;
+						break;
+					}
+				case PKW:
+					if(curWagen[1] < typ.minEinsatzfahrzeug) {
+						curWagen[1]++;
+					}
+					break;
+
+				default:
+					break;
+				}
+			}
+		}
+		return curWagen[0] < minLKW || curWagen[1] < typ.minEinsatzfahrzeug ? false : true;
 	}
-	// TODO: methode in bool und Einsatz aufteilen um null zu verhindern
-	public Einsatz getVorschlag(String einsatz){
-		EinsatzTyp typ = switch (einsatz){
-		case "Wohnungsbrand" -> wohungsbrand;
-		case "Verkehrsunfall" -> verkehrsunfall;
-		case "Naturkatastrophe" -> naturkatastrophe;
-		case "Industrieunfall" -> industrieunfall;
-		default -> wohungsbrand;
-		};
+
+	/**
+	 * Gibt den Zuvor Erstellten Vorschlag zurück.
+	 * @return
+	 */
+	public Einsatz getVorschlag(){
+		return vorschlag;		
+	}
+	
+	/**
+	 * Erzeugt nach möglichkeit einen Einsatz Vorschlag.
+	 * @param einsatz
+	 * @return
+	 */
+	public boolean kannErzeugeVorschlag(String einsatz) {
+		EinsatzTyp typ = getEinsatzTyp(einsatz);
 		ArrayList<Fahrzeug> fahr = new ArrayList<>();
 		/*
 		 * 0 -> Einsatzfahrzeug
@@ -188,7 +242,7 @@ public class Feuerwache {
 			|| curFahr[1] < typ.minTankLoeschfahrzeug
 			|| curFahr[2] < typ.minManschaftstransporter
 			|| curFahr[3] < typ.minLeiterwagen)
-			return null;
+			return false;
 			
 		ArrayList<Feuerwehrmensch> mit = new ArrayList<>();
 		int minLKW = typ.minTankLoeschfahrzeug + typ.minManschaftstransporter + typ.minLeiterwagen;
@@ -220,11 +274,30 @@ public class Feuerwache {
 		}
 		if(curWagen[0] < minLKW
 			|| curWagen[1] < typ.minEinsatzfahrzeug)
-			return null;
-		
-		return new Einsatz(typ, fahr, mit);		
+			return false;
+		vorschlag = new Einsatz(typ, fahr, mit, true);
+		return true;
 	}
 	
+	private EinsatzTyp getEinsatzTyp(String einsatz) {
+		switch (einsatz){
+			case "Wohnungsbrand":
+				return wohungsbrand;
+			case "Verkehrsunfall":
+				return verkehrsunfall;
+			case "Naturkatastrophe":
+				return naturkatastrophe;
+			case "Industrieunfall":
+				return industrieunfall;
+			default:
+				return wohungsbrand;
+		}
+	}
+	
+	/**
+	 * Beendet den angegeben Einsatz
+	 * @param index Der index der position in der Liste
+	 */
 	public void beendeEinsatz(int index) {
 		einsaetze.get(index).beendeEinsatz();
 		einsaetze.remove(index);

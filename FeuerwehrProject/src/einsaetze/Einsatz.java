@@ -12,10 +12,12 @@ public class Einsatz {
 	private ArrayList<Fahrzeug> fahrzeuge;
 	private ArrayList<Feuerwehrmensch> mitarbeiter;
 	
-	public Einsatz(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
+	public Einsatz(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter, boolean istVorschlag) {
 		einsatzTyp = typ;
 		this.fahrzeuge = fahrzeuge;
 		this.mitarbeiter = mitarbeiter;
+		if(!istVorschlag)
+			starteEinsatz();
 	}
 	
 	private void starteEinsatz() {
