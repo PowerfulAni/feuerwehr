@@ -28,7 +28,7 @@ public class Feuerwache {
 		for (int i = 0; i < 18; i++) {
 			switch (i) {
 			case 0,1,2,3:
-				fahrzeuge.add(new Einsatzfahrzeug(4, FahrzeugTyp.PKW, false, FahrzeugStatus.Bereit, "EI-" + i, "Einsatzleiter"));
+				fahrzeuge.add(new EinsatzLeitfahrzeug(4, FahrzeugTyp.PKW, false, FahrzeugStatus.Bereit, "EI-" + i, "Einsatzleiter"));
 				break;
 			case 4,5,6,7,8:
 				fahrzeuge.add(new Leiterwagen(2, FahrzeugTyp.LKW, false, FahrzeugStatus.Bereit, "LT-" + i, 8));
