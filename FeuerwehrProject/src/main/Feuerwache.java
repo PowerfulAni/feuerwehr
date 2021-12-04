@@ -160,17 +160,20 @@ public class Feuerwache {
 		 * 1 -> PWK
 		 */
 		int[] curWagen = new int[2];
+		int minMit = 0;
 		for (Feuerwehrmensch mensch : mitarbeiter) {
 			if(mensch.getMitarbeiterStatus() == MitarbeiterStatus.Bereit) {
 				switch (mensch.getFahrerlaubnis()) {
 				case LKW:
 					if(curWagen[0] < minLKW) {
 						curWagen[0]++;
+						minMit++;
 						break;
 					}
 				case PKW:
 					if(curWagen[1] < typ.minEinsatzfahrzeug) {
 						curWagen[1]++;
+						minMit++;
 					}
 					break;
 
@@ -179,7 +182,7 @@ public class Feuerwache {
 				}
 			}
 		}
-		return curWagen[0] < minLKW || curWagen[1] < typ.minEinsatzfahrzeug ? false : true;
+		return curWagen[0] < minLKW || curWagen[1] < typ.minEinsatzfahrzeug || minMit < typ.minMitarbeiter ? false : true;
 	}
 
 	/**
@@ -273,7 +276,8 @@ public class Feuerwache {
 			}
 		}
 		if(curWagen[0] < minLKW
-			|| curWagen[1] < typ.minEinsatzfahrzeug)
+			|| curWagen[1] < typ.minEinsatzfahrzeug
+			|| mit.size() < typ.minMitarbeiter)
 			return false;
 		vorschlag = new Einsatz(typ, fahr, mit, true);
 		return true;
