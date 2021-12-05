@@ -7,8 +7,12 @@ public class Leiterwagen extends Fahrzeug {
 	
 	private int maxLeiter;
 	
-	public Leiterwagen(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, Boolean inWartung, FahrzeugStatus fahrzeugstatus, String kennzeichen, int maxLeiter) {
-		super(id, sitzplaetze, fahrzeugTyp, inWartung, fahrzeugstatus, kennzeichen);
+	public Leiterwagen(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen, int maxLeiter) {
+		super(id, sitzplaetze, fahrzeugTyp, fahrzeugstatus, kennzeichen);
+		this.maxLeiter = maxLeiter;
+	}
+	public Leiterwagen(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen, int maxLeiter, int einsatzID) {
+		super(id, sitzplaetze, fahrzeugTyp, fahrzeugstatus, kennzeichen, einsatzID);
 		this.maxLeiter = maxLeiter;
 	}
 	public int getMaxLeiter () {

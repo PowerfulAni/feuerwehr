@@ -7,8 +7,12 @@ public class EinsatzLeitfahrzeug extends Fahrzeug {
 	
 	private String dienstgrad;
 	
-	public EinsatzLeitfahrzeug(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, Boolean inWartung, FahrzeugStatus fahrzeugstatus, String kennzeichen, String dienstgrad) {
-		super(id,sitzplaetze, fahrzeugTyp, inWartung, fahrzeugstatus, kennzeichen);
+	public EinsatzLeitfahrzeug(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen, String dienstgrad) {
+		super(id,sitzplaetze, fahrzeugTyp, fahrzeugstatus, kennzeichen);
+		this.dienstgrad = dienstgrad;
+	}
+	public EinsatzLeitfahrzeug(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen, String dienstgrad, int einsatzID) {
+		super(id,sitzplaetze, fahrzeugTyp, fahrzeugstatus, kennzeichen,einsatzID);
 		this.dienstgrad = dienstgrad;
 	}
 	public String getDienstgradString () {

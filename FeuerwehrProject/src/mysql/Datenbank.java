@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.mysql.cj.protocol.Resultset;
 
+import fahrzeuge.Leiterwagen;
 import menschen.Feuerwehrmensch;
 import util.FahrzeugStatus;
 import util.FahrzeugTyp;
@@ -20,12 +21,15 @@ public class Datenbank {
 
 	//Nicht Anfassen, Anisa fragen, dann machen
     
-	public static void main(String[] args) {
+	public static void main(String[] args) { //main methode nur temporär zum testen meiner sql methodik
 			Connection con = connect();
 			
 			Feuerwehrmensch fw = new Feuerwehrmensch(1, null, null, null);
-			fw = updateFeuerwehrmenschStatus(fw, con, MitarbeiterStatus.Einsatz);
+			fw = updateFeuerwehrmenschEinsatz(fw, con, 0);
 			ArrayList<Feuerwehrmensch> fwList = initFeuerwehrmensch(con);
+			System.out.println("Name: "+fwList.get(2).getName());
+			ArrayList<Leiterwagen> lwList = initLeiterwagen(con);
+			System.out.println(lwList.get(0).getKennzeichen());
 	}
 	
 	public static Feuerwehrmensch updateFeuerwehrmenschStatus(Feuerwehrmensch fw, Connection con, MitarbeiterStatus status) {
@@ -37,6 +41,18 @@ public class Datenbank {
 			System.out.println(e.getMessage());
 		}
 		fw.setMitarbeiterStatus(status);
+		return fw;
+	}
+	
+	public static Feuerwehrmensch updateFeuerwehrmenschEinsatz(Feuerwehrmensch fw, Connection con, int einsatz) {
+		PreparedStatement bs;
+		try {
+			bs = con.prepareStatement("UPDATE `emp` SET `missionID`='"+einsatz+"' WHERE id="+fw.getID()+";");
+			bs.executeUpdate();
+		} catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		fw.setEinsatzID(einsatz);
 		return fw;
 	}
 	
@@ -79,6 +95,38 @@ public class Datenbank {
 		return fwList;
 	}
 	
+	public static ArrayList<Leiterwagen> initLeiterwagen(Connection con) {
+		ArrayList<Leiterwagen> fwList = new ArrayList<Leiterwagen>();
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery("SELECT * FROM turntableLadder;");
+			while(rs.next()){
+				Leiterwagen lw;
+				System.out.println("ID: "+rs.getInt(1) + " Sitze: " +
+				                   rs.getString(2) + " FahrzeugTyp: " +
+				                   rs.getString(3) + " FahrzeugStatus: " +
+				                   rs.getString(4) + " Kennzeichen: "+
+				                   rs.getString(5) + " maxLeiter: " +
+				                   rs.getString(6) + " EinsatzID: "+
+				                   rs.getString(7));
+				if(rs.getString(4).equals("Einsatz")) {
+					lw = new Leiterwagen(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Einsatz, rs.getString(5), rs.getInt(6), rs.getInt(7));
+				}else if(rs.getString(4).equals("Bereit")) {
+					lw = new Leiterwagen(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Bereit, rs.getString(5), rs.getInt(6), rs.getInt(7));
+				}else if(rs.getString(4).equals("Wartung")) {
+					lw = new Leiterwagen(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Wartung, rs.getString(5), rs.getInt(6), rs.getInt(7));
+				}else {
+					lw=new Leiterwagen(0, 0, null, null, null, 0);
+				}
+				fwList.add(lw);
+				}
+			System.out.println("Zeichen: "+fwList.get(0).getKennzeichen());
+			return fwList;
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		return fwList;
+	}
 	public static Connection connect() {
 		String url = "jdbc:mysql://remotemysql.com/DnPTNNcyD1";
 	    String user = "DnPTNNcyD1";

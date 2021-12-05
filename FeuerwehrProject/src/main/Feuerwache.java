@@ -28,16 +28,16 @@ public class Feuerwache {
 		for (int i = 0; i < 18; i++) {
 			switch (i) {
 			case 0,1,2,3:
-				fahrzeuge.add(new EinsatzLeitfahrzeug(1,4, FahrzeugTyp.PKW, false, FahrzeugStatus.Bereit, "EI-" + i, "Einsatzleiter"));
+				fahrzeuge.add(new EinsatzLeitfahrzeug(1,4, FahrzeugTyp.PKW, FahrzeugStatus.Bereit, "EI-" + i, "Einsatzleiter"));
 				break;
 			case 4,5,6,7,8:
-				fahrzeuge.add(new Leiterwagen(2,2, FahrzeugTyp.LKW, false, FahrzeugStatus.Bereit, "LT-" + i, 8));
+				fahrzeuge.add(new Leiterwagen(2,2, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "LT-" + i, 8));
 				break;
 			case 9,10,11,12:
-				fahrzeuge.add(new Mannschftstransporter(3,14, FahrzeugTyp.LKW, false, FahrzeugStatus.Bereit, "MT-" + i, 1990+i));
+				fahrzeuge.add(new Mannschftstransporter(3,14, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "MT-" + i, 1990+i));
 				break;
 			case 13,14,15,16,17:
-				fahrzeuge.add(new TankLoeschfahrzeug(4,4, FahrzeugTyp.LKW, false, FahrzeugStatus.Bereit, "TL-" + i, 50));
+				fahrzeuge.add(new TankLoeschfahrzeug(4,4, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "TL-" + i, 50));
 				break;
 			}
 		}
