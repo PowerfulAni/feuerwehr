@@ -11,6 +11,7 @@ public class Einsatz {
 	private EinsatzTyp einsatzTyp;
 	private ArrayList<Fahrzeug> fahrzeuge;
 	private ArrayList<Feuerwehrmensch> mitarbeiter;
+	private int einsatzID;
 	
 	/**
 	 * Erstellt einen neuen Einsatz.
@@ -23,6 +24,14 @@ public class Einsatz {
 		einsatzTyp = typ;
 		this.fahrzeuge = fahrzeuge;
 		this.mitarbeiter = mitarbeiter;
+		if(!istVorschlag)
+			starteEinsatz();
+	}
+	public Einsatz(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter, boolean istVorschlag, int einsatzID) {
+		einsatzTyp = typ;
+		this.fahrzeuge = fahrzeuge;
+		this.mitarbeiter = mitarbeiter;
+		this.einsatzID=einsatzID;
 		if(!istVorschlag)
 			starteEinsatz();
 	}
@@ -73,5 +82,8 @@ public class Einsatz {
 	 */
 	public ArrayList<Feuerwehrmensch> getMitarbeiter(){
 		return mitarbeiter;
+	}
+	public int getID() {
+		return einsatzID;
 	}
 }
