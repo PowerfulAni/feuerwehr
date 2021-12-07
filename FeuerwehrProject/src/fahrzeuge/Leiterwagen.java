@@ -19,4 +19,9 @@ public class Leiterwagen extends Fahrzeug {
 		
 		return this.maxLeiter;
 	}
+	
+	@Override
+	public String getFahrzeugName() {
+		return "Leiterwagen";
+	}
 }
