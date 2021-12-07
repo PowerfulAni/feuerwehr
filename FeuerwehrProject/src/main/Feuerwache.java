@@ -34,7 +34,7 @@ public class Feuerwache {
 				fahrzeuge.add(new Leiterwagen(2,2, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "LT-" + i, 8));
 				break;
 			case 9,10,11,12:
-				fahrzeuge.add(new Mannschftstransporter(3,14, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "MT-" + i, 1990+i));
+				fahrzeuge.add(new Mannschaftstransporter(3,14, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "MT-" + i, 1990+i));
 				break;
 			case 13,14,15,16,17:
 				fahrzeuge.add(new TankLoeschfahrzeug(4,4, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "TL-" + i, 50));
@@ -182,7 +182,11 @@ public class Feuerwache {
 				}
 			}
 		}
-		return curWagen[0] < minLKW || curWagen[1] < typ.minEinsatzfahrzeug || minMit < typ.minMitarbeiter ? false : true;
+		return curWagen[0] < minLKW
+				|| curWagen[1] < typ.minEinsatzfahrzeug
+				|| minMit < typ.minMitarbeiter
+				|| minMit > (curFahr[0] * 4 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2)
+				? false : true;
 	}
 
 	/**
@@ -277,7 +281,8 @@ public class Feuerwache {
 		}
 		if(curWagen[0] < minLKW
 			|| curWagen[1] < typ.minEinsatzfahrzeug
-			|| mit.size() < typ.minMitarbeiter)
+			|| mit.size() < typ.minMitarbeiter
+			|| mit.size() > (curFahr[0] * 4 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2))
 			return false;
 		vorschlag = new Einsatz(typ, fahr, mit, true);
 		return true;
