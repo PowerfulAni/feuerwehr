@@ -56,8 +56,6 @@ public class FahrzeugView extends JScrollPane {
 			public void hyperlinkUpdate(HyperlinkEvent e) {
 				if (e instanceof FormSubmitEvent) {
 					String[] splits = ((FormSubmitEvent) e).getData().split("=")[1].split("_");
-					System.out.println(splits[1]);
-					System.out.println(splits[0]);
 					fahrzeuge.get(Integer.parseInt(splits[1])).setFahrzeugStatus(switch (splits[0]) {
 					case "bereit" -> FahrzeugStatus.Bereit;
 					case "einsatz" -> FahrzeugStatus.Einsatz;

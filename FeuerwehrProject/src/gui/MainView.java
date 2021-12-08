@@ -61,7 +61,15 @@ public class MainView extends JScrollPane {
 				<hr>
 				<table style="width: 100%">
 				<tr style="font-size: 18px;"><td>Wohnungsbrand</td><td>Verkehrsunfall</td><td>Naturkatastrophe</td><td>Industrieunfall</td></tr>
-				<tr style="font-size: 20px; text-align: center; padding: 3px;"><td style="color: green;">Bereit</td><td style="color: green;">Bereit</td><td style="color: green;">Bereit</td><td style="color: red;">Nicht Bereit</td></tr>
+				<tr style="font-size: 20px; text-align: center; padding: 3px;">
+				""";
+		content += feuerwache.kannErzeugeVorschlag("Wohnungsbrand")?"<td style='color: green;'>Bereit</td>":"<td style='color: red;'>Nicht bereit</td>";
+		content += feuerwache.kannErzeugeVorschlag("Verkehrsunfall")?"<td style='color: green;'>Bereit</td>":"<td style='color: red;'>Nicht bereit</td>";
+		content += feuerwache.kannErzeugeVorschlag("Naturkatastrophe")?"<td style='color: green;'>Bereit</td>":"<td style='color: red;'>Nicht bereit</td>";
+		content += feuerwache.kannErzeugeVorschlag("Industrieunfall")?"<td style='color: green;'>Bereit</td>":"<td style='color: red;'>Nicht bereit</td>";
+		
+		content += """		
+				</tr>
 				</table>
 				</body>
 				</html>
