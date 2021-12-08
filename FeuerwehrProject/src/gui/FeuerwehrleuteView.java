@@ -28,19 +28,28 @@ public class FeuerwehrleuteView extends JScrollPane {
 			content += "<tr style='text-align: center; border-bottom: 1px dotted black;'><td>" + ((int) i + 1)
 					+ "</td><td style='text-align: left;'>" + ((Feuerwehrmensch) feuerwehrleute.get(i)).getName()
 					+ "</td><td>" + ((Feuerwehrmensch) feuerwehrleute.get(i)).getFahrerlaubnis()
-					+ "</td><td><form action='#'><select name='status'>";
-			content += "<option value='bereit_" + i + "' "
-					+ (feuerwehrleute.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Bereit) ? "selected" : "")
-					+ ">Bereit</option>";
-			content += "<option value='einsatz_" + i + "' "
-					+ (feuerwehrleute.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Einsatz) ? "selected" : "")
-					+ ">Einsatz</option>";
-			content += "<option value='urlaub_" + i + "' "
-					+ (feuerwehrleute.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Urlaub) ? "selected" : "")
-					+ ">Urlaub</option>";
-			content += "<option value='krank_" + i + "' "
-					+ (feuerwehrleute.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Krank) ? "selected" : "")
-					+ ">Krank</option></select><input type='submit' value='Speichern'/></form></td></tr>";
+					+ "</td>";
+			
+			if(feuerwehrleute.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Einsatz)) {
+				content += "<td><b>Im Einsatz</b></td>";
+			}else {
+				content += "<td><form action='#'><select name='status'>";
+				content += "<option value='bereit_" + i + "' "
+						+ (feuerwehrleute.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Bereit) ? "selected" : "")
+						+ ">Bereit</option>";
+				
+				content += "<option value='urlaub_" + i + "' "
+						+ (feuerwehrleute.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Urlaub) ? "selected" : "")
+						+ ">Urlaub</option>";
+				content += "<option value='krank_" + i + "' "
+						+ (feuerwehrleute.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Krank) ? "selected" : "")
+						+ ">Krank</option></select><input type='submit' value='Speichern'/></form></td>";
+			}
+			
+			
+			
+			
+			content += "</tr>";
 			// panelMain.add(new JLabel("Test"));
 		}
 		content += "</table></center></body></html>";
