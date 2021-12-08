@@ -36,7 +36,7 @@ public class Einsatz {
 			starteEinsatz();
 	}
 	
-	private void starteEinsatz() {
+	public void starteEinsatz() {
 		for (Fahrzeug fahrzeug : fahrzeuge) {
 			fahrzeug.setFahrzeugStatus(FahrzeugStatus.Einsatz);
 		}
@@ -48,7 +48,7 @@ public class Einsatz {
 	/**
 	 * Beendet den Laufenden Einsatz und macht Mitarbeiter / Fahrzeuge wieder verfügbar.
 	 */
-	public void beendeEinsatz() {
+	public void einsatzBeenden() {
 		for (Fahrzeug fahrzeug : fahrzeuge) {
 			fahrzeug.setFahrzeugStatus(FahrzeugStatus.Bereit);
 		}

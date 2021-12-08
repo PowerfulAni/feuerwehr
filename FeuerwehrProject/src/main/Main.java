@@ -11,6 +11,6 @@ public class Main {
 		
 		//Debug
 		
-		System.out.println(fw.kannErzeugeVorschlag("Verkehrsunfall"));
+		
 	}
 }

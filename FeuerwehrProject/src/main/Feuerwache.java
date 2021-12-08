@@ -16,10 +16,10 @@ public class Feuerwache {
 	private ArrayList<Feuerwehrmensch> mitarbeiter = new ArrayList<>();
 	private ArrayList<Einsatz> einsaetze = new ArrayList<>();
 	private Einsatz vorschlag;
-	private final EinsatzTyp wohungsbrand = new EinsatzTyp(22, 1, 2, 1, 1);
-	private final EinsatzTyp verkehrsunfall = new EinsatzTyp(16, 1, 1, 1, 0);
-	private final EinsatzTyp naturkatastrophe = new EinsatzTyp(55, 3, 3, 3, 2);
-	private final EinsatzTyp industrieunfall = new EinsatzTyp(40, 3, 2, 2, 2);
+	private final EinsatzTyp wohungsbrand = new EinsatzTyp("Wohnungsbrand", 22, 1, 2, 1, 1);
+	private final EinsatzTyp verkehrsunfall = new EinsatzTyp("Verkehrsunfall", 16, 1, 1, 1, 0);
+	private final EinsatzTyp naturkatastrophe = new EinsatzTyp("Naturkatastrophe", 55, 3, 3, 3, 2);
+	private final EinsatzTyp industrieunfall = new EinsatzTyp("Industrieunfall", 40, 3, 2, 2, 2);
 	
 	/**
 	 * Der kontruktor der Klasse um Fahrzeuge und Mitarbeiter zu initialisieren.
@@ -28,16 +28,16 @@ public class Feuerwache {
 		for (int i = 0; i < 18; i++) {
 			switch (i) {
 			case 0,1,2,3:
-				fahrzeuge.add(new EinsatzLeitfahrzeug(1,4, FahrzeugTyp.PKW, FahrzeugStatus.Bereit, "EI-" + i, "Einsatzleiter"));
+				fahrzeuge.add(new EinsatzLeitfahrzeug(1,2, FahrzeugTyp.PKW, FahrzeugStatus.Bereit, "EI-" + i, "Einsatzleiter"));
 				break;
 			case 4,5,6,7,8:
-				fahrzeuge.add(new Leiterwagen(2,2, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "LT-" + i, 8));
+				fahrzeuge.add(new Leiterwagen(2,4, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "LT-" + i, 8));
 				break;
 			case 9,10,11,12:
 				fahrzeuge.add(new Mannschaftstransporter(3,14, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "MT-" + i, 1990+i));
 				break;
 			case 13,14,15,16,17:
-				fahrzeuge.add(new TankLoeschfahrzeug(4,4, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "TL-" + i, 50));
+				fahrzeuge.add(new TankLoeschfahrzeug(4,2, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "TL-" + i, 50));
 				break;
 			}
 		}
@@ -64,6 +64,14 @@ public class Feuerwache {
 	 */
 	public ArrayList<Feuerwehrmensch> getMitarbeiter(){
 		return mitarbeiter;
+	}
+	
+	/**
+	 * Gibt alle Einsätze zurück.
+	 * @return ArrayList von allen Einsätzen
+	 */
+	public ArrayList<Einsatz> getEinsaetze(){
+		return einsaetze;
 	}
 	
 	/**
@@ -117,9 +125,15 @@ public class Feuerwache {
 	 */
 	public boolean startEinsatz(String einsatz, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
 		EinsatzTyp typ = getEinsatzTyp(einsatz);
+		System.out.println(einsaetze.size());
 		if(!istEinsatzAnforderung(typ, fahrzeuge, mitarbeiter))
 			return false;
 		einsaetze.add(new Einsatz(typ, fahrzeuge, mitarbeiter, false));
+		System.out.println(einsaetze.size());
+		return true;
+	}
+	public boolean addEinsatz(Einsatz einsatz) {
+		einsaetze.add(einsatz);
 		return true;
 	}
 
@@ -254,6 +268,10 @@ public class Feuerwache {
 			|| curFahr[2] < typ.minManschaftstransporter
 			|| curFahr[3] < typ.minLeiterwagen)
 			return false;
+//		System.out.println("minEinsatzfahrzeug - !"+typ.minEinsatzfahrzeug +" < "+curFahr[0]);
+//		System.out.println("minTankLoeschfahrzeug - !"+typ.minTankLoeschfahrzeug +" < "+curFahr[1]);
+//		System.out.println("minManschaftstransporter - !"+typ.minManschaftstransporter +" < "+curFahr[2]);
+//		System.out.println("minLeiterwagen - !"+typ.minLeiterwagen +" < "+curFahr[3]);
 		ArrayList<Feuerwehrmensch> mit = new ArrayList<>();
 		int minLKW = typ.minTankLoeschfahrzeug + typ.minManschaftstransporter + typ.minLeiterwagen;
 		/*
@@ -267,11 +285,7 @@ public class Feuerwache {
 				case LKW:
 					if(curWagen[0] < minLKW) {
 						curWagen[0]++;
-						
-					}
-					if(mit.size() < typ.minMitarbeiter) {
 						mit.add(mensch);
-						
 					}
 					
 					break;
@@ -291,10 +305,15 @@ public class Feuerwache {
 				}
 			}
 		}
+//		System.out.println("Wenn True Abbruch");
+//		System.out.println("1. "+curWagen[0] +" < "+minLKW +" => "+(curWagen[0] < minLKW));
+//		System.out.println("2."+curWagen[1] +" < "+typ.minEinsatzfahrzeug+(curWagen[1] < typ.minEinsatzfahrzeug));
+//		System.out.println("3. "+mit.size() +" < "+typ.minMitarbeiter+(mit.size() < typ.minMitarbeiter));
+//		System.out.println("4 "+mit.size()+">"+(curFahr[0] * 2 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2)+" => "+(mit.size() > (curFahr[0] * 2 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2)));
 		if(curWagen[0] < minLKW
 			|| curWagen[1] < typ.minEinsatzfahrzeug
 			|| mit.size() < typ.minMitarbeiter
-			|| mit.size() > (curFahr[0] * 4 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2))
+			|| mit.size() > (curFahr[0] * 2 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2))
 			return false;
 		vorschlag = new Einsatz(typ, fahr, mit, true);
 		return true;
@@ -320,7 +339,9 @@ public class Feuerwache {
 	 * @param index Der index der position in der Liste
 	 */
 	public void beendeEinsatz(int index) {
-		einsaetze.get(index).beendeEinsatz();
+		
+		einsaetze.get(index).einsatzBeenden();
 		einsaetze.remove(index);
+		
 	}
 }

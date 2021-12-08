@@ -8,7 +8,15 @@ import java.awt.Dimension;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.HyperlinkListener;
+
+import fahrzeuge.EinsatzLeitfahrzeug;
+import fahrzeuge.Leiterwagen;
+import fahrzeuge.Mannschaftstransporter;
+import fahrzeuge.TankLoeschfahrzeug;
 import main.Feuerwache;
+import util.FahrzeugStatus;
+import util.FahrzeugTyp;
 
 public class Gui extends JFrame {
 
@@ -17,6 +25,7 @@ public class Gui extends JFrame {
 	JPanel panelButtons;
 	JTextPane panelMain;
 	JPanel panelStatus;
+	int aktuellerView;
 
 	Feuerwache feuerwache;
 
@@ -44,37 +53,74 @@ public class Gui extends JFrame {
 	}
 
 	public void showMain() {
+		aktuellerView = 0;
 		this.getContentPane().removeAll();
+		removeListener(panelMain);
 		this.add(new ButtonView(this));
 		this.add(new MainView(panelMain, feuerwache));
 		JButton alarm = new JButton("Alarm");
 		alarm.setPreferredSize(new Dimension(700, 60));
 		//this.add(alarm);
 		this.revalidate();
+		this.getContentPane().repaint();
 	}
 
 	public void showFahrzeuge() {
+		aktuellerView = 1;
 		this.getContentPane().removeAll();
+		removeListener(panelMain);
 		this.add(new ButtonView(this));
 		this.add(new FahrzeugView(panelMain, feuerwache));
 		//this.add(new FahrzeugZusatz(panelMain, feuerwache));
 		this.revalidate();
+		this.getContentPane().repaint();
 	}
 
 	public void showFeuerwehrleute() {
+		aktuellerView = 2;
 		this.getContentPane().removeAll();
+		removeListener(panelMain);
 		this.add(new ButtonView(this));
 		this.add(new FeuerwehrleuteView(panelMain, feuerwache));
 		//this.add(new FeuerwehrleuteZusatz(panelMain, feuerwache));
 		this.revalidate();
+		this.getContentPane().repaint();
 	}
 
 	public void showEinsaetze() {
+		aktuellerView = 3;
 		this.getContentPane().removeAll();
+		removeListener(panelMain);
 		this.add(new ButtonView(this));
-		this.add(new EinsaetzeView(panelMain, feuerwache));
-		this.add(new EinsaetzeZusatz(panelMain, feuerwache));
+		this.add(new EinsaetzeView(this, panelMain, feuerwache));
+		this.add(new EinsaetzeZusatz(this, panelMain, feuerwache));
 		this.revalidate();
+		this.getContentPane().repaint();
+	}
+	
+	private void removeListener(JTextPane panelMain) {
+		
+		for (HyperlinkListener listener : panelMain.getHyperlinkListeners()) {
+			panelMain.removeHyperlinkListener(listener);
+		}
+		
+	}
+	
+	public void refreshView() {
+		switch (aktuellerView) {
+		case 0:
+			showMain();
+			break;
+		case 1:
+			showFahrzeuge();
+			break;
+		case 2:
+			showFeuerwehrleute();
+			break;
+		case 3:
+			showEinsaetze();
+			break;
+		}
 	}
 
 }
