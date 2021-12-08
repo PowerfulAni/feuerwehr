@@ -19,7 +19,7 @@ public class FeuerwehrleuteView extends JScrollPane {
 
 	public FeuerwehrleuteView(JTextPane panelMain, Feuerwache feuerwache) {
 		this.feuerwache = feuerwache;
-		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.setPreferredSize(new Dimension(700, 420));
 		ArrayList<Feuerwehrmensch> feuerwehrleute = feuerwache.getMitarbeiter();
