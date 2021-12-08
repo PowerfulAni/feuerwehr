@@ -19,4 +19,9 @@ public class TankLoeschfahrzeug extends Fahrzeug{
 		
 		return this.maxTank;
 	}
+	
+	@Override
+	public String getFahrzeugName() {
+		return "Tank-Löschfahrzeug";
+	}
 }

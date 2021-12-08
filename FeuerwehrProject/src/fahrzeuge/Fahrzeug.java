@@ -58,4 +58,10 @@ public abstract class Fahrzeug {
 		return this.kennzeichen;
 	}
 	
+	/**
+	 * Eine methode um den Fahrzeug namen zu erhalten.
+	 * @return
+	 */
+	public abstract String getFahrzeugName();
+	
 }

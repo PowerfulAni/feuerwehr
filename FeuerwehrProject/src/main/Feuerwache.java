@@ -173,8 +173,8 @@ public class Feuerwache {
 				case PKW:
 					if(curWagen[1] < typ.minEinsatzfahrzeug) {
 						curWagen[1]++;
-						minMit++;
 					}
+					minMit++;
 					break;
 
 				default:

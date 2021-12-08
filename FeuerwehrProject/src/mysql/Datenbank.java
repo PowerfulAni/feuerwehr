@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 /**
  * Datenbank Vebindugs und Dateninitialiserungs sowie Update Klasse
- * How To: MySQL Connection mit dem connect aufbauen, danach daraus entstandenes objekt für andere Methoden nutzen
+ * How To: MySQL Connection mit dem connect aufbauen, danach daraus entstandenes objekt fÃ¼r andere Methoden nutzen
  * @author Anisa Mecheraoui
  *
  */
@@ -29,13 +29,13 @@ public class Datenbank {
 
 	//Nicht Anfassen, Anisa fragen, dann machen
     
-	public static void main(String[] args) { //main methode nur temporär zum testen meiner sql methodik
+	public static void main(String[] args) { //main methode nur temporÃ¤r zum testen meiner sql methodik
 			Connection con = connect();
 			
 			//Feuerwehrmensch fw = new Feuerwehrmensch(1, null, null, null);
 			//fw = updateEinsatz(fw, con, 0);
-			//ArrayList<Feuerwehrmensch> fwList = initFeuerwehrmensch(con);
-			//System.out.println("Name: "+fwList.get(2).getName());
+			ArrayList<Feuerwehrmensch> fwList = initFeuerwehrmensch(con);
+			System.out.println("Erlaubnis: "+fwList.get(2).getFahrerlaubnis());
 			ArrayList<Leiterwagen> lwList = initLeiterwagen(con);
 			ArrayList<TankLoeschfahrzeug> lfList = initTankLoeschfahrzeug(con);
 			ArrayList<Mannschaftstransporter> mwList=initMannschaftstransporter(con);
@@ -149,6 +149,44 @@ public class Datenbank {
 		lw.setEinsatzID(einsatz.getID());
 		return lw;
 	}
+	/**
+	 * 
+	 * @param lw Updated den Status vom EinsatzLeitfahrzeug in der DB und im Programm
+	 * @param con EinsatzLeitfahrzeug welcher geupdated werden soll
+	 * @param status MySQL Connection Objekt
+	 * @return
+	 */
+	public static EinsatzLeitfahrzeug updateStatus(EinsatzLeitfahrzeug lw, Connection con, FahrzeugStatus status) {
+		PreparedStatement bs;
+		try {
+			bs = con.prepareStatement("UPDATE `commandVehicle` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+lw.getID()+";");
+			bs.executeUpdate();
+		} catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		lw.setFahrzeugStatus(status);
+		return lw;
+	}
+	/**
+	 * Updated die Einsatznummer vom EinsatzLeitfahrzeug in der DB und im Programm
+	 * @param lw EinsatzLeitfahrzeug welcher geupdated werden soll
+	 * @param con MySQL EinsatzLeitfahrzeug Objekt
+	 * @param einsatz Einsatz dem der EinsatzLeitfahrzeug zugeordnet werden soll
+	 * @return EinsatzLeitfahrzeug mit neuer Einsatz ID
+	 */
+	public static EinsatzLeitfahrzeug updateEinsatz(EinsatzLeitfahrzeug lw, Connection con, Einsatz einsatz) {
+		PreparedStatement bs;
+		try {
+			bs = con.prepareStatement("UPDATE `commandVehicle` SET `missionID`='"+einsatz.getID()+"' WHERE id="+lw.getID()+";");
+			bs.executeUpdate();
+		} catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		lw.setEinsatzID(einsatz.getID());
+		return lw;
+	}
+	
+	
 	//Ab hier Init Methoden
 	/**
 	 * Initialisiert Feuerwehrmenschen aus DB
@@ -167,25 +205,7 @@ public class Datenbank {
 				                   rs.getString(3) + " Fahrerlaubnis: " +
 				                   rs.getString(4) + " EinsatzID: "+
 				                   rs.getString(5));
-				if(rs.getString(2)=="Einsatz"&&rs.getString(4)=="PKW") {
-					fw = new Feuerwehrmensch(rs.getInt(1),MitarbeiterStatus.Einsatz, rs.getString(3), FahrzeugTyp.PKW, rs.getInt(5));
-				}else if(rs.getString(2)=="Bereit"&&rs.getString(4)=="PKW") {
-					fw = new Feuerwehrmensch(rs.getInt(1),MitarbeiterStatus.Bereit, rs.getString(3), FahrzeugTyp.PKW, rs.getInt(5));
-				}else if(rs.getString(2)=="Urlaub"&&rs.getString(4)=="PKW") {
-					fw = new Feuerwehrmensch(rs.getInt(1),MitarbeiterStatus.Urlaub, rs.getString(3), FahrzeugTyp.PKW, rs.getInt(5));
-				}else if(rs.getString(2)=="Krank"&&rs.getString(4)=="PKW") {
-					fw = new Feuerwehrmensch(rs.getInt(1),MitarbeiterStatus.Krank, rs.getString(3), FahrzeugTyp.PKW, rs.getInt(5));
-				}else if(rs.getString(2)=="Einsatz"&&rs.getString(4)=="LKW") {
-					fw = new Feuerwehrmensch(rs.getInt(1),MitarbeiterStatus.Einsatz, rs.getString(3), FahrzeugTyp.LKW);
-				}else if(rs.getString(2)=="Bereit"&&rs.getString(4)=="LKW") {
-					fw = new Feuerwehrmensch(rs.getInt(1),MitarbeiterStatus.Bereit, rs.getString(3), FahrzeugTyp.LKW, rs.getInt(5));
-				}else if(rs.getString(2)=="Urlaub"&&rs.getString(4)=="LKW") {
-					fw = new Feuerwehrmensch(rs.getInt(1),MitarbeiterStatus.Urlaub, rs.getString(3), FahrzeugTyp.LKW, rs.getInt(5));
-				}else if(rs.getString(2)=="Krank"&&rs.getString(4)=="LKW") {
-					fw = new Feuerwehrmensch(rs.getInt(1),MitarbeiterStatus.Krank, rs.getString(3), FahrzeugTyp.LKW, rs.getInt(5));
-				}else {
-					fw=new Feuerwehrmensch(0, null, rs.getString(3), null);
-				}
+				fw = new Feuerwehrmensch(rs.getInt(1),MitarbeiterStatus.valueOf(rs.getString(2)), rs.getString(3), FahrzeugTyp.valueOf(rs.getString(4)), rs.getInt(5));
 				fwList.add(fw);
 				}
 		}catch(SQLException e){
@@ -212,15 +232,7 @@ public class Datenbank {
 				                   rs.getString(5) + " maxLeiter: " +
 				                   rs.getString(6) + " EinsatzID: "+
 				                   rs.getString(7));
-				if(rs.getString(4).equals("Einsatz")) {
-					lw = new Leiterwagen(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Einsatz, rs.getString(5), rs.getInt(6), rs.getInt(7));
-				}else if(rs.getString(4).equals("Bereit")) {
-					lw = new Leiterwagen(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Bereit, rs.getString(5), rs.getInt(6), rs.getInt(7));
-				}else if(rs.getString(4).equals("Wartung")) {
-					lw = new Leiterwagen(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Wartung, rs.getString(5), rs.getInt(6), rs.getInt(7));
-				}else {
-					lw=new Leiterwagen(0, 0, null, null, null, 0);
-				}
+				lw = new Leiterwagen(rs.getInt(1),rs.getInt(2),FahrzeugTyp.valueOf(rs.getString(3)), FahrzeugStatus.valueOf(rs.getString(4)), rs.getString(5), rs.getInt(6), rs.getInt(7));
 				fwList.add(lw);
 				}
 			return fwList;
@@ -248,15 +260,7 @@ public class Datenbank {
 				                   rs.getString(5) + " maxTank: " +
 				                   rs.getString(6) + " EinsatzID: "+
 				                   rs.getString(7));
-				if(rs.getString(4).equals("Einsatz")) {
-					lw = new TankLoeschfahrzeug(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Einsatz, rs.getString(5), rs.getInt(6), rs.getInt(7));
-				}else if(rs.getString(4).equals("Bereit")) {
-					lw = new TankLoeschfahrzeug(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Bereit, rs.getString(5), rs.getInt(6), rs.getInt(7));
-				}else if(rs.getString(4).equals("Wartung")) {
-					lw = new TankLoeschfahrzeug(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Wartung, rs.getString(5), rs.getInt(6), rs.getInt(7));
-				}else {
-					lw=new TankLoeschfahrzeug(0, 0, null, null, null, 0);
-				}
+				lw = new TankLoeschfahrzeug(rs.getInt(1),rs.getInt(2),FahrzeugTyp.valueOf(rs.getString(3)), FahrzeugStatus.valueOf(rs.getString(4)), rs.getString(5), rs.getInt(6), rs.getInt(7));
 				fwList.add(lw);
 				}
 			return fwList;
@@ -284,15 +288,7 @@ public class Datenbank {
 				                   rs.getString(5) + " manufactureYear: " +
 				                   rs.getString(6) + " EinsatzID: "+
 				                   rs.getString(7));
-				if(rs.getString(4).equals("Einsatz")) {
-					lw = new Mannschaftstransporter(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Einsatz, rs.getString(5), rs.getInt(6), rs.getInt(7));
-				}else if(rs.getString(4).equals("Bereit")) {
-					lw = new Mannschaftstransporter(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Bereit, rs.getString(5), rs.getInt(6), rs.getInt(7));
-				}else if(rs.getString(4).equals("Wartung")) {
-					lw = new Mannschaftstransporter(rs.getInt(1),rs.getInt(2),FahrzeugTyp.LKW, FahrzeugStatus.Wartung, rs.getString(5), rs.getInt(6), rs.getInt(7));
-				}else {
-					lw=new Mannschaftstransporter(0, 0, null, null, null, 0);
-				}
+				lw = new Mannschaftstransporter(rs.getInt(1),rs.getInt(2),FahrzeugTyp.valueOf(rs.getString(3)), FahrzeugStatus.valueOf(rs.getString(4)), rs.getString(5), rs.getInt(6), rs.getInt(7));
 				fwList.add(lw);
 				}
 			return fwList;
@@ -301,7 +297,35 @@ public class Datenbank {
 		}
 		return fwList;
 	}
-	//Morgen weitermachen mit Einsatzleitfahrzeug
+	/**
+	 * Initialisiert EinsatzLeitfahrzeug aus DB
+	 * @param con MySQL Connection Objekt
+	 * @return Arraylist der Initialisierten EinsatzLeitfahrzeug
+	 */
+	public static ArrayList<EinsatzLeitfahrzeug> initEinsatzLeitfahrzeug(Connection con) {
+		ArrayList<EinsatzLeitfahrzeug> fwList = new ArrayList<EinsatzLeitfahrzeug>();
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery("SELECT * FROM commandVehicle;");
+			while(rs.next()){
+				EinsatzLeitfahrzeug lw;
+				System.out.println("ID: "+rs.getInt(1) + " Sitze: " +
+				                   rs.getString(2) + " FahrzeugTyp: " +
+				                   rs.getString(3) + " FahrzeugStatus: " +
+				                   rs.getString(4) + " Kennzeichen: "+
+				                   rs.getString(5) + " Dienstgrad: " +
+				                   rs.getString(6) + " EinsatzID: "+
+				                   rs.getString(7));
+				lw = new EinsatzLeitfahrzeug(rs.getInt(1),rs.getInt(2),FahrzeugTyp.valueOf(rs.getString(3)), FahrzeugStatus.valueOf(rs.getString(4)), rs.getString(5), rs.getString(6), rs.getInt(7));
+				fwList.add(lw);
+				}
+			return fwList;
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		return fwList;
+	}
+
 	/**
 	 * Verbindet sich mit der Datenbank
 	 * @return MySQL Connection Objekt
