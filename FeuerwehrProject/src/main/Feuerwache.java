@@ -44,6 +44,10 @@ public class Feuerwache {
 		for (int i = 0; i < 80; i++) {
 			mitarbeiter.add(new Feuerwehrmensch(i,MitarbeiterStatus.Bereit, "Dummy " + i, i<10 ? FahrzeugTyp.LKW : FahrzeugTyp.PKW));
 		}
+		
+		
+		
+		
 	}
 	
 	/**

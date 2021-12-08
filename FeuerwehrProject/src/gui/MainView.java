@@ -26,9 +26,11 @@ public class MainView extends JScrollPane {
 		int feuerwehrLeuteVerfuegbar = feuerwache
 				.getAbsMitarbeiterStatus((new MitarbeiterStatus[] { MitarbeiterStatus.Bereit }));
 		int feuerwehrLeuteWartung = feuerwache
-				.getAbsMitarbeiterStatus((new MitarbeiterStatus[] { MitarbeiterStatus.Krank }));
+				.getAbsMitarbeiterStatus((new MitarbeiterStatus[] { MitarbeiterStatus.Urlaub }));
 		int feuerwehrLeuteEinsatz = feuerwache
 				.getAbsMitarbeiterStatus((new MitarbeiterStatus[] { MitarbeiterStatus.Einsatz }));
+		int feuerwehrLeuteKrank = feuerwache
+				.getAbsMitarbeiterStatus((new MitarbeiterStatus[] { MitarbeiterStatus.Krank }));
 		
 		String content = """
 				<html>
@@ -45,6 +47,7 @@ public class MainView extends JScrollPane {
 		content += "<tr><td>Im Einsatz</td><td>" + fahrzeugeEinsatz + "</td><td></td><td>Im Einsatz</td><td>" + feuerwehrLeuteEinsatz + "</td></tr>";
 		
 		content += "<tr><td>In Wartung</td><td>" + fahrzeugeWartung + "</td><td></td><td>Im Urlaub</td><td>" + feuerwehrLeuteWartung + "</td></tr>";
+		content += "<tr><td></td><td></td><td></td><td>Krank</td><td>" + feuerwehrLeuteKrank + "</td></tr>";
 		
 		content += "<tr><td>Gesamt</td><td>" + fahrzeugeAbsolut + "</td><td></td><td>Gesamt</td><td>" + feuerwehrLeuteAbsolut + "</td></tr>";
 		

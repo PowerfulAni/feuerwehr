@@ -49,7 +49,7 @@ public class Gui extends JFrame {
 		this.add(new MainView(panelMain, feuerwache));
 		JButton alarm = new JButton("Alarm");
 		alarm.setPreferredSize(new Dimension(700, 60));
-		this.add(alarm);
+		//this.add(alarm);
 		this.revalidate();
 	}
 
@@ -57,7 +57,7 @@ public class Gui extends JFrame {
 		this.getContentPane().removeAll();
 		this.add(new ButtonView(this));
 		this.add(new FahrzeugView(panelMain, feuerwache));
-		this.add(new FahrzeugZusatz(panelMain, feuerwache));
+		//this.add(new FahrzeugZusatz(panelMain, feuerwache));
 		this.revalidate();
 	}
 
@@ -65,7 +65,7 @@ public class Gui extends JFrame {
 		this.getContentPane().removeAll();
 		this.add(new ButtonView(this));
 		this.add(new FeuerwehrleuteView(panelMain, feuerwache));
-		this.add(new FeuerwehrleuteZusatz(panelMain, feuerwache));
+		//this.add(new FeuerwehrleuteZusatz(panelMain, feuerwache));
 		this.revalidate();
 	}
 
