@@ -18,15 +18,15 @@ public class EinsaetzeZusatz extends JPanel {
 
 	public EinsaetzeZusatz(JTextPane panelMain, Feuerwache feuerwache) {
 		this.feuerwache = feuerwache;
-		this.setPreferredSize(new Dimension(700, 300));
+		this.setPreferredSize(new Dimension(700, 120));
 		buttonStart1 = new JButton("Einsatz Wohnungsbrand starten");
 		buttonStart2 = new JButton("Einsatz Verkehrsunfall starten");
 		buttonStart3 = new JButton("Einsatz Naturkatastrophe starten");
 		buttonStart4 = new JButton("Einsatz Industrieunfall starten");
-		buttonStart1.setPreferredSize(new Dimension(700, 60));
-		buttonStart2.setPreferredSize(new Dimension(700, 60));
-		buttonStart3.setPreferredSize(new Dimension(700, 60));
-		buttonStart4.setPreferredSize(new Dimension(700, 60));
+		buttonStart1.setPreferredSize(new Dimension(300, 30));
+		buttonStart2.setPreferredSize(new Dimension(300, 30));
+		buttonStart3.setPreferredSize(new Dimension(300, 30));
+		buttonStart4.setPreferredSize(new Dimension(300, 30));
 		this.add(buttonStart1);
 		this.add(buttonStart2);
 		this.add(buttonStart3);

@@ -14,9 +14,9 @@ public class EinsaetzeView extends JScrollPane {
 		this.feuerwache = feuerwache;
 		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		this.setPreferredSize(new Dimension(700, 220));
+		this.setPreferredSize(new Dimension(700, 300));
 		
-		panelMain.setPreferredSize(new Dimension(700, 220));
+		panelMain.setPreferredSize(new Dimension(700, 300));
 
 		String content = "<html>";
 		content += "<body>";
