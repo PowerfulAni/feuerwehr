@@ -8,5 +8,9 @@ public class Main {
 		Gui feuerwehrApp = new Gui(fw);
 		feuerwehrApp.setResizable(false);
 		feuerwehrApp.setVisible(true);
+		
+		//Debug
+		
+		System.out.println(fw.kannErzeugeVorschlag("Verkehrsunfall"));
 	}
 }

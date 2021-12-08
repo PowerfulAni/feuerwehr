@@ -219,7 +219,7 @@ public class Feuerwache {
 		for (Fahrzeug fahrzeug : fahrzeuge) {
 			if(fahrzeug.getFahrzeugStatus() == FahrzeugStatus.Bereit) {
 				switch (fahrzeug.getClass().getSimpleName()) {
-				case "Einsatzfahrzeug":
+				case "EinsatzLeitfahrzeug":
 					if(curFahr[0] < typ.minEinsatzfahrzeug) {
 						curFahr[0]++;
 						fahr.add(fahrzeug);
@@ -254,12 +254,11 @@ public class Feuerwache {
 			|| curFahr[2] < typ.minManschaftstransporter
 			|| curFahr[3] < typ.minLeiterwagen)
 			return false;
-			
 		ArrayList<Feuerwehrmensch> mit = new ArrayList<>();
 		int minLKW = typ.minTankLoeschfahrzeug + typ.minManschaftstransporter + typ.minLeiterwagen;
 		/*
 		 * 0 -> LKW
-		 * 1 -> PWK
+		 * 1 -> PKW
 		 */
 		int[] curWagen = new int[2];
 		for (Feuerwehrmensch mensch : mitarbeiter) {
@@ -268,13 +267,22 @@ public class Feuerwache {
 				case LKW:
 					if(curWagen[0] < minLKW) {
 						curWagen[0]++;
-						mit.add(mensch);
-						break;
+						
 					}
+					if(mit.size() < typ.minMitarbeiter) {
+						mit.add(mensch);
+						
+					}
+					
+					break;
 				case PKW:
 					if(curWagen[1] < typ.minEinsatzfahrzeug) {
 						curWagen[1]++;
+						
+					}
+					if(mit.size() < typ.minMitarbeiter) {
 						mit.add(mensch);
+						
 					}
 					break;
 
