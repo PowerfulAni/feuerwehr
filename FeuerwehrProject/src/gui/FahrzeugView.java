@@ -27,7 +27,7 @@ public class FahrzeugView extends JScrollPane {
 		ArrayList<Fahrzeug> fahrzeuge = feuerwache.getFahrzeuge();
 		String content = "<html><center><table style='font-size: 12px; margin: 10px; width: 90%;'><tr style='font-size: 15px; padding: 5px; margin: 5px;'><th>Kennzeichen</th><th>Fahrzeugdaten</th><th>Status</th></tr>";
 		for (int i = 0; i < fahrzeuge.size(); i++) {
-			content += "<tr style='border-bottom: 1px dotted black; text-align: center;'><td style='border: 1px solid black'>" + fahrzeuge.get(i).getKennzeichen() + "</td><td>"
+			content += "<tr><td style='text-align: center;'><div style='border: 1px solid black; padding: 5px; margin: 5px;'>" + fahrzeuge.get(i).getKennzeichen() + "</div></td><td>"
 					+ fahrzeuge.get(i).getFahrzeugName() + "<hr>" + fahrzeuge.get(i).getFahrzeugTyp() + " | Sitzplätze: "
 					+ fahrzeuge.get(i).getSitzplaetze() + "</td>";
 			if(fahrzeuge.get(i).getFahrzeugStatus().equals(FahrzeugStatus.Einsatz)) {
