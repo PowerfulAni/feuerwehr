@@ -75,6 +75,7 @@ public class MainView extends JScrollPane {
 				</html>
 						""";
 		panelMain.setText(content);
+		panelMain.setCaretPosition(0);
 		this.getViewport().add(panelMain);
 
 	}
