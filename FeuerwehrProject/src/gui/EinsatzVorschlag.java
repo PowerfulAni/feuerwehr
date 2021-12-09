@@ -315,17 +315,14 @@ public class EinsatzVorschlag extends JScrollPane {
 						}
 						if(addeinsatzleiterfahrzeug == 0 && addleiterwagen == 0 && addtransporter == 0 && addtankloesch == 0 && addleutepkw == 0 && addleutelkw == 0) {
 							feuerwache.startEinsatz(vorschlag.getEinsatzTyp(), fahrzeuge, leute);
-							gui.showEinsaetze();
+							gui.refreshView();
+							break;
 						}else {
-							System.out.println("Error");
+							break;
 						}
-
-						break;
 					default:
 						break;
 					}
-					String content = generateContent();
-					panelMain.setText(content);
 
 				}
 			}
