@@ -36,7 +36,7 @@ public class Einsatz {
 			starteEinsatz();
 	}
 	
-	public void starteEinsatz() {
+	private void starteEinsatz() {
 		for (Fahrzeug fahrzeug : fahrzeuge) {
 			fahrzeug.setFahrzeugStatus(FahrzeugStatus.Einsatz);
 		}

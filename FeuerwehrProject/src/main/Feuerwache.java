@@ -123,30 +123,23 @@ public class Feuerwache {
 	 * @param mitarbeiter
 	 * @return
 	 */
-	public boolean startEinsatz(String einsatz, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
-		EinsatzTyp typ = getEinsatzTyp(einsatz);
-		System.out.println(einsaetze.size());
+	public boolean startEinsatz(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
 		if(!istEinsatzAnforderung(typ, fahrzeuge, mitarbeiter))
 			return false;
 		einsaetze.add(new Einsatz(typ, fahrzeuge, mitarbeiter, false));
-		System.out.println(einsaetze.size());
-		return true;
-	}
-	public boolean addEinsatz(Einsatz einsatz) {
-		einsaetze.add(einsatz);
 		return true;
 	}
 
 	private boolean istEinsatzAnforderung(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
 		int[] curFahr = new int[4];
 		for (Fahrzeug fahrzeug : fahrzeuge) {
-			switch (fahrzeug.getClass().getSimpleName()) {
-				case "Einsatzfahrzeug":
+			switch (fahrzeug.getFahrzeugName()) {
+				case "Einsatz-Leitfahrzeug":
 					if(curFahr[0] < typ.minEinsatzfahrzeug) {
 						curFahr[0]++;
 					}
 					break;
-				case "TankLoeschfahrzeug":
+				case "Tank-Löschfahrzeug":
 					if(curFahr[1] < typ.minTankLoeschfahrzeug) {
 						curFahr[1]++;
 					}
@@ -232,14 +225,14 @@ public class Feuerwache {
 		int[] curFahr = new int[4];
 		for (Fahrzeug fahrzeug : fahrzeuge) {
 			if(fahrzeug.getFahrzeugStatus() == FahrzeugStatus.Bereit) {
-				switch (fahrzeug.getClass().getSimpleName()) {
-				case "EinsatzLeitfahrzeug":
+				switch (fahrzeug.getFahrzeugName()) {
+				case "Einsatz-Leitfahrzeug":
 					if(curFahr[0] < typ.minEinsatzfahrzeug) {
 						curFahr[0]++;
 						fahr.add(fahrzeug);
 					}
 					break;
-				case "TankLoeschfahrzeug":
+				case "Tank-Löschfahrzeug":
 					if(curFahr[1] < typ.minTankLoeschfahrzeug) {
 						curFahr[1]++;
 						fahr.add(fahrzeug);

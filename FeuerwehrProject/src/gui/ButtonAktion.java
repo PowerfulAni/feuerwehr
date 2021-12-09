@@ -20,43 +20,32 @@ public class ButtonAktion extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		String buttonText = this.button.getText();
-		if (buttonText == "Übersicht") {
+		switch (buttonText) {
+		case "Übersicht":
 			gui.showMain();
-		} else if (buttonText == "Fahrzeuge") {
+			break;
+		case "Fahrzeuge":
 			gui.showFahrzeuge();
-		} else if (buttonText == "Feuerwehrleute") {
+			break;
+		case "Feuerwehrleute":
 			gui.showFeuerwehrleute();
-		} else if (buttonText == "Einsätze") {
+			break;
+		case "Einsätze":
 			gui.showEinsaetze();
-		} else if (buttonText == "Einsatz Wohnungsbrand starten") {
-			if(gui.feuerwache.kannErzeugeVorschlag("Wohnungsbrand")) {
+			break;
+		case "Einsatz Wohnungsbrand starten":
+		case "Einsatz Verkehrsunfall starten":
+		case "Einsatz Naturkatastrophe starten":
+		case "Einsatz Industrieunfall starten":
+			if(gui.feuerwache.kannErzeugeVorschlag(buttonText.split(" ")[1])) {
 				Einsatz einsatz = gui.feuerwache.getVorschlag();
-				gui.feuerwache.addEinsatz(einsatz);
-				einsatz.starteEinsatz();
+				gui.feuerwache.startEinsatz(einsatz.getEinsatzTyp(), einsatz.getFahrzeuge(), einsatz.getMitarbeiter());
 				gui.refreshView();
 			}
-		} else if (buttonText == "Einsatz Verkehrsunfall starten") {
-			if(gui.feuerwache.kannErzeugeVorschlag("Verkehrsunfall")) {
-				Einsatz einsatz = gui.feuerwache.getVorschlag();
-				gui.feuerwache.addEinsatz(einsatz);
-				einsatz.starteEinsatz();
-				gui.refreshView();
-			}
-		} else if (buttonText == "Einsatz Naturkatastrophe starten") {
-			if(gui.feuerwache.kannErzeugeVorschlag("Naturkatastrophe")) {
-				Einsatz einsatz = gui.feuerwache.getVorschlag();
-				gui.feuerwache.addEinsatz(einsatz);
-				einsatz.starteEinsatz();
-				gui.refreshView();
-			}
-		} else if (buttonText == "Einsatz Industrieunfall starten") {
-			if(gui.feuerwache.kannErzeugeVorschlag("Industrieunfall")) {
-				Einsatz einsatz = gui.feuerwache.getVorschlag();
-				gui.feuerwache.addEinsatz(einsatz);
-				einsatz.starteEinsatz();
-				gui.refreshView();
-			}
+			break;
+
+		default:
+			break;
 		}
-		
 	}
 }
