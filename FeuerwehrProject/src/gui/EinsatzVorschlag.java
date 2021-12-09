@@ -148,21 +148,21 @@ public class EinsatzVorschlag extends JScrollPane {
 					String event = (((FormSubmitEvent) e).getData().split("=")[0]);
 					switch (event) {
 					case "add_einsatzleiterfahrzeug":
-						if (einsatzleiterfahrzeug < einsatzleiterfahrzeugFrei.size()) {
+						if (addeinsatzleiterfahrzeug < einsatzleiterfahrzeugFrei.size()) {
 							einsatzleiterfahrzeug++;
 							addeinsatzleiterfahrzeug++;
 						}
 						panelMain.setText(generateContent());
 						break;
 					case "sub_einsatzleiterfahrzeug":
-						if (einsatzleiterfahrzeug > vorschlag.getEinsatzTyp().minEinsatzfahrzeug) {
+						if (addeinsatzleiterfahrzeug > vorschlag.getEinsatzTyp().minEinsatzfahrzeug) {
 							einsatzleiterfahrzeug--;
 							addeinsatzleiterfahrzeug--;
 						}
 						panelMain.setText(generateContent());
 						break;
 					case "add_tankloesch":
-						if (tankloesch < tankloeschFrei.size() && leutelkw > anzahllkw) {
+						if (addtankloesch < tankloeschFrei.size() && leutelkw > anzahllkw) {
 							tankloesch++;
 							addtankloesch++;
 							anzahllkw++;
@@ -170,7 +170,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						panelMain.setText(generateContent());
 						break;
 					case "sub_tankloesch":
-						if (tankloesch > vorschlag.getEinsatzTyp().minTankLoeschfahrzeug) {
+						if (addtankloesch > vorschlag.getEinsatzTyp().minTankLoeschfahrzeug) {
 							tankloesch--;
 							addtankloesch--;
 							anzahllkw--;
@@ -178,7 +178,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						panelMain.setText(generateContent());
 						break;
 					case "add_leiterwagen":
-						if (leiterwagen < leiterwagenFrei.size() && leutelkw > anzahllkw) {
+						if (addleiterwagen < leiterwagenFrei.size() && leutelkw > anzahllkw) {
 							leiterwagen++;
 							addleiterwagen++;
 							anzahllkw++;
@@ -186,7 +186,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						panelMain.setText(generateContent());
 						break;
 					case "sub_leiterwagen":
-						if (leiterwagen > vorschlag.getEinsatzTyp().minLeiterwagen) {
+						if (addleiterwagen > vorschlag.getEinsatzTyp().minLeiterwagen) {
 							leiterwagen--;
 							addleiterwagen--;
 							anzahllkw--;
@@ -194,7 +194,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						panelMain.setText(generateContent());
 						break;
 					case "add_transporter":
-						if (transporter < transporterFrei.size() && leutelkw > anzahllkw) {
+						if (addtransporter < transporterFrei.size() && leutelkw > anzahllkw) {
 							transporter++;
 							addtransporter++;
 							anzahllkw++;
@@ -202,7 +202,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						panelMain.setText(generateContent());
 						break;
 					case "sub_transporter":
-						if (transporter > vorschlag.getEinsatzTyp().minManschaftstransporter) {
+						if (addtransporter > vorschlag.getEinsatzTyp().minManschaftstransporter) {
 							transporter--;
 							addtransporter--;
 							anzahllkw--;
