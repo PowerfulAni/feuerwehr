@@ -30,12 +30,14 @@ public class EinsaetzeView extends JScrollPane {
 		content += "<h1 style='font-size: 25px; text-align: center;'>laufende Einsätze</h1>";
 
 		content += "<center><table style='font-size: 12px; margin: 10px; width: 90%;'>";
-		content += "<tr style='font-size: 15px; padding: 5px; margin: 5px;'><th>Einsatztyp</th><th>Fahrzeuge</th><th>Feuerwehrleute</th><th></th></tr>";
+		content += "<tr style='font-size: 15px; padding: 5px; margin: 5px;'><th>Einsatztyp</th><th>Fahrzeuge</th><th>Feuerwehrleute</th><th colspan='2'></th></tr>";
 		for (int i = 0; i < einsaetze.size(); i++) {
 			content += "<tr style='text-align: center; border-bottom: 1px dotted black;'><td>"
-					+ einsaetze.get(i).getEinsatzTyp().getName() + "</td><td>" + einsaetze.get(i).getFahrzeuge().size()+"</td><td>"
-					+ einsaetze.get(i).getMitarbeiter().size() + "</td><td><form action='#'><input type='hidden' name='beende' value='beende_"+i+"'<input type='submit' value='Beenden'/></form></td>";
-			
+					+ einsaetze.get(i).getEinsatzTyp().getName() + "</td><td>" + einsaetze.get(i).getFahrzeuge().size()
+					+ "</td><td>" + einsaetze.get(i).getMitarbeiter().size()
+					+ "</td><td><form action='#'><input type='hidden' name='1' value='einsatz_" + i
+					+ "'<input type='submit' value='Details'/></form></td><td><form action='#'><input type='hidden' name='2' value='einsatz_" + i
+					+ "'<input type='submit' value='Beenden'/></form></td>";
 
 		}
 		content += "</table></center></body>";
@@ -48,9 +50,18 @@ public class EinsaetzeView extends JScrollPane {
 			@Override
 			public void hyperlinkUpdate(HyperlinkEvent e) {
 				if (e instanceof FormSubmitEvent) {
-					String[] splits = ((FormSubmitEvent) e).getData().split("=")[1].split("_");
-					feuerwache.beendeEinsatz(Integer.parseInt(splits[1]));
-					gui.refreshView();
+					int event = Integer.parseInt(((FormSubmitEvent) e).getData().split("=")[0]);
+					String[] splits1 = ((FormSubmitEvent) e).getData().split("=")[1].split("_");
+					System.out.println(event);
+					if(event == 1) {
+						//feuerwache.beendeEinsatz(Integer.parseInt(splits1[1]));
+						System.out.println("as");
+						gui.refreshView();
+					}else {
+						feuerwache.beendeEinsatz(Integer.parseInt(splits1[1]));
+						gui.refreshView();
+					}
+					
 				}
 			}
 		});

@@ -14,7 +14,7 @@ public class MainView extends JScrollPane {
 
 	public MainView(JTextPane panelMain, Feuerwache feuerwache) {
 		this.feuerwache = feuerwache;
-		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 	    this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	    this.setPreferredSize(new Dimension(700, 420));
 	    panelMain.setPreferredSize(new Dimension(700, 420));
@@ -56,7 +56,7 @@ public class MainView extends JScrollPane {
 
 		content += "</table></center>";
 		content += """
-				<br><br>
+				<br>
 				<center><h1 style="font-size: 20px;">Bereitschaft</h1></center>
 				<hr>
 				<table style="width: 100%">
