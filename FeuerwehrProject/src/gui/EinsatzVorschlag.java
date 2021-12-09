@@ -284,6 +284,9 @@ public class EinsatzVorschlag extends JScrollPane {
 							//addleutepkw--;
 							i++;
 						}
+						for(Feuerwehrmensch pkwmensch : temppkw) {
+							leute.remove(temppkw);
+						}
 						//System.out.println(temppkw.size());
 						i = 0;
 						while (addleutelkw != 0) {
@@ -291,28 +294,28 @@ public class EinsatzVorschlag extends JScrollPane {
 								leute.add(leutelkwFrei.get(i));
 								addleutelkw--;
 							} else {
-								for (int y = 0; y < leute.size(); y++) {
-									
-									if(addleutelkw != 0) {
-										switch (leuteGes.get(y).getFahrerlaubnis()) {
-										case LKW:
-											
-											leute.remove(leute.get(y));
-											addleutelkw++;
-											break;
-										default:
-											break;
-										}
-									}
-									
-								}
+//								for (int y = 0; y < leute.size(); y++) {
+//									
+//									if(addleutelkw != 0) {
+//										switch (leuteGes.get(y).getFahrerlaubnis()) {
+//										case LKW:
+//											
+//											leute.remove(leute.get(y));
+//											addleutelkw++;
+//											break;
+//										default:
+//											break;
+//										}
+//									}
+//									
+//								}
 							}
 
-							addleutelkw--;
 							i++;
 						}
 						if(addeinsatzleiterfahrzeug == 0 && addleiterwagen == 0 && addtransporter == 0 && addtankloesch == 0 && addleutepkw == 0 && addleutelkw == 0) {
-							System.out.println(feuerwache.startEinsatz(vorschlag.getEinsatzTyp(), fahrzeuge, leute));
+							feuerwache.startEinsatz(vorschlag.getEinsatzTyp(), fahrzeuge, leute);
+							gui.showEinsaetze();
 						}else {
 							System.out.println("Error");
 						}
