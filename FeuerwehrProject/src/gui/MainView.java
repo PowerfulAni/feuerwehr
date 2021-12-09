@@ -35,12 +35,12 @@ public class MainView extends JScrollPane {
 		String content = """
 				<html>
 				<body>
-				<center><h1 style="font-size: 25px;">Feuerwache Rödermark</h1></center><br><br>
+				<center><h1 style="font-size: 23px;">Feuerwache Rödermark</h1></center><br>
 				""";
 				
 				
 		content +=		"""
-				<center><table style="font-size: 12px; width: 80%;">
+				<center><table style="font-size: 11px; width: 80%;">
 				<tr style="font-size: 15px; border-bottom: 1px solid black;"><th colspan="2">Fahrzeuge</th><th></th><th colspan="2">Feuerwehrleute</th></tr>
 				""";
 		content += "<tr><td>Verfügbar</td><td>" + fahrzeugeVerfuegbar + "</td><td></td><td>Verfügbar</td><td>" + feuerwehrLeuteVerfuegbar + "</td></tr>";
