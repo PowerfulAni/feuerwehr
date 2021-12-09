@@ -19,7 +19,9 @@ public class Mannschaftstransporter extends Fahrzeug {
 		
 		return this.baujahr;
 	}
-	
+	public String getSpezial() {
+		return "Baujahr: "+this.baujahr;
+	}
 	@Override
 	public String getFahrzeugName() {
 		return "Mannschaftstransporter";

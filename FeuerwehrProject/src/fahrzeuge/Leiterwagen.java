@@ -20,6 +20,10 @@ public class Leiterwagen extends Fahrzeug {
 		return this.maxLeiter;
 	}
 	
+	public String getSpezial() {
+		return "Maximale Leiterhöhe: "+maxLeiter;
+	}
+	
 	@Override
 	public String getFahrzeugName() {
 		return "Leiterwagen";

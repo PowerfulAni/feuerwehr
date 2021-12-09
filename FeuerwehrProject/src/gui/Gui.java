@@ -98,6 +98,16 @@ public class Gui extends JFrame {
 		this.getContentPane().repaint();
 	}
 	
+	public void showEinsatzdetails(int id) {
+		aktuellerView = 3;
+		this.getContentPane().removeAll();
+		removeListener(panelMain);
+		this.add(new ButtonView(this));
+		this.add(new EinsatzDetails(this, panelMain, feuerwache, id));
+		this.revalidate();
+		this.getContentPane().repaint();
+	}
+	
 	private void removeListener(JTextPane panelMain) {
 		
 		for (HyperlinkListener listener : panelMain.getHyperlinkListeners()) {

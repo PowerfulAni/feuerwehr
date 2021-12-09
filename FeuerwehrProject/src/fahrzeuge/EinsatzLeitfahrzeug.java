@@ -19,6 +19,9 @@ public class EinsatzLeitfahrzeug extends Fahrzeug {
 		
 		return this.dienstgrad;
 	}
+	public String getSpezial() {
+		return "Dienstgrad: "+this.dienstgrad;
+	}
 	
 	@Override
 	public String getFahrzeugName() {

@@ -63,5 +63,5 @@ public abstract class Fahrzeug {
 	 * @return
 	 */
 	public abstract String getFahrzeugName();
-	
+	public abstract String getSpezial();
 }

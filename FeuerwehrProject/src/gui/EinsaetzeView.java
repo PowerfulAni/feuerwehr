@@ -54,9 +54,7 @@ public class EinsaetzeView extends JScrollPane {
 					String[] splits1 = ((FormSubmitEvent) e).getData().split("=")[1].split("_");
 					System.out.println(event);
 					if(event == 1) {
-						//feuerwache.beendeEinsatz(Integer.parseInt(splits1[1]));
-						System.out.println("as");
-						gui.refreshView();
+						gui.showEinsatzdetails(Integer.parseInt(splits1[1]));
 					}else {
 						feuerwache.beendeEinsatz(Integer.parseInt(splits1[1]));
 						gui.refreshView();
