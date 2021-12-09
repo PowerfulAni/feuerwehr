@@ -131,7 +131,8 @@ public class EinsatzVorschlag extends JScrollPane {
 					break;
 				}
 			}
-
+			System.out.println(leutepkwFrei.size());
+			System.out.println(leutelkwFrei.size());
 		}
 
 		panelMain.setPreferredSize(new Dimension(700, 300));
@@ -209,7 +210,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						panelMain.setText(generateContent());
 						break;
 					case "add_leutelkw":
-						if (leutelkw < leutelkwFrei.size()) {
+						if (addleutelkw < (leutelkwFrei.size())) {
 							leutelkw++;
 							addleutelkw++;
 						}
@@ -224,7 +225,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						panelMain.setText(generateContent());
 						break;
 					case "add_leutepkw":
-						if (leutepkw < leutepkwFrei.size()) {
+						if (addleutepkw < (leutepkwFrei.size())) {
 							leutepkw++;
 							addleutepkw++;
 						}
