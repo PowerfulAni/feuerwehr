@@ -196,7 +196,6 @@ public class Feuerwache {
 		return curWagen[0] < minLKW
 				|| curWagen[1] < typ.minEinsatzfahrzeug
 				|| minMit < typ.minMitarbeiter
-				|| minMit > (curFahr[0] * 4 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2)
 				? false : true;
 	}
 

@@ -52,7 +52,6 @@ public class EinsaetzeView extends JScrollPane {
 				if (e instanceof FormSubmitEvent) {
 					int event = Integer.parseInt(((FormSubmitEvent) e).getData().split("=")[0]);
 					String[] splits1 = ((FormSubmitEvent) e).getData().split("=")[1].split("_");
-					System.out.println(event);
 					if(event == 1) {
 						gui.showEinsatzdetails(Integer.parseInt(splits1[1]));
 					}else {
