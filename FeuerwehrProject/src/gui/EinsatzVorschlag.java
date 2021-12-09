@@ -84,7 +84,7 @@ public class EinsatzVorschlag extends JScrollPane {
 			}
 		}
 		for (int i = 0; i < fahrzeugeGes.size(); i++) {
-			if ((fahrzeugeGes.get(i).getFahrzeugStatus().equals(FahrzeugStatus.Bereit))) {
+			if ((fahrzeugeGes.get(i).getFahrzeugStatus().equals(FahrzeugStatus.Bereit)) && !fahrzeuge.contains(fahrzeugeGes.get(i))) {
 				switch (fahrzeugeGes.get(i).getFahrzeugName()) {
 				case "Tank-Löschfahrzeug":
 					tankloeschFrei.add(fahrzeugeGes.get(i));
@@ -119,7 +119,7 @@ public class EinsatzVorschlag extends JScrollPane {
 			}
 		}
 		for (int i = 0; i < leuteGes.size(); i++) {
-			if ((leuteGes.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Bereit))) {
+			if ((leuteGes.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Bereit)) && !leute.contains(leuteGes.get(i))) {
 				switch (leuteGes.get(i).getFahrerlaubnis()) {
 				case PKW:
 					leutepkwFrei.add(leuteGes.get(i));
@@ -284,7 +284,7 @@ public class EinsatzVorschlag extends JScrollPane {
 							//addleutepkw--;
 							i++;
 						}
-						System.out.println(temppkw.size());
+						//System.out.println(temppkw.size());
 						i = 0;
 						while (addleutelkw != 0) {
 							if (addleutelkw > 0) {
