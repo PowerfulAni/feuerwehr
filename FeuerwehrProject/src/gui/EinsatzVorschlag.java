@@ -145,21 +145,20 @@ public class EinsatzVorschlag extends JScrollPane {
 			public void hyperlinkUpdate(HyperlinkEvent e) {
 				if (e instanceof FormSubmitEvent) {
 					String event = (((FormSubmitEvent) e).getData().split("=")[0]);
-					System.out.println(event);
 					switch (event) {
 					case "add_einsatzleiterfahrzeug":
 						if (einsatzleiterfahrzeug < einsatzleiterfahrzeugFrei.size()) {
 							einsatzleiterfahrzeug++;
 							addeinsatzleiterfahrzeug++;
 						}
-
+						panelMain.setText(generateContent());
 						break;
 					case "sub_einsatzleiterfahrzeug":
 						if (einsatzleiterfahrzeug > vorschlag.getEinsatzTyp().minEinsatzfahrzeug) {
 							einsatzleiterfahrzeug--;
 							addeinsatzleiterfahrzeug--;
 						}
-
+						panelMain.setText(generateContent());
 						break;
 					case "add_tankloesch":
 						if (tankloesch < tankloeschFrei.size() && leutelkw > anzahllkw) {
@@ -167,6 +166,7 @@ public class EinsatzVorschlag extends JScrollPane {
 							addtankloesch++;
 							anzahllkw++;
 						}
+						panelMain.setText(generateContent());
 						break;
 					case "sub_tankloesch":
 						if (tankloesch > vorschlag.getEinsatzTyp().minTankLoeschfahrzeug) {
@@ -174,6 +174,7 @@ public class EinsatzVorschlag extends JScrollPane {
 							addtankloesch--;
 							anzahllkw--;
 						}
+						panelMain.setText(generateContent());
 						break;
 					case "add_leiterwagen":
 						if (leiterwagen < leiterwagenFrei.size() && leutelkw > anzahllkw) {
@@ -181,6 +182,7 @@ public class EinsatzVorschlag extends JScrollPane {
 							addleiterwagen++;
 							anzahllkw++;
 						}
+						panelMain.setText(generateContent());
 						break;
 					case "sub_leiterwagen":
 						if (leiterwagen > vorschlag.getEinsatzTyp().minLeiterwagen) {
@@ -188,6 +190,7 @@ public class EinsatzVorschlag extends JScrollPane {
 							addleiterwagen--;
 							anzahllkw--;
 						}
+						panelMain.setText(generateContent());
 						break;
 					case "add_transporter":
 						if (transporter < transporterFrei.size() && leutelkw > anzahllkw) {
@@ -195,6 +198,7 @@ public class EinsatzVorschlag extends JScrollPane {
 							addtransporter++;
 							anzahllkw++;
 						}
+						panelMain.setText(generateContent());
 						break;
 					case "sub_transporter":
 						if (transporter > vorschlag.getEinsatzTyp().minManschaftstransporter) {
@@ -202,12 +206,14 @@ public class EinsatzVorschlag extends JScrollPane {
 							addtransporter--;
 							anzahllkw--;
 						}
+						panelMain.setText(generateContent());
 						break;
 					case "add_leutelkw":
 						if (leutelkw < leutelkwFrei.size()) {
 							leutelkw++;
 							addleutelkw++;
 						}
+						panelMain.setText(generateContent());
 						break;
 					case "sub_leutelkw":
 						if (leutelkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter)
@@ -215,19 +221,21 @@ public class EinsatzVorschlag extends JScrollPane {
 							leutelkw--;
 							addleutelkw--;
 						}
+						panelMain.setText(generateContent());
 						break;
 					case "add_leutepkw":
 						if (leutepkw < leutepkwFrei.size()) {
 							leutepkw++;
 							addleutepkw++;
 						}
+						panelMain.setText(generateContent());
 						break;
 					case "sub_leutepkw":
 						if (leutepkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter)) {
 							leutepkw--;
 							addleutepkw--;
 						}
-
+						panelMain.setText(generateContent());
 						break;
 					case "starte_einsatz":
 						int i = 0;
@@ -265,7 +273,6 @@ public class EinsatzVorschlag extends JScrollPane {
 							} else {
 								
 								for (int z = 0; z < leute.size(); z++) {
-									System.out.println(temppkw.size());
 									if(addleutepkw != 0) {
 										switch (leute.get(z).getFahrerlaubnis()) {
 										case PKW:
@@ -323,6 +330,7 @@ public class EinsatzVorschlag extends JScrollPane {
 					default:
 						break;
 					}
+					
 
 				}
 			}
