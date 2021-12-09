@@ -38,9 +38,10 @@ public class ButtonAktion extends JFrame implements ActionListener {
 		case "Einsatz Naturkatastrophe starten":
 		case "Einsatz Industrieunfall starten":
 			if(gui.feuerwache.kannErzeugeVorschlag(buttonText.split(" ")[1])) {
-				Einsatz einsatz = gui.feuerwache.getVorschlag();
-				gui.feuerwache.startEinsatz(einsatz.getEinsatzTyp(), einsatz.getFahrzeuge(), einsatz.getMitarbeiter());
-				gui.refreshView();
+				Einsatz vorschlag = gui.feuerwache.getVorschlag();
+				gui.showVorschlag(vorschlag);
+				//gui.feuerwache.startEinsatz(einsatz.getEinsatzTyp(), einsatz.getFahrzeuge(), einsatz.getMitarbeiter());
+				//gui.refreshView();
 			}
 			break;
 

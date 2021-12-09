@@ -69,13 +69,24 @@ public class Einsatz {
 	}
 	
 	/**
+	 * Zum anpassen der Fahrzeuge.
+	 */
+	public void setFahrzeuge(ArrayList<Fahrzeug> fahrzeuge){
+		this.fahrzeuge = fahrzeuge;
+	}
+	/**
+	 * Zum anpassen der Mitqarbeiter.
+	 */
+	public void setMitarbeiter(ArrayList<Feuerwehrmensch> mitarbeiter){
+		this.mitarbeiter = mitarbeiter;
+	}
+	/**
 	 * Zum Anzeigen im Gui.
 	 * @return ArrayList Fahrzeug
 	 */
 	public ArrayList<Fahrzeug> getFahrzeuge(){
 		return fahrzeuge;
 	}
-	
 	/**
 	 * Zum Anzeigen im Gui.
 	 * @return ArrayList Feuerwehrmensch

@@ -10,6 +10,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.HyperlinkListener;
 
+import einsaetze.Einsatz;
 import fahrzeuge.EinsatzLeitfahrzeug;
 import fahrzeuge.Leiterwagen;
 import fahrzeuge.Mannschaftstransporter;
@@ -104,6 +105,16 @@ public class Gui extends JFrame {
 		removeListener(panelMain);
 		this.add(new ButtonView(this));
 		this.add(new EinsatzDetails(this, panelMain, feuerwache, id));
+		this.revalidate();
+		this.getContentPane().repaint();
+	}
+	
+	public void showVorschlag(Einsatz vorschlag) {
+		aktuellerView = 3;
+		this.getContentPane().removeAll();
+		removeListener(panelMain);
+		this.add(new ButtonView(this));
+		this.add(new EinsatzVorschlag(this, panelMain, feuerwache, vorschlag));
 		this.revalidate();
 		this.getContentPane().repaint();
 	}
