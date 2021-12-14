@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.mysql.cj.protocol.Resultset;
-
 import einsaetze.Einsatz;
 import einsaetze.EinsatzTyp;
 import fahrzeuge.Leiterwagen;
