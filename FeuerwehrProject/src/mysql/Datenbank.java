@@ -29,21 +29,28 @@ import java.sql.SQLException;
 public class Datenbank {
 
 	//Nicht Anfassen, Anisa fragen, dann machen
-    
-	public static void main(String[] args) { //main methode nur temporär zum testen meiner sql methodik
+    public Datenbank() {
+    	
+    }
+	/*public static void main(String[] args) { //main methode nur temporär zum testen meiner sql methodik
 			Connection con = connect();
 			
 			//Feuerwehrmensch fw = new Feuerwehrmensch(1, null, null, null);
 			//fw = updateEinsatz(fw, con, 0);
-			/*ArrayList<Feuerwehrmensch> fwList = initFeuerwehrmensch(con);
+			ArrayList<Feuerwehrmensch> fwList = initFeuerwehrmensch(con);
 			System.out.println("Erlaubnis: "+fwList.get(2).getFahrerlaubnis());
 			ArrayList<Leiterwagen> lwList = initLeiterwagen(con);
 			ArrayList<TankLoeschfahrzeug> lfList = initTankLoeschfahrzeug(con);
-			ArrayList<Mannschaftstransporter> mwList=initMannschaftstransporter(con);*/
-			Einsatz einsatz = initEinsatz(con);
+			ArrayList<Mannschaftstransporter> mwList=initMannschaftstransporter(con);
+			/*Einsatz einsatz;
+			ArrayList<Einsatz> einsatzList = initEinsatz(con);
+			einsatz=einsatzList.get(0);
 			System.out.println(einsatz.getMitarbeiter().get(0).getName());
 			System.out.println(einsatz.getFahrzeuge().get(0).getFahrzeugName());
-	}
+			einsatz=einsatzList.get(1);
+			System.out.println(einsatz.getMitarbeiter().get(0).getName());
+			System.out.println(einsatz.getFahrzeuge().get(0).getFahrzeugName());*/
+	}*/
 	//Ab hier Abwechselnd Status und Einsatz updater der verschiedenen Datentypen
 	/**
 	 * Updated den Status vom Feuerwehrmenschen in der DB und im Programm
@@ -330,8 +337,9 @@ public class Datenbank {
 		return fwList;
 	}
 	
-	public static Einsatz initEinsatz(Connection con) {
+	/*public static ArrayList<Einsatz> initEinsatzF(Connection con) {
 		Einsatz einsatz;
+		ArrayList<Einsatz> einsatzList = new ArrayList<Einsatz>();
 		EinsatzTyp einsatzTyp = null;
 		ArrayList<Fahrzeug> tempList = new ArrayList<Fahrzeug>();
 		ArrayList<Fahrzeug> fList = new ArrayList<Fahrzeug>();
@@ -356,7 +364,7 @@ public class Datenbank {
 				}else {
 					istVorschlag=true;
 				}
-				}
+				
 			//ArrayList Fahrzeuge erstellen
 			ArrayList<EinsatzLeitfahrzeug> elList = initEinsatzLeitfahrzeug(con);
 			ArrayList<Mannschaftstransporter> mList = initMannschaftstransporter(con);
@@ -386,22 +394,50 @@ public class Datenbank {
 				feuerList.add(fw);
 			}
 			einsatz = new Einsatz(einsatzTyp, fList, feuerList, istVorschlag, id);
-			return einsatz;
+			einsatzList.add(einsatz);
+			}
+			return einsatzList;
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
 		
-	}
+	}*/
 
+	public static ArrayList<Einsatz> initEinsatz(Connection con){
+		ArrayList<Einsatz> einsatzList = new ArrayList<Einsatz>();
+		Einsatz einsatz;
+		EinsatzTyp einsatzTyp =null;
+		int id =0;
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery("SELECT * FROM mission;");
+			while(rs.next()){
+				System.out.println("ID: "+rs.getInt(1) + " istVorschlag: " +
+		                   rs.getString(2) + " minFeuerwehrmensch: " +
+		                   rs.getString(3) + " minEinsatzleitwagen: " +
+		                   rs.getString(4) + " minLoeschfahrzeug: "+
+		                   rs.getString(5) + " minManschaftstransporter: " +
+		                   rs.getString(6) + " minLeiterwagen: "+
+		                   rs.getString(7) + " name: "+
+		                   rs.getString(8));
+				einsatzTyp=new EinsatzTyp(rs.getString(8), rs.getInt(3),rs.getInt(4), rs.getInt(5),rs.getInt(6),rs.getInt(7));
+				id=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return null;
+	}
 	/**
 	 * Verbindet sich mit der Datenbank
 	 * @return MySQL Connection Objekt
 	 */
 	public static Connection connect() {
-		String url = "jdbc:mysql://remotemysql.com/DnPTNNcyD1";
-	    String user = "DnPTNNcyD1";
-	    String pass = "003Fxxy6zg";
+		String url = "jdbc:mysql://134.255.253.141/PowerfulAni-906454";
+	    String user = "PowerfulAni-906454";
+	    String pass = "PeuDrMdjpmjFdfmnKBuymrJ6K";
 		try {
 		    Connection con = DriverManager.getConnection(url, user, pass);
 		    System.out.println("Verbindung erfolgreich hergestellt");
