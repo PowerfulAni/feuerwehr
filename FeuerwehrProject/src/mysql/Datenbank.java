@@ -19,7 +19,7 @@ import util.MitarbeiterStatus;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 /**
- * Datenbank Verwaltungs Klasse
+ * Datenbank-Verwaltungsklasse
  * How To: MySQL Connection mit dem connect aufbauen, danach daraus entstandenes objekt für andere Methoden nutzen
  *
  */
@@ -47,6 +47,7 @@ public class Datenbank {
 		fw.setMitarbeiterStatus(status);
 		return fw;
 	}
+	
 	/**
 	 * Updated die Einsatznummer vom Feuerwehrmenschen in der DB und im Programm
 	 * @param fw Feuerwehrmensch welcher geupdated werden soll
@@ -70,18 +71,18 @@ public class Datenbank {
 		PreparedStatement bs;
 		String cmd="";
 		switch(fg.getClass().toString()) {
-		case "class fahrzeuge.EinsatzLeitfahrzeug":
-			cmd= "UPDATE `commandVehicle` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
-			break;
-		case "class fahrzeuge.Leiterwagen":
-			cmd="UPDATE `turntableLadder` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
-			break;
-		case "class fahrzeuge.Mannschaftstransporter":
-			cmd = "UPDATE `crewTransport` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
-			break;
-		case "class fahrzeuge.TankLoeschfahrzeug":
-			cmd = "UPDATE `fireEngine` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
-			break;
+			case "class fahrzeuge.EinsatzLeitfahrzeug":
+				cmd= "UPDATE `commandVehicle` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
+				break;
+			case "class fahrzeuge.Leiterwagen":
+				cmd="UPDATE `turntableLadder` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
+				break;
+			case "class fahrzeuge.Mannschaftstransporter":
+				cmd = "UPDATE `crewTransport` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
+				break;
+			case "class fahrzeuge.TankLoeschfahrzeug":
+				cmd = "UPDATE `fireEngine` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
+				break;
 		}
 		try {
 			bs = con.prepareStatement(cmd);
@@ -116,7 +117,7 @@ public class Datenbank {
 			System.out.println(e.getMessage());
 		}
 	}
-	//Ab hier Insert Methode
+	
 	/**
 	 * Fügt Einsatz in die DB ein und updated zugehörige ArrayLists in DB
 	 * @param con MySQL Connect Objekt
@@ -158,8 +159,7 @@ public class Datenbank {
 		}
 		return id;
 	}
-
-	//Ab hier DELETE Methode
+	
 	/**
 	 * Löscht Einsatz aus DB und stellt zugehörige 
 	 * @param con  MySQL Connect Objekt
@@ -189,6 +189,7 @@ public class Datenbank {
 			System.out.println(e.getMessage());
 		}
 	}
+	
 	//Ab hier Init Methoden
 	/**
 	 * Initialisiert Fahrzeuge aus der DB
@@ -204,6 +205,7 @@ public class Datenbank {
 		fList.forEach((n) -> System.out.println(n.getKennzeichen()));
 		return fList;
 	}
+	
 	/**
 	 * Initialisiert Feuerwehrmenschen aus DB
 	 * @param con MySQL Connection Object
