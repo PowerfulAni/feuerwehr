@@ -1,12 +1,15 @@
 package main;
 
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Map;
 
 import einsaetze.Einsatz;
 import einsaetze.EinsatzTyp;
 import fahrzeuge.*;
 import menschen.*;
 import util.*;
+import mysql.Datenbank;
 
 /**
  * Hier werden alle fahrzeuge und Mitarbeiter verwaltet.
@@ -20,34 +23,60 @@ public class Feuerwache {
 	private final EinsatzTyp verkehrsunfall = new EinsatzTyp("Verkehrsunfall", 16, 1, 1, 1, 0);
 	private final EinsatzTyp naturkatastrophe = new EinsatzTyp("Naturkatastrophe", 55, 3, 3, 3, 2);
 	private final EinsatzTyp industrieunfall = new EinsatzTyp("Industrieunfall", 40, 3, 2, 2, 2);
-	
+	//private Connection con;
 	/**
 	 * Der kontruktor der Klasse um Fahrzeuge und Mitarbeiter zu initialisieren.
 	 */
 	public Feuerwache() {
-		for (int i = 0; i < 18; i++) {
-			switch (i) {
-			case 0,1,2,3:
-				fahrzeuge.add(new EinsatzLeitfahrzeug(1,2, FahrzeugTyp.PKW, FahrzeugStatus.Bereit, "EI-" + i, "Einsatzleiter"));
-				break;
-			case 4,5,6,7,8:
-				fahrzeuge.add(new Leiterwagen(2,4, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "LT-" + i, 8));
-				break;
-			case 9,10,11,12:
-				fahrzeuge.add(new Mannschaftstransporter(3,14, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "MT-" + i, 1990+i));
-				break;
-			case 13,14,15,16,17:
-				fahrzeuge.add(new TankLoeschfahrzeug(4,2, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "TL-" + i, 50));
-				break;
+		//con = Datenbank.connect();
+		/*if(con != null) {
+			// Alle Fahrzeuge
+			fahrzeuge.addAll(Datenbank.initEinsatzLeitfahrzeug(con));
+			fahrzeuge.addAll(Datenbank.initLeiterwagen(con));
+			fahrzeuge.addAll(Datenbank.initMannschaftstransporter(con));
+			fahrzeuge.addAll(Datenbank.initTankLoeschfahrzeug(con));
+			// Und Menschen
+			mitarbeiter.addAll(Datenbank.initFeuerwehrmensch(con));
+			// Erstelle die gestarteten Einsätze
+			ArrayList mission = Datenbank.initEinsatz(con);
+			/*for (Object entry : mission) {
+				ArrayList<Fahrzeug> f = new ArrayList<>();
+				for (int i = 0; i < fahrzeuge.size(); i++) {
+					if(fahrzeuge.get(i).getEinsatzID() == entry.id) {
+						f.add(fahrzeuge.get(i));
+					}
+				}
+				ArrayList<Feuerwehrmensch> m = new ArrayList<>();
+				for (int i = 0; i < mitarbeiter.size(); i++) {
+					if(mitarbeiter.get(i).getEinsatzID() == entry.id) {
+						m.add(mitarbeiter.get(i));
+					}
+				}
+				einsaetze.add(new Einsatz(getEinsatzTyp(entry.mis), f, m, false, entry.id));
 			}
 		}
-		for (int i = 0; i < 80; i++) {
-			mitarbeiter.add(new Feuerwehrmensch(i,MitarbeiterStatus.Bereit, "Dummy " + i, i<10 ? FahrzeugTyp.LKW : FahrzeugTyp.PKW));
-		}
-		
-		
-		
-		
+		else {*/
+			// falls keine verbindung vorhanden ist
+			for (int i = 0; i < 18; i++) {
+				switch (i) {
+				case 0,1,2,3:
+					fahrzeuge.add(new EinsatzLeitfahrzeug(1,2, FahrzeugTyp.PKW, FahrzeugStatus.Bereit, "EI-" + i, "Einsatzleiter"));
+					break;
+				case 4,5,6,7,8:
+					fahrzeuge.add(new Leiterwagen(2,4, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "LT-" + i, 8));
+					break;
+				case 9,10,11,12:
+					fahrzeuge.add(new Mannschaftstransporter(3,14, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "MT-" + i, 1990+i));
+					break;
+				case 13,14,15,16,17:
+					fahrzeuge.add(new TankLoeschfahrzeug(4,2, FahrzeugTyp.LKW, FahrzeugStatus.Bereit, "TL-" + i, 50));
+					break;
+				}
+			}
+			for (int i = 0; i < 80; i++) {
+				mitarbeiter.add(new Feuerwehrmensch(i,MitarbeiterStatus.Bereit, "Dummy " + i, i<10 ? FahrzeugTyp.LKW : FahrzeugTyp.PKW));
+			}
+		//}
 	}
 	
 	/**
@@ -135,24 +164,16 @@ public class Feuerwache {
 		for (Fahrzeug fahrzeug : fahrzeuge) {
 			switch (fahrzeug.getFahrzeugName()) {
 				case "Einsatz-Leitfahrzeug":
-					if(curFahr[0] < typ.minEinsatzfahrzeug) {
 						curFahr[0]++;
-					}
 					break;
 				case "Tank-Löschfahrzeug":
-					if(curFahr[1] < typ.minTankLoeschfahrzeug) {
 						curFahr[1]++;
-					}
 					break;
 				case "Mannschaftstransporter":
-					if(curFahr[2] < typ.minManschaftstransporter) {
 						curFahr[2]++;
-					}
 					break;
 				case "Leiterwagen":
-					if(curFahr[3] < typ.minLeiterwagen) {
 						curFahr[3]++;
-					}
 					break;
 
 				default:
@@ -196,6 +217,7 @@ public class Feuerwache {
 		return curWagen[0] < minLKW
 				|| curWagen[1] < typ.minEinsatzfahrzeug
 				|| minMit < typ.minMitarbeiter
+				|| minMit > (curFahr[0] * 2 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2)
 				? false : true;
 	}
 
