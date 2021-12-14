@@ -63,7 +63,7 @@ public class FeuerwehrleuteView extends JScrollPane {
 			public void hyperlinkUpdate(HyperlinkEvent e) {
 				if (e instanceof FormSubmitEvent) {
 					String[] splits = ((FormSubmitEvent) e).getData().split("=")[1].split("_");
-					feuerwehrleute.get(Integer.parseInt(splits[1])).setMitarbeiterStatus(switch (splits[0]) {
+					feuerwache.updateStatus(feuerwehrleute.get(Integer.parseInt(splits[1])), switch (splits[0]) {
 					case "bereit" -> MitarbeiterStatus.Bereit;
 					case "einsatz" -> MitarbeiterStatus.Einsatz;
 					case "urlaub" -> MitarbeiterStatus.Urlaub;

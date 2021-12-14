@@ -7,6 +7,9 @@ import menschen.Feuerwehrmensch;
 import util.FahrzeugStatus;
 import util.MitarbeiterStatus;
 
+/**
+ * Um Einsätze zu speichern
+ */
 public class Einsatz {
 	private EinsatzTyp einsatzTyp;
 	private ArrayList<Fahrzeug> fahrzeuge;
@@ -27,6 +30,14 @@ public class Einsatz {
 		if(!istVorschlag)
 			starteEinsatz();
 	}
+	/**
+	 * Erstellt einen neuen Einsatz.
+	 * @param typ Der Einsatz der ausgeführt werden soll.
+	 * @param fahrzeuge Die Fahrzeuge die verwendet werden sollen.
+	 * @param mitarbeiter Die Mitarbeiter die zugeteilt wurden.
+	 * @param istVorschlag auf true setzen um den Einsatz nicht zu Starten.
+	 * @param einsatzID um den Einsatz bei der Init zuzuweisen.
+	 */
 	public Einsatz(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter, boolean istVorschlag, int einsatzID) {
 		einsatzTyp = typ;
 		this.fahrzeuge = fahrzeuge;
@@ -62,38 +73,30 @@ public class Einsatz {
 	
 	/**
 	 * Zum Anzeigen im Gui.
-	 * @return EinsatzTyp
+	 * @return Der EinsatzTyp dieses Einsatzes
 	 */
 	public EinsatzTyp getEinsatzTyp() {
 		return einsatzTyp;
 	}
 	
 	/**
-	 * Zum anpassen der Fahrzeuge.
-	 */
-	public void setFahrzeuge(ArrayList<Fahrzeug> fahrzeuge){
-		this.fahrzeuge = fahrzeuge;
-	}
-	/**
-	 * Zum anpassen der Mitqarbeiter.
-	 */
-	public void setMitarbeiter(ArrayList<Feuerwehrmensch> mitarbeiter){
-		this.mitarbeiter = mitarbeiter;
-	}
-	/**
 	 * Zum Anzeigen im Gui.
-	 * @return ArrayList Fahrzeug
+	 * @return ArrayList alle Fahrzeug
 	 */
 	public ArrayList<Fahrzeug> getFahrzeuge(){
 		return fahrzeuge;
 	}
 	/**
 	 * Zum Anzeigen im Gui.
-	 * @return ArrayList Feuerwehrmensch
+	 * @return ArrayList alle Mitarbeiter
 	 */
 	public ArrayList<Feuerwehrmensch> getMitarbeiter(){
 		return mitarbeiter;
 	}
+	/**
+	 * Bekomme Die Einsatz Id
+	 * @return Einsatz Id
+	 */
 	public int getID() {
 		return einsatzID;
 	}

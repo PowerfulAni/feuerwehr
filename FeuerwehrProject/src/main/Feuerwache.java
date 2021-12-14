@@ -1,15 +1,12 @@
 package main;
 
-import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Map;
 
-import einsaetze.Einsatz;
-import einsaetze.EinsatzTyp;
+import einsaetze.*;
 import fahrzeuge.*;
 import menschen.*;
 import util.*;
-import mysql.Datenbank;
+import mysql.*;
 
 /**
  * Hier werden alle fahrzeuge und Mitarbeiter verwaltet.
@@ -23,39 +20,36 @@ public class Feuerwache {
 	private final EinsatzTyp verkehrsunfall = new EinsatzTyp("Verkehrsunfall", 16, 1, 1, 1, 0);
 	private final EinsatzTyp naturkatastrophe = new EinsatzTyp("Naturkatastrophe", 55, 3, 3, 3, 2);
 	private final EinsatzTyp industrieunfall = new EinsatzTyp("Industrieunfall", 40, 3, 2, 2, 2);
-	//private Connection con;
+
 	/**
 	 * Der kontruktor der Klasse um Fahrzeuge und Mitarbeiter zu initialisieren.
 	 */
 	public Feuerwache() {
-		//con = Datenbank.connect();
-		/*if(con != null) {
-			// Alle Fahrzeuge
-			fahrzeuge.addAll(Datenbank.initEinsatzLeitfahrzeug(con));
-			fahrzeuge.addAll(Datenbank.initLeiterwagen(con));
-			fahrzeuge.addAll(Datenbank.initMannschaftstransporter(con));
-			fahrzeuge.addAll(Datenbank.initTankLoeschfahrzeug(con));
-			// Und Menschen
-			mitarbeiter.addAll(Datenbank.initFeuerwehrmensch(con));
+		if(Datenbank.connect()) {
+			fahrzeuge = Datenbank.initFahrzeug();
+			mitarbeiter = Datenbank.initFeuerwehrmensch();
 			// Erstelle die gestarteten Einsätze
-			ArrayList mission = Datenbank.initEinsatz(con);
-			/*for (Object entry : mission) {
+			ArrayList<EinsatzDaten> mission = Datenbank.initEinsatz();
+			for (EinsatzDaten entry : mission) {
 				ArrayList<Fahrzeug> f = new ArrayList<>();
 				for (int i = 0; i < fahrzeuge.size(); i++) {
-					if(fahrzeuge.get(i).getEinsatzID() == entry.id) {
+					if(fahrzeuge.get(i).getEinsatzID() == entry.getID()) {
 						f.add(fahrzeuge.get(i));
 					}
 				}
 				ArrayList<Feuerwehrmensch> m = new ArrayList<>();
 				for (int i = 0; i < mitarbeiter.size(); i++) {
-					if(mitarbeiter.get(i).getEinsatzID() == entry.id) {
+					if(mitarbeiter.get(i).getEinsatzID() == entry.getID()) {
 						m.add(mitarbeiter.get(i));
 					}
 				}
-				einsaetze.add(new Einsatz(getEinsatzTyp(entry.mis), f, m, false, entry.id));
+				einsaetze.add(new Einsatz(getEinsatzTyp(entry.getName()), f, m, false, entry.getID()));
+				f = null;
+				m = null;
 			}
+			mission = null;
 		}
-		else {*/
+		else {
 			// falls keine verbindung vorhanden ist
 			for (int i = 0; i < 18; i++) {
 				switch (i) {
@@ -76,7 +70,7 @@ public class Feuerwache {
 			for (int i = 0; i < 80; i++) {
 				mitarbeiter.add(new Feuerwehrmensch(i,MitarbeiterStatus.Bereit, "Dummy " + i, i<10 ? FahrzeugTyp.LKW : FahrzeugTyp.PKW));
 			}
-		//}
+		}
 	}
 	
 	/**
@@ -109,7 +103,7 @@ public class Feuerwache {
 	 * new FahrzeugStatus[] { FahrzeugStatus.Bereit, FahrzeugStatus.Wartung }
 	 * 
 	 * @param status Ein Array an Status
-	 * @return int
+	 * @return Maximale anzahl an Fahrzeugen mit den Status
 	 */
 	public int getAbsFahrzeugStatus(FahrzeugStatus[] status) {
 		int sum = 0;
@@ -130,7 +124,7 @@ public class Feuerwache {
 	 * new MitarbeiterStatus[] { MitarbeiterStatus.Urlaub, MitarbeiterStatus.Krank }
 	 * 
 	 * @param status Ein Array an Status
-	 * @return int
+	 * @return Maximale anzahl an Mitarbeitern mit den Status
 	 */
 	public int getAbsMitarbeiterStatus(MitarbeiterStatus[] status) {
 		int sum = 0;
@@ -150,12 +144,22 @@ public class Feuerwache {
 	 * @param einsatz
 	 * @param fahrzeuge
 	 * @param mitarbeiter
-	 * @return
+	 * @return Ob der einsatz möglich wahr
 	 */
 	public boolean startEinsatz(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
 		if(!istEinsatzAnforderung(typ, fahrzeuge, mitarbeiter))
 			return false;
 		einsaetze.add(new Einsatz(typ, fahrzeuge, mitarbeiter, false));
+		// Fühge Einsatz hinzu und setze ID
+		int id = Datenbank.insertEinsatz(mitarbeiter, fahrzeuge, typ);
+		for (int i = 0; i < fahrzeuge.size(); i++) {
+			fahrzeuge.get(i).setEinsatzID(id);
+			Datenbank.updateEinsatz(fahrzeuge.get(i), id);
+		}
+		for (int i = 0; i < mitarbeiter.size(); i++) {
+			mitarbeiter.get(i).setEinsatzID(id);
+			Datenbank.updateEinsatz(mitarbeiter.get(i), id);
+		}
 		return true;
 	}
 
@@ -223,7 +227,7 @@ public class Feuerwache {
 
 	/**
 	 * Gibt den Zuvor Erstellten Vorschlag zurück.
-	 * @return
+	 * @return den Zuvor erstellten Vorschlag
 	 */
 	public Einsatz getVorschlag(){
 		return vorschlag;		
@@ -232,7 +236,7 @@ public class Feuerwache {
 	/**
 	 * Erzeugt nach möglichkeit einen Einsatz Vorschlag.
 	 * @param einsatz
-	 * @return
+	 * @return Ob der Vorschlag erstellt werden konnte
 	 */
 	public boolean kannErzeugeVorschlag(String einsatz) {
 		EinsatzTyp typ = getEinsatzTyp(einsatz);
@@ -355,7 +359,37 @@ public class Feuerwache {
 	public void beendeEinsatz(int index) {
 		
 		einsaetze.get(index).einsatzBeenden();
+		
+		// Resette die Einsatz Id
+		for (Fahrzeug fahr : einsaetze.get(index).getFahrzeuge()) {
+			fahr.setEinsatzID(0);
+			Datenbank.updateEinsatz(fahr, 0);
+		}
+		for (Feuerwehrmensch mit : einsaetze.get(index).getMitarbeiter()) {
+			mit.setEinsatzID(0);
+			Datenbank.updateEinsatz(mit, 0);
+		}
+		Datenbank.deleteEinsatz(einsaetze.get(index));
 		einsaetze.remove(index);
 		
+	}
+	
+	/**
+	 * Updatet den Status vom Fahrzeug
+	 * @param fahr das Fahrzeug
+	 * @param stat der ziel Status
+	 */
+	public void updateStatus(Fahrzeug fahr, FahrzeugStatus stat) {
+		fahr.setFahrzeugStatus(stat);
+		Datenbank.updateStatus(fahr, stat);
+	}
+	/**
+	 * Updatet den Status vom Mitarbeiter
+	 * @param mit der Mitarbiter
+	 * @param stat der ziel Status
+	 */
+	public void updateStatus(Feuerwehrmensch mit, MitarbeiterStatus stat) {
+		mit.setMitarbeiterStatus(stat);
+		Datenbank.updateStatus(mit, stat);
 	}
 }

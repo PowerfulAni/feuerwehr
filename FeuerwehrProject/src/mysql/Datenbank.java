@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.mysql.cj.protocol.Resultset;
-
 import einsaetze.Einsatz;
 import einsaetze.EinsatzTyp;
 import fahrzeuge.Leiterwagen;
@@ -27,7 +25,7 @@ import java.sql.SQLException;
  *
  */
 public class Datenbank {
-
+	private static Connection con;
 	//Nicht Anfassen, Anisa fragen, dann machen
     public Datenbank() {
     	
@@ -36,11 +34,10 @@ public class Datenbank {
 	/**
 	 * Updated den Status vom Feuerwehrmenschen in der DB und im Programm
 	 * @param fw Feuerwehrmensch welcher geupdated werden soll
-	 * @param con MySQL Connection Objekt
 	 * @param status neuer MitarbeiterStatus
 	 * @return Feuerwehrmensch mit neuem Status
 	 */
-	public static Feuerwehrmensch updateStatus(Feuerwehrmensch fw, Connection con, MitarbeiterStatus status) {
+	public static Feuerwehrmensch updateStatus(Feuerwehrmensch fw, MitarbeiterStatus status) {
 		PreparedStatement bs;
 		try {
 			bs = con.prepareStatement("UPDATE `emp` SET `state`='"+status.toString()+"' WHERE id="+fw.getID()+";");
@@ -54,11 +51,10 @@ public class Datenbank {
 	/**
 	 * Updated die Einsatznummer vom Feuerwehrmenschen in der DB und im Programm
 	 * @param fw Feuerwehrmensch welcher geupdated werden soll
-	 * @param con MySQL Connection Objekt
 	 * @param einsatz Einsatz dem der Feuerwehrmensch zugeordnet werden soll
 	 * @return Feuerwehrmensch mit neuer Einsatz ID
 	 */
-	public static Feuerwehrmensch updateEinsatz(Feuerwehrmensch fw, Connection con, int id) {
+	public static Feuerwehrmensch updateEinsatz(Feuerwehrmensch fw, int id) {
 		PreparedStatement bs;
 		try {
 			bs = con.prepareStatement("UPDATE `emp` SET `missionID`='"+id+"' WHERE id="+fw.getID()+";");
@@ -70,7 +66,7 @@ public class Datenbank {
 		return fw;
 	}
 	
-	public static void updateEinsatz(Fahrzeug fg, Connection con, int id) {
+	public static void updateEinsatz(Fahrzeug fg, int id) {
 		PreparedStatement bs;
 		String cmd="";
 		switch(fg.getClass().toString()) {
@@ -95,21 +91,21 @@ public class Datenbank {
 		}
 	}
 	
-	public static void updateStatus(Fahrzeug fg, Connection con, FahrzeugStatus status) {
+	public static void updateStatus(Fahrzeug fg, FahrzeugStatus status) {
 		PreparedStatement bs;
 		String cmd="";
 		System.out.println(fg.getClass().toString());
-		switch(fg.getClass().toString()) {
-		case "class fahrzeuge.EinsatzLeitfahrzeug":
+		switch(fg.getFahrzeugName()) {
+		case "Einsatz-Leitfahrzeug":
 			cmd= "UPDATE `commandVehicle` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
 			break;
-		case "class fahrzeuge.Leiterwagen":
+		case "Tank-Löschfahrzeug":
 			cmd="UPDATE `turntableLadder` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
 			break;
-		case "class fahrzeuge.Mannschaftstransporter":
+		case "Mannschaftstransporter":
 			cmd = "UPDATE `crewTransport` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
 			break;
-		case "class fahrzeuge.TankLoeschfahrzeug":
+		case "Leiterwagen":
 			cmd = "UPDATE `commandVehicle` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
 			break;
 		}
@@ -129,7 +125,7 @@ public class Datenbank {
 	 * @param einsatzTyp EinsatzTyp
 	 * @return ID des einsatzes in DB
 	 */
-	public static int insertEinsatz(Connection con, ArrayList<Feuerwehrmensch> fwList, ArrayList<Fahrzeug> fList, EinsatzTyp einsatzTyp) {
+	public static int insertEinsatz(ArrayList<Feuerwehrmensch> fwList, ArrayList<Fahrzeug> fList, EinsatzTyp einsatzTyp) {
 		PreparedStatement bs;
 		int id=0;
 		try {
@@ -142,20 +138,20 @@ public class Datenbank {
 				System.out.println("ID: "+rs.getInt(1));
 				id=rs.getInt(1);
 				}
-			int count=0;
+			/*int count=0;
 			while(fwList.size() > count) {
-				Feuerwehrmensch fw = updateStatus(fwList.get(count), con, MitarbeiterStatus.Einsatz);
-				fw= updateEinsatz(fwList.get(count), con,id);
+				Feuerwehrmensch fw = updateStatus(fwList.get(count), MitarbeiterStatus.Einsatz);
+				fw= updateEinsatz(fwList.get(count),id);
 				fwList.get(count).setMitarbeiterStatus(fw.getMitarbeiterStatus());
 				fwList.get(count).setEinsatzID(id);
 				count++;
 			}
 			count=0;
 			while(fList.size()>count) {
-				updateStatus(fList.get(count), con, FahrzeugStatus.Einsatz);
-				updateEinsatz(fList.get(count), con, id);
+				updateStatus(fList.get(count), FahrzeugStatus.Einsatz);
+				updateEinsatz(fList.get(count), id);
 				count++;
-			}
+			}*/
 			return id;
 		} catch(SQLException e){
 			System.out.println(e.getMessage());
@@ -169,26 +165,26 @@ public class Datenbank {
 	 * @param con  MySQL Connect Objekt
 	 * @param einsatz Einsatz welcher aus DB gelöscht werden soll
 	 */
-	public static void deleteEinsatz(Connection con,Einsatz einsatz) {
+	public static void deleteEinsatz(Einsatz einsatz) {
 		PreparedStatement bs;
 		try {
 			bs = con.prepareStatement("DELETE FROM `PowerfulAni-906454`.`mission` WHERE  `id`="+einsatz.getID()+";");
 			bs.executeUpdate();
 			Statement stm = con.createStatement();
-			int count=0;
+			/*int count=0;
 			while(einsatz.getMitarbeiter().size() > count) {
-				Feuerwehrmensch fw = updateStatus(einsatz.getMitarbeiter().get(count), con, MitarbeiterStatus.Bereit);
-				fw= updateEinsatz(einsatz.getMitarbeiter().get(count), con,0);
+				Feuerwehrmensch fw = updateStatus(einsatz.getMitarbeiter().get(count), MitarbeiterStatus.Bereit);
+				fw= updateEinsatz(einsatz.getMitarbeiter().get(count),0);
 				einsatz.getMitarbeiter().get(count).setMitarbeiterStatus(fw.getMitarbeiterStatus());
 				einsatz.getMitarbeiter().get(count).setEinsatzID(0);
 				count++;
 			}
 			count=0;
 			while(einsatz.getFahrzeuge().size()>count) {
-				updateStatus(einsatz.getFahrzeuge().get(count), con, FahrzeugStatus.Bereit);
-				updateEinsatz(einsatz.getFahrzeuge().get(count), con, 0);
+				updateStatus(einsatz.getFahrzeuge().get(count), FahrzeugStatus.Bereit);
+				updateEinsatz(einsatz.getFahrzeuge().get(count), 0);
 				count++;
-			}
+			}*/
 		} catch(SQLException e){
 			System.out.println(e.getMessage());
 		}
@@ -199,12 +195,12 @@ public class Datenbank {
 	 * @param con MySQL Connection Object
 	 * @return ArrayList mit ALLEN Fahrzeugen aus der DB
 	 */
-	public static ArrayList<Fahrzeug> initFahrzeug(Connection con){
+	public static ArrayList<Fahrzeug> initFahrzeug(){
 		ArrayList<Fahrzeug> fList = new ArrayList<Fahrzeug>();
-		fList.addAll(initLeiterwagen(con));
-		fList.addAll(initTankLoeschfahrzeug(con));
-		fList.addAll(initMannschaftstransporter(con));
-		fList.addAll(initEinsatzLeitfahrzeug(con));
+		fList.addAll(initLeiterwagen());
+		fList.addAll(initTankLoeschfahrzeug());
+		fList.addAll(initMannschaftstransporter());
+		fList.addAll(initEinsatzLeitfahrzeug());
 		fList.forEach((n) -> System.out.println(n.getKennzeichen()));
 		return fList;
 	}
@@ -213,7 +209,7 @@ public class Datenbank {
 	 * @param con MySQL Connection Object
 	 * @return Arraylist der Initialisierten Feuerwehrmenschen
 	 */
-	public static ArrayList<Feuerwehrmensch> initFeuerwehrmensch(Connection con) {
+	public static ArrayList<Feuerwehrmensch> initFeuerwehrmensch() {
 		ArrayList<Feuerwehrmensch> fwList = new ArrayList<Feuerwehrmensch>();
 		try {
 			Statement stm = con.createStatement();
@@ -235,10 +231,9 @@ public class Datenbank {
 	}
 	/**
 	 * Initialisiert Leiterwagen aus DB
-	 * @param con MySQL Connection Objekt
 	 * @return Arraylist der Initialisierten Leiterwagen
 	 */
-	public static ArrayList<Leiterwagen> initLeiterwagen(Connection con) {
+	public static ArrayList<Leiterwagen> initLeiterwagen() {
 		ArrayList<Leiterwagen> fwList = new ArrayList<Leiterwagen>();
 		try {
 			Statement stm = con.createStatement();
@@ -263,10 +258,9 @@ public class Datenbank {
 	}
 	/**
 	 * Initialisiert TankLoeschfahrzeug aus DB
-	 * @param con MySQL Connection Objekt
 	 * @return Arraylist der Initialisierten TankLoeschfahrzeug
 	 */
-	public static ArrayList<TankLoeschfahrzeug> initTankLoeschfahrzeug(Connection con) {
+	public static ArrayList<TankLoeschfahrzeug> initTankLoeschfahrzeug() {
 		ArrayList<TankLoeschfahrzeug> fwList = new ArrayList<TankLoeschfahrzeug>();
 		try {
 			Statement stm = con.createStatement();
@@ -291,10 +285,9 @@ public class Datenbank {
 	}
 	/**
 	 * Initialisiert Mannschaftstransporter aus DB
-	 * @param con MySQL Connection Objekt
 	 * @return Arraylist der Initialisierten Mannschaftstransporter
 	 */
-	public static ArrayList<Mannschaftstransporter> initMannschaftstransporter(Connection con) {
+	public static ArrayList<Mannschaftstransporter> initMannschaftstransporter() {
 		ArrayList<Mannschaftstransporter> fwList = new ArrayList<Mannschaftstransporter>();
 		try {
 			Statement stm = con.createStatement();
@@ -319,10 +312,9 @@ public class Datenbank {
 	}
 	/**
 	 * Initialisiert EinsatzLeitfahrzeug aus DB
-	 * @param con MySQL Connection Objekt
 	 * @return Arraylist der Initialisierten EinsatzLeitfahrzeug
 	 */
-	public static ArrayList<EinsatzLeitfahrzeug> initEinsatzLeitfahrzeug(Connection con) {
+	public static ArrayList<EinsatzLeitfahrzeug> initEinsatzLeitfahrzeug() {
 		ArrayList<EinsatzLeitfahrzeug> fwList = new ArrayList<EinsatzLeitfahrzeug>();
 		try {
 			Statement stm = con.createStatement();
@@ -346,7 +338,7 @@ public class Datenbank {
 		return fwList;
 	}
 	
-	/*public static ArrayList<Einsatz> initEinsatzF(Connection con) {
+	/*public static ArrayList<Einsatz> initEinsatzF() {
 		Einsatz einsatz;
 		ArrayList<Einsatz> einsatzList = new ArrayList<Einsatz>();
 		EinsatzTyp einsatzTyp = null;
@@ -414,13 +406,13 @@ public class Datenbank {
 	}*/
 
 	
-	public static ArrayList<EinsatzDaten> initEinsatz(Connection con){
+	public static ArrayList<EinsatzDaten> initEinsatz(){
 		ArrayList<EinsatzDaten> edList = new ArrayList<EinsatzDaten>();
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery("SELECT * FROM mission;");
 			while(rs.next()){
-				System.out.println("ID: "+rs.getInt(1) + " istVorschlag: " +
+				System.out.println("ID: "+rs.getInt(1) + " Einsatz: " +
 		                   rs.getString(2));
 				EinsatzDaten ed = new EinsatzDaten(rs.getInt(1),rs.getString(2));
 				edList.add(ed);
@@ -434,20 +426,20 @@ public class Datenbank {
 	
 	/**
 	 * Verbindet sich mit der Datenbank
-	 * @return MySQL Connection Objekt
+	 * @return Status ob verbunden wererden konnte
 	 */
-	public static Connection connect() {
+	public static Boolean connect() {
 		String url = "jdbc:mysql://134.255.253.141/PowerfulAni-906454";
 	    String user = "PowerfulAni-906454";
 	    String pass = "PeuDrMdjpmjFdfmnKBuymrJ6K";
 		try {
-		    Connection con = DriverManager.getConnection(url, user, pass);
+		    con = DriverManager.getConnection(url, user, pass);
 		    System.out.println("Verbindung erfolgreich hergestellt");
-		    return con;
+		    return true;
 		    } catch (SQLException e) {
 		    System.out.println(e.getMessage());
 		    }
-		return null;
+		return false;
 	}
 
 }
