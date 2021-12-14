@@ -32,25 +32,6 @@ public class Datenbank {
     public Datenbank() {
     	
     }
-	/*public static void main(String[] args) { //main methode nur temporär zum testen meiner sql methodik
-			Connection con = connect();
-			
-			//Feuerwehrmensch fw = new Feuerwehrmensch(1, null, null, null);
-			//fw = updateEinsatz(fw, con, 0);
-			ArrayList<Feuerwehrmensch> fwList = initFeuerwehrmensch(con);
-			System.out.println("Erlaubnis: "+fwList.get(2).getFahrerlaubnis());
-			ArrayList<Leiterwagen> lwList = initLeiterwagen(con);
-			ArrayList<TankLoeschfahrzeug> lfList = initTankLoeschfahrzeug(con);
-			ArrayList<Mannschaftstransporter> mwList=initMannschaftstransporter(con);
-			/*Einsatz einsatz;
-			ArrayList<Einsatz> einsatzList = initEinsatz(con);
-			einsatz=einsatzList.get(0);
-			System.out.println(einsatz.getMitarbeiter().get(0).getName());
-			System.out.println(einsatz.getFahrzeuge().get(0).getFahrzeugName());
-			einsatz=einsatzList.get(1);
-			System.out.println(einsatz.getMitarbeiter().get(0).getName());
-			System.out.println(einsatz.getFahrzeuge().get(0).getFahrzeugName());*/
-	}*/
 	//Ab hier Abwechselnd Status und Einsatz updater der verschiedenen Datentypen
 	/**
 	 * Updated den Status vom Feuerwehrmenschen in der DB und im Programm
@@ -77,128 +58,156 @@ public class Datenbank {
 	 * @param einsatz Einsatz dem der Feuerwehrmensch zugeordnet werden soll
 	 * @return Feuerwehrmensch mit neuer Einsatz ID
 	 */
-	public static Feuerwehrmensch updateEinsatz(Feuerwehrmensch fw, Connection con, Einsatz einsatz) {
+	public static Feuerwehrmensch updateEinsatz(Feuerwehrmensch fw, Connection con, int id) {
 		PreparedStatement bs;
 		try {
-			bs = con.prepareStatement("UPDATE `emp` SET `missionID`='"+einsatz.getID()+"' WHERE id="+fw.getID()+";");
+			bs = con.prepareStatement("UPDATE `emp` SET `missionID`='"+id+"' WHERE id="+fw.getID()+";");
 			bs.executeUpdate();
 		} catch(SQLException e){
 			System.out.println(e.getMessage());
 		}
-		fw.setEinsatzID(einsatz.getID());
+		fw.setEinsatzID(id);
 		return fw;
 	}
-	/**
-	 * 
-	 * @param lw Updated den Status vom Leiterwagen in der DB und im Programm
-	 * @param con Leiterwagen welcher geupdated werden soll
-	 * @param status MySQL Connection Objekt
-	 * @return Leiterwagen mit neuem Status
-	 */
-	public static Leiterwagen updateStatus(Leiterwagen lw, Connection con, FahrzeugStatus status) {
+	
+	public static void updateEinsatz(Fahrzeug fg, Connection con, int id) {
 		PreparedStatement bs;
+		String cmd="";
+		switch(fg.getClass().toString()) {
+		case "class fahrzeuge.EinsatzLeitfahrzeug":
+			cmd= "UPDATE `commandVehicle` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
+			break;
+		case "class fahrzeuge.Leiterwagen":
+			cmd="UPDATE `turntableLadder` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
+			break;
+		case "class fahrzeuge.Mannschaftstransporter":
+			cmd = "UPDATE `crewTransport` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
+			break;
+		case "class fahrzeuge.TankLoeschfahrzeug":
+			cmd = "UPDATE `fireEngine` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
+			break;
+		}
 		try {
-			bs = con.prepareStatement("UPDATE `turntableLadder` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+lw.getID()+";");
+			bs = con.prepareStatement(cmd);
 			bs.executeUpdate();
 		} catch(SQLException e){
 			System.out.println(e.getMessage());
 		}
-		lw.setFahrzeugStatus(status);
-		return lw;
-	}
-	/**
-	 * Updated die Einsatznummer vom Leiterwagen in der DB und im Programm
-	 * @param lw Leiterwagen welcher geupdated werden soll
-	 * @param con MySQL Connection Objekt
-	 * @param einsatz Einsatz dem der Feuerwehrmensch zugeordnet werden soll
-	 * @return Leiterwagen mit neuer Einsatz ID
-	 */
-	public static Leiterwagen updateEinsatz(Leiterwagen lw, Connection con, Einsatz einsatz) {
-		PreparedStatement bs;
-		try {
-			bs = con.prepareStatement("UPDATE `turntableLadder` SET `missionID`='"+einsatz.getID()+"' WHERE id="+lw.getID()+";");
-			bs.executeUpdate();
-		} catch(SQLException e){
-			System.out.println(e.getMessage());
-		}
-		lw.setEinsatzID(einsatz.getID());
-		return lw;
-	}
-	/**
-	 * 
-	 * @param lw Updated den Status vom Mannschaftstransporter in der DB und im Programm
-	 * @param con Mannschaftstransporter welcher geupdated werden soll
-	 * @param status MySQL Connection Objekt
-	 * @return
-	 */
-	public static Mannschaftstransporter updateStatus(Mannschaftstransporter lw, Connection con, FahrzeugStatus status) {
-		PreparedStatement bs;
-		try {
-			bs = con.prepareStatement("UPDATE `crewTransport` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+lw.getID()+";");
-			bs.executeUpdate();
-		} catch(SQLException e){
-			System.out.println(e.getMessage());
-		}
-		lw.setFahrzeugStatus(status);
-		return lw;
-	}
-	/**
-	 * Updated die Einsatznummer vom Mannschaftstransporter in der DB und im Programm
-	 * @param lw Mannschaftstransporter welcher geupdated werden soll
-	 * @param con MySQL Connection Objekt
-	 * @param einsatz Einsatz dem der Mannschaftstransporter zugeordnet werden soll
-	 * @return Mannschaftstransporter mit neuer Einsatz ID
-	 */
-	public static Mannschaftstransporter updateEinsatz(Mannschaftstransporter lw, Connection con, Einsatz einsatz) {
-		PreparedStatement bs;
-		try {
-			bs = con.prepareStatement("UPDATE `crewTransport` SET `missionID`='"+einsatz.getID()+"' WHERE id="+lw.getID()+";");
-			bs.executeUpdate();
-		} catch(SQLException e){
-			System.out.println(e.getMessage());
-		}
-		lw.setEinsatzID(einsatz.getID());
-		return lw;
-	}
-	/**
-	 * 
-	 * @param lw Updated den Status vom EinsatzLeitfahrzeug in der DB und im Programm
-	 * @param con EinsatzLeitfahrzeug welcher geupdated werden soll
-	 * @param status MySQL Connection Objekt
-	 * @return
-	 */
-	public static EinsatzLeitfahrzeug updateStatus(EinsatzLeitfahrzeug lw, Connection con, FahrzeugStatus status) {
-		PreparedStatement bs;
-		try {
-			bs = con.prepareStatement("UPDATE `commandVehicle` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+lw.getID()+";");
-			bs.executeUpdate();
-		} catch(SQLException e){
-			System.out.println(e.getMessage());
-		}
-		lw.setFahrzeugStatus(status);
-		return lw;
-	}
-	/**
-	 * Updated die Einsatznummer vom EinsatzLeitfahrzeug in der DB und im Programm
-	 * @param lw EinsatzLeitfahrzeug welcher geupdated werden soll
-	 * @param con MySQL EinsatzLeitfahrzeug Objekt
-	 * @param einsatz Einsatz dem der EinsatzLeitfahrzeug zugeordnet werden soll
-	 * @return EinsatzLeitfahrzeug mit neuer Einsatz ID
-	 */
-	public static EinsatzLeitfahrzeug updateEinsatz(EinsatzLeitfahrzeug lw, Connection con, Einsatz einsatz) {
-		PreparedStatement bs;
-		try {
-			bs = con.prepareStatement("UPDATE `commandVehicle` SET `missionID`='"+einsatz.getID()+"' WHERE id="+lw.getID()+";");
-			bs.executeUpdate();
-		} catch(SQLException e){
-			System.out.println(e.getMessage());
-		}
-		lw.setEinsatzID(einsatz.getID());
-		return lw;
 	}
 	
-	
+	public static void updateStatus(Fahrzeug fg, Connection con, FahrzeugStatus status) {
+		PreparedStatement bs;
+		String cmd="";
+		System.out.println(fg.getClass().toString());
+		switch(fg.getClass().toString()) {
+		case "class fahrzeuge.EinsatzLeitfahrzeug":
+			cmd= "UPDATE `commandVehicle` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
+			break;
+		case "class fahrzeuge.Leiterwagen":
+			cmd="UPDATE `turntableLadder` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
+			break;
+		case "class fahrzeuge.Mannschaftstransporter":
+			cmd = "UPDATE `crewTransport` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
+			break;
+		case "class fahrzeuge.TankLoeschfahrzeug":
+			cmd = "UPDATE `commandVehicle` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
+			break;
+		}
+		try {
+			bs = con.prepareStatement(cmd);
+			bs.executeUpdate();
+		} catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+	}
+	//Ab hier Insert Methode
+	/**
+	 * Fügt Einsatz in die DB ein und updated zugehörige ArrayLists in DB
+	 * @param con MySQL Connect Objekt
+	 * @param fwList ArrayList der zugehörigen Feuerwehrmenschen
+	 * @param fList ArrayList der zugehörigen Fahrzeuge
+	 * @param einsatzTyp EinsatzTyp
+	 * @return ID des einsatzes in DB
+	 */
+	public static int insertEinsatz(Connection con, ArrayList<Feuerwehrmensch> fwList, ArrayList<Fahrzeug> fList, EinsatzTyp einsatzTyp) {
+		PreparedStatement bs;
+		int id=0;
+		try {
+			bs = con.prepareStatement("INSERT INTO `PowerfulAni-906454`.`mission` (`name`) VALUES ('"+einsatzTyp.getName()+"');");
+			bs.executeUpdate();
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery("SELECT LAST_INSERT_ID();");
+			while(rs.next()){
+				Feuerwehrmensch fw;
+				System.out.println("ID: "+rs.getInt(1));
+				id=rs.getInt(1);
+				}
+			int count=0;
+			while(fwList.size() > count) {
+				Feuerwehrmensch fw = updateStatus(fwList.get(count), con, MitarbeiterStatus.Einsatz);
+				fw= updateEinsatz(fwList.get(count), con,id);
+				fwList.get(count).setMitarbeiterStatus(fw.getMitarbeiterStatus());
+				fwList.get(count).setEinsatzID(id);
+				count++;
+			}
+			count=0;
+			while(fList.size()>count) {
+				updateStatus(fList.get(count), con, FahrzeugStatus.Einsatz);
+				updateEinsatz(fList.get(count), con, id);
+				count++;
+			}
+			return id;
+		} catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		return id;
+	}
+
+	//Ab hier DELETE Methode
+	/**
+	 * Löscht Einsatz aus DB und stellt zugehörige 
+	 * @param con  MySQL Connect Objekt
+	 * @param einsatz Einsatz welcher aus DB gelöscht werden soll
+	 */
+	public static void deleteEinsatz(Connection con,Einsatz einsatz) {
+		PreparedStatement bs;
+		try {
+			bs = con.prepareStatement("DELETE FROM `PowerfulAni-906454`.`mission` WHERE  `id`="+einsatz.getID()+";");
+			bs.executeUpdate();
+			Statement stm = con.createStatement();
+			int count=0;
+			while(einsatz.getMitarbeiter().size() > count) {
+				Feuerwehrmensch fw = updateStatus(einsatz.getMitarbeiter().get(count), con, MitarbeiterStatus.Bereit);
+				fw= updateEinsatz(einsatz.getMitarbeiter().get(count), con,0);
+				einsatz.getMitarbeiter().get(count).setMitarbeiterStatus(fw.getMitarbeiterStatus());
+				einsatz.getMitarbeiter().get(count).setEinsatzID(0);
+				count++;
+			}
+			count=0;
+			while(einsatz.getFahrzeuge().size()>count) {
+				updateStatus(einsatz.getFahrzeuge().get(count), con, FahrzeugStatus.Bereit);
+				updateEinsatz(einsatz.getFahrzeuge().get(count), con, 0);
+				count++;
+			}
+		} catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+	}
 	//Ab hier Init Methoden
+	/**
+	 * Initialisiert Fahrzeuge aus der DB
+	 * @param con MySQL Connection Object
+	 * @return ArrayList mit ALLEN Fahrzeugen aus der DB
+	 */
+	public static ArrayList<Fahrzeug> initFahrzeug(Connection con){
+		ArrayList<Fahrzeug> fList = new ArrayList<Fahrzeug>();
+		fList.addAll(initLeiterwagen(con));
+		fList.addAll(initTankLoeschfahrzeug(con));
+		fList.addAll(initMannschaftstransporter(con));
+		fList.addAll(initEinsatzLeitfahrzeug(con));
+		fList.forEach((n) -> System.out.println(n.getKennzeichen()));
+		return fList;
+	}
 	/**
 	 * Initialisiert Feuerwehrmenschen aus DB
 	 * @param con MySQL Connection Object
@@ -404,32 +413,25 @@ public class Datenbank {
 		
 	}*/
 
-	public static ArrayList<Einsatz> initEinsatz(Connection con){
-		ArrayList<Einsatz> einsatzList = new ArrayList<Einsatz>();
-		Einsatz einsatz;
-		EinsatzTyp einsatzTyp =null;
-		int id =0;
+	
+	public static ArrayList<EinsatzDaten> initEinsatz(Connection con){
+		ArrayList<EinsatzDaten> edList = new ArrayList<EinsatzDaten>();
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery("SELECT * FROM mission;");
 			while(rs.next()){
 				System.out.println("ID: "+rs.getInt(1) + " istVorschlag: " +
-		                   rs.getString(2) + " minFeuerwehrmensch: " +
-		                   rs.getString(3) + " minEinsatzleitwagen: " +
-		                   rs.getString(4) + " minLoeschfahrzeug: "+
-		                   rs.getString(5) + " minManschaftstransporter: " +
-		                   rs.getString(6) + " minLeiterwagen: "+
-		                   rs.getString(7) + " name: "+
-		                   rs.getString(8));
-				einsatzTyp=new EinsatzTyp(rs.getString(8), rs.getInt(3),rs.getInt(4), rs.getInt(5),rs.getInt(6),rs.getInt(7));
-				id=rs.getInt(1);
+		                   rs.getString(2));
+				EinsatzDaten ed = new EinsatzDaten(rs.getInt(1),rs.getString(2));
+				edList.add(ed);
 			}
+			return edList;
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
 		return null;
 	}
+	
 	/**
 	 * Verbindet sich mit der Datenbank
 	 * @return MySQL Connection Objekt
