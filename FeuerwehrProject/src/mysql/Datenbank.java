@@ -21,14 +21,12 @@ import util.MitarbeiterStatus;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 /**
- * Datenbank Vebindugs und Dateninitialiserungs sowie Update Klasse
+ * Datenbank Verwaltungs Klasse
  * How To: MySQL Connection mit dem connect aufbauen, danach daraus entstandenes objekt für andere Methoden nutzen
- * @author Anisa Mecheraoui
  *
  */
 public class Datenbank {
 
-	//Nicht Anfassen, Anisa fragen, dann machen
     public Datenbank() {
     	
     }
@@ -345,74 +343,6 @@ public class Datenbank {
 		}
 		return fwList;
 	}
-	
-	/*public static ArrayList<Einsatz> initEinsatzF(Connection con) {
-		Einsatz einsatz;
-		ArrayList<Einsatz> einsatzList = new ArrayList<Einsatz>();
-		EinsatzTyp einsatzTyp = null;
-		ArrayList<Fahrzeug> tempList = new ArrayList<Fahrzeug>();
-		ArrayList<Fahrzeug> fList = new ArrayList<Fahrzeug>();
-		ArrayList<Feuerwehrmensch> feuerList = new ArrayList<Feuerwehrmensch>();
-		boolean istVorschlag = false;
-		int id=0;
-		try {
-			Statement stm = con.createStatement();
-			ResultSet rs = stm.executeQuery("SELECT * FROM mission;");
-			while(rs.next()){
-				System.out.println("ID: "+rs.getInt(1) + " istVorschlag: " +
-		                   rs.getString(2) + " minFeuerwehrmensch: " +
-		                   rs.getString(3) + " minEinsatzleitwagen: " +
-		                   rs.getString(4) + " minLoeschfahrzeug: "+
-		                   rs.getString(5) + " minManschaftstransporter: " +
-		                   rs.getString(6) + " minLeiterwagen: "+
-		                   rs.getString(7));
-				einsatzTyp=new EinsatzTyp(rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6),rs.getInt(7));
-				id=rs.getInt(1);
-				if(rs.getInt(2)==0) {
-					istVorschlag = false;
-				}else {
-					istVorschlag=true;
-				}
-				
-			//ArrayList Fahrzeuge erstellen
-			ArrayList<EinsatzLeitfahrzeug> elList = initEinsatzLeitfahrzeug(con);
-			ArrayList<Mannschaftstransporter> mList = initMannschaftstransporter(con);
-			ArrayList<Leiterwagen> lList = initLeiterwagen(con);
-			ArrayList<TankLoeschfahrzeug> tList=initTankLoeschfahrzeug(con);
-			tempList.addAll(elList);
-			tempList.addAll(mList);
-			tempList.addAll(lList);
-			tempList.addAll(tList);
-			for(int i = 0; i<tempList.size(); i++) { // hier filtere ich nach den Fahrzeugen die am Einsatz mitmachen
-				if(tempList.get(i).getEinsatzID()==id) {
-					fList.add(tempList.get(i));
-				}
-			}
-			//Feuerwehrmenschen init ohne neue Mthode da technik wie bei Fahrzeuge nicht klappt
-			Statement stm2 = con.createStatement();
-			ResultSet rs2 = stm2.executeQuery("SELECT * FROM emp WHERE missionID="+id+";");
-			System.out.println("SELECT * FROM emp WHERE missionID="+id+";");
-			while(rs2.next()){
-				Feuerwehrmensch fw;
-				System.out.println("ID: "+rs2.getInt(1) + " Status: " +
-				                   rs2.getString(2) + " Name: " +
-				                   rs2.getString(3) + " Fahrerlaubnis: " +
-				                   rs2.getString(4) + " EinsatzID: "+
-				                   rs2.getString(5));
-				fw = new Feuerwehrmensch(rs2.getInt(1),MitarbeiterStatus.valueOf(rs2.getString(2)), rs2.getString(3), FahrzeugTyp.valueOf(rs2.getString(4)), rs2.getInt(5));
-				feuerList.add(fw);
-			}
-			einsatz = new Einsatz(einsatzTyp, fList, feuerList, istVorschlag, id);
-			einsatzList.add(einsatz);
-			}
-			return einsatzList;
-		}catch(SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return null;
-		
-	}*/
-
 	
 	public static ArrayList<EinsatzDaten> initEinsatz(Connection con){
 		ArrayList<EinsatzDaten> edList = new ArrayList<EinsatzDaten>();
