@@ -25,8 +25,7 @@ public class Feuerwache {
 	 * Der kontruktor der Klasse um Fahrzeuge und Mitarbeiter zu initialisieren.
 	 */
 	public Feuerwache() {
-		//if(Datenbank.connect()) {
-			if(true) {
+		if(Datenbank.connect()) {
 			fahrzeuge = Datenbank.initFahrzeug();
 			mitarbeiter = Datenbank.initFeuerwehrmensch();
 			// Erstelle die gestarteten Einsätze
