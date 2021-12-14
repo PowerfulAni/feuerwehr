@@ -345,8 +345,6 @@ public class EinsatzVorschlag extends JScrollPane {
 		sitzplatze += (tankloesch*4);
 	}
 	private String generateContent(Einsatz vorschlag) {
-		System.out.println(leutelkwFrei.size());
-		System.out.println(leutepkwFrei.size());
 		String content = "<html>";
 		content += "<body>";
 		content += "<h1 style='font-size: 25px; text-align: center;'>Einsatzplanung</h1>";
@@ -370,7 +368,7 @@ public class EinsatzVorschlag extends JScrollPane {
 		content += "<tr><td style='width: 200px; padding: 4px;'><b>Feuerwehrleute (PKW)</b></td><form action='#'><input type='submit' value='-' name='sub_leutepkw' "+((leutepkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter))?"":"hidden")+"'></form><td><td style='font-size: 12px;'>"
 				+ leutepkw
 				+ "</td></td><form action='#'><input type='submit' value='+' name='add_leutepkw' "+((addleutepkw < (leutepkwFrei.size()) && (leutepkw+leutelkw < sitzplatze))?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'></td><td colspan='2'>Sitzplätze</td><td>"+sitzplatze+"</td></tr>";
+		content += "<tr><td style='width: 200px; padding: 4ƒƒpx;'></td><td colspan='2'>Sitzplätze</td><td>"+sitzplatze+"</td></tr>";
 		content += "<tr><td colspan='5'>* Achtung: Es lassen sich nur realisierbare Kombinationen einstellen.</td></tr>";
 		content += "</table>";
 
