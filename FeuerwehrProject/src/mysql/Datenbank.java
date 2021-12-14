@@ -69,17 +69,17 @@ public class Datenbank {
 	public static void updateEinsatz(Fahrzeug fg, int id) {
 		PreparedStatement bs;
 		String cmd="";
-		switch(fg.getClass().toString()) {
-			case "class fahrzeuge.EinsatzLeitfahrzeug":
+		switch(fg.getFahrzeugName()) {
+			case "Einsatz-Leitfahrzeug":
 				cmd= "UPDATE `commandVehicle` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
 				break;
-			case "class fahrzeuge.Leiterwagen":
+			case "Tank-Löschfahrzeug":
 				cmd="UPDATE `turntableLadder` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
 				break;
-			case "class fahrzeuge.Mannschaftstransporter":
+			case "Mannschaftstransporter":
 				cmd = "UPDATE `crewTransport` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
 				break;
-			case "class fahrzeuge.TankLoeschfahrzeug":
+			case "Leiterwagen":
 				cmd = "UPDATE `fireEngine` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
 				break;
 		}
