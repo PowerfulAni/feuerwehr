@@ -40,8 +40,11 @@ public class Gui extends JFrame {
 		this.setSize(800, 600);
 		this.setLayout(new FlowLayout());
 		
-		ImageIcon icon = new ImageIcon("/gui/logo.png");
-		this.setIconImage(icon.getImage());
+		URL url = getClass().getResource("/gui/logo.png");
+		System.out.println(url);
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Image img = kit.createImage(url);
+		this.setIconImage(img);
 
 		panelMain = new JTextPane();
 		panelStatus = new JPanel();
