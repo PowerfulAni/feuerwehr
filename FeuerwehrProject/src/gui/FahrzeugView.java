@@ -16,6 +16,11 @@ import util.MitarbeiterStatus;
 import fahrzeuge.Fahrzeug;
 import main.Feuerwache;
 
+/**
+ * Diese Klasse erstellt den View mit der Übersicht aller Fahrzeuge
+ * 
+ *
+ */
 public class FahrzeugView extends JScrollPane {
 	Feuerwache feuerwache;
 

@@ -17,6 +17,11 @@ import menschen.Feuerwehrmensch;
 import util.FahrzeugStatus;
 import util.MitarbeiterStatus;
 
+/**
+ * Diese Klasse erstellt den View mit dem Einsatzvorschlag
+ * 
+ *
+ */
 public class EinsatzVorschlag extends JScrollPane {
 
 	Feuerwache feuerwache;
@@ -43,6 +48,13 @@ public class EinsatzVorschlag extends JScrollPane {
 	ArrayList<Feuerwehrmensch> leutepkwFrei = new ArrayList<>();
 	ArrayList<Feuerwehrmensch> leutelkwFrei = new ArrayList<>();
 
+	/**
+	 * Konstruktor: Daten des Vorschlags und der Feuerwache werden normalisiert und in die nötige Form gebracht
+	 * @param gui
+	 * @param panelMain
+	 * @param feuerwache
+	 * @param vorschlag
+	 */
 	public EinsatzVorschlag(Gui gui, JTextPane panelMain, Feuerwache feuerwache, Einsatz vorschlag) {
 		this.feuerwache = feuerwache;
 		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);

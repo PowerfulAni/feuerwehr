@@ -14,6 +14,11 @@ import main.Feuerwache;
 import menschen.Feuerwehrmensch;
 import util.MitarbeiterStatus;
 
+/**
+ * 
+ * Diese Klasse erstellt den View mit der Übersicht aller Feuerwehrleute
+ *
+ */
 public class FeuerwehrleuteView extends JScrollPane {
 	Feuerwache feuerwache;
 

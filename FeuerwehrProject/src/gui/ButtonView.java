@@ -4,6 +4,11 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/**
+ * Diese Klasse erstellt den Button View
+ *
+ *
+ */
 public class ButtonView extends JPanel {
 
 	JButton button1;

@@ -7,6 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import main.Feuerwache;
 
+/**
+ * Diese Klasse erstellt ein JPanel mit den Knöpfen zum Starten von Einsätzen
+ * 
+ *
+ */
 public class EinsaetzeZusatz extends JPanel {
 	Feuerwache feuerwache;
 	JButton buttonStart1;

@@ -15,6 +15,11 @@ import fahrzeuge.Fahrzeug;
 import main.Feuerwache;
 import util.FahrzeugStatus;
 
+/**
+ * Diese Klasse erstellt den View mit der Übersicht aller Einsätze
+ * 
+ *
+ */
 public class EinsaetzeView extends JScrollPane {
 	Feuerwache feuerwache;
 

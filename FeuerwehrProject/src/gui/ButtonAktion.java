@@ -8,17 +8,30 @@ import javax.swing.JFrame;
 
 import einsaetze.Einsatz;
 
+/**
+ * 
+ * Diese Klasse gibt den Buttons Ihre Funktionalität
+ *
+ */
 public class ButtonAktion extends JFrame implements ActionListener {
 
 	JButton button;
 	Gui gui;
 
+	/**
+	 * Konstruktor
+	 * @param button
+	 * @param gui
+	 */
 	public ButtonAktion(JButton button, Gui gui) {
 		this.gui = gui;
 		this.button = button;
 		button.addActionListener(this);
 	}
 
+	/**
+	 * Diese Funktion hört auf Events und ruft entsprechend dem gedrückten Knopf eine Funktion auf.
+	 */
 	public void actionPerformed(ActionEvent ae) {
 		String buttonText = this.button.getText();
 		switch (buttonText) {

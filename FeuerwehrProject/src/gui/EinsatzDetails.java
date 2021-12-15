@@ -17,6 +17,11 @@ import main.Feuerwache;
 import menschen.Feuerwehrmensch;
 import util.FahrzeugStatus;
 
+/**
+ * Diese Klasse erstellt den View mit den Einsatzdetails
+ *
+ *
+ */
 public class EinsatzDetails extends JScrollPane {
 	Feuerwache feuerwache;
 

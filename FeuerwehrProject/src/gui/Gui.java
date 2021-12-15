@@ -22,6 +22,11 @@ import main.Feuerwache;
 import util.FahrzeugStatus;
 import util.FahrzeugTyp;
 
+/**
+ * 
+ * Hier wird das Grafische User Interface erstellt
+ *
+ */
 public class Gui extends JFrame {
 
 	JFrame frame;
@@ -32,7 +37,11 @@ public class Gui extends JFrame {
 	int aktuellerView;
 
 	Feuerwache feuerwache;
-
+	
+	/**
+	 * 
+	 * Der Konstruktor der Gui-Klasse. Hier werden die Komponenten initialisiert und der Startview gebaut.
+	 */
 	public Gui(Feuerwache feuerwache) {
 		this.feuerwache = feuerwache;
 
@@ -60,7 +69,9 @@ public class Gui extends JFrame {
 		status.setFont(new Font("Arial", Font.BOLD, 20));
 		showMain();
 	}
-
+	/**
+	 * Diese Funktion löscht den aktuellen View und baut den Mainview (Übersicht)
+	 */
 	public void showMain() {
 		aktuellerView = 0;
 		this.getContentPane().removeAll();
@@ -72,7 +83,10 @@ public class Gui extends JFrame {
 		this.revalidate();
 		this.getContentPane().repaint();
 	}
-
+	
+	/**
+	 * Diese Funktion löscht den aktuellen View und baut den FahrzeugeView (Übersicht aller Fahrzeuge)
+	 */
 	public void showFahrzeuge() {
 		aktuellerView = 1;
 		this.getContentPane().removeAll();
@@ -83,6 +97,9 @@ public class Gui extends JFrame {
 		this.getContentPane().repaint();
 	}
 
+	/**
+	 * Diese Funktion löscht den aktuellen View und baut den FeuerwehrleuteView (Übersicht aller Feuerwehrleute)
+	 */
 	public void showFeuerwehrleute() {
 		aktuellerView = 2;
 		this.getContentPane().removeAll();
@@ -94,6 +111,9 @@ public class Gui extends JFrame {
 		this.getContentPane().repaint();
 	}
 
+	/**
+	 * Diese Funktion löscht den aktuellen View und baut den EinsätzeView (Übersicht aller laufenden Einsätze)
+	 */
 	public void showEinsaetze() {
 		aktuellerView = 3;
 		this.getContentPane().removeAll();
@@ -105,6 +125,11 @@ public class Gui extends JFrame {
 		this.getContentPane().repaint();
 	}
 	
+	/**
+	 * 
+	 * Diese Funktion löscht den aktuellen View und baut die Detailansicht des Einsatzes (Übersicht Einsatz)
+	 * @param int id (Id des Einsatzes)
+	 */
 	public void showEinsatzdetails(int id) {
 		aktuellerView = 3;
 		this.getContentPane().removeAll();
@@ -114,7 +139,11 @@ public class Gui extends JFrame {
 		this.revalidate();
 		this.getContentPane().repaint();
 	}
-	
+	 /**
+	  * 
+	  * Diese Funktion löscht den aktuellen View und baut die Einsatzplanung.
+	  * @param int id (Id des Einsatzes)
+	  */
 	public void showVorschlag(Einsatz vorschlag) {
 		aktuellerView = 3;
 		this.getContentPane().removeAll();
@@ -133,6 +162,9 @@ public class Gui extends JFrame {
 		
 	}
 	
+	/**
+	 * Diese Funktion aktualisiert den aktuellen View um die Änderungen anzuzeigen
+	 */
 	public void refreshView() {
 		switch (aktuellerView) {
 		case 0:

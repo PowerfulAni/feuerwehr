@@ -9,6 +9,11 @@ import main.Feuerwache;
 import util.FahrzeugStatus;
 import util.MitarbeiterStatus;
 
+/**
+ * Diese Klasse erstellt den View mit der Startseite bzw. Übersicht aller Daten
+ * 
+ *
+ */
 public class MainView extends JScrollPane {
 	Feuerwache feuerwache;
 
