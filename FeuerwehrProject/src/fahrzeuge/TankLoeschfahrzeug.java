@@ -12,12 +12,12 @@ public class TankLoeschfahrzeug extends Fahrzeug{
 	
 	/**
 	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze Die zur Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
-	 * @param maxTank maximale Tank größe
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
+	 * @param maxTank maximale Tankgröße
 	 */
 	public TankLoeschfahrzeug(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen, int maxTank) {
 		super(id,sitzplaetze, fahrzeugTyp, fahrzeugstatus, kennzeichen);
@@ -25,12 +25,12 @@ public class TankLoeschfahrzeug extends Fahrzeug{
 	}
 	/**
 	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze Die zur Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
-	 * @param maxTank maximale Tank größe
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
+	 * @param maxTank maximale Tankgröße
 	 * @param einsatzID um bei der Init dies zuzuweisen
 	 */
 	public TankLoeschfahrzeug(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen, int maxTank, int einsatzID) {
@@ -38,8 +38,8 @@ public class TankLoeschfahrzeug extends Fahrzeug{
 		this.maxTank = maxTank;
 	}
 	/**
-	 * Bekomme die Maximale Tank größe
-	 * @return max Tank größe
+	 * Bekomme die Maximale Tankgröße
+	 * @return max Tankgröße
 	 */
 	public int getMaxTank () {
 		return this.maxTank;

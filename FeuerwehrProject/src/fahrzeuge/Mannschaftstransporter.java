@@ -12,12 +12,12 @@ public class Mannschaftstransporter extends Fahrzeug {
 	
 	/**
 	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze Die zur Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
-	 * @param baujahr des fahrzeugs
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
+	 * @param baujahr des Fahrzeugs
 	 */
 	public Mannschaftstransporter(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus,String kennzeichen, int baujahr) {
 		super(id,sitzplaetze, fahrzeugTyp, fahrzeugstatus, kennzeichen);
@@ -25,12 +25,12 @@ public class Mannschaftstransporter extends Fahrzeug {
 	}
 	/**
 	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze Die zur Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
-	 * @param baujahr des fahrzeugs
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
+	 * @param baujahr des Fahrzeugs
 	 * @param einsatzID um bei der Init dies zuzuweisen
 	 */
 	public Mannschaftstransporter(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus,String kennzeichen, int baujahr, int einsatzID) {

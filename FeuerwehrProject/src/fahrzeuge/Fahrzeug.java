@@ -16,12 +16,12 @@ public abstract class Fahrzeug {
 	private int einsatzID=0;
 	
 	/**
-	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * Erstelle ein neues Fahrzeug
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze Die zur Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
 	 */
 	public Fahrzeug(int id, int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen ) {
 		
@@ -33,11 +33,11 @@ public abstract class Fahrzeug {
 	}
 	/**
 	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze Die zur Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
 	 * @param einsatzID um bei der Init dies zuzuweisen
 	 */
 	public Fahrzeug(int id, int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen, int einsatzID ) {
@@ -71,7 +71,7 @@ public abstract class Fahrzeug {
 		this.einsatzID=einsatzID;
 	}
 	/**
-	 * Bekomme die anzahl an Sitzplätzen
+	 * Bekomme die Anzahl an Sitzplätzen
 	 * @return anzahl an Sitzplätzen
 	 */
 	public int getSitzplaetze () {
@@ -107,12 +107,12 @@ public abstract class Fahrzeug {
 	}
 	
 	/**
-	 * Eine methode um den Fahrzeug namen zu erhalten.
+	 * Eine Methode, um den Fahrzeugnamen zu erhalten.
 	 * @return Fahrzeugname
 	 */
 	public abstract String getFahrzeugName();
 	/**
-	 * Eine methode um den Fahrzeug spezial zuerhalten
+	 * Eine Methode, um das Spezialattribut des Fahrzeuges zu erhalten
 	 * @return Spezial
 	 */
 	public abstract String getSpezial();

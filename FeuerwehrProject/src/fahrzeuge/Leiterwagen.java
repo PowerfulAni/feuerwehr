@@ -12,11 +12,11 @@ public class Leiterwagen extends Fahrzeug {
 	
 	/**
 	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze Die zur Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
 	 * @param maxLeiter maximale Leiterlänge
 	 */
 	public Leiterwagen(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen, int maxLeiter) {
@@ -24,12 +24,12 @@ public class Leiterwagen extends Fahrzeug {
 		this.maxLeiter = maxLeiter;
 	}
 	/**
-	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * Erstelle ein neues Fahrzeug
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze Die zur Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
 	 * @param maxLeiter maximale Leiterlänge
 	 * @param einsatzID um bei der Init dies zuzuweisen
 	 */

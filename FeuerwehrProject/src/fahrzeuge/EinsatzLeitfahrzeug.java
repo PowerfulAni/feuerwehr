@@ -15,8 +15,8 @@ public class EinsatzLeitfahrzeug extends Fahrzeug {
 	 * @param id des Fahrzeuges
 	 * @param sitzplaetze, die zu Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
 	 * @param dienstgrad des Leiters
 	 */
 	public EinsatzLeitfahrzeug(int id,int sitzplaetze, FahrzeugTyp fahrzeugTyp, FahrzeugStatus fahrzeugstatus, String kennzeichen, String dienstgrad) {
@@ -25,11 +25,11 @@ public class EinsatzLeitfahrzeug extends Fahrzeug {
 	}
 	/**
 	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze die zur Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
-	 * @param fahrzeugstatus ob zuzeit verfügbar
-	 * @param kennzeichen als erkennungs merkmal
+	 * @param fahrzeugstatus ob zurzeit verfügbar
+	 * @param kennzeichen als Erkennungsmerkmal
 	 * @param dienstgrad des Leiters
 	 * @param einsatzID um bei der Init dies zuzuweisen
 	 */
