@@ -1,6 +1,6 @@
 package util;
 /**
- * Enum um den Status von Mitarbeietrn zu speichern
+ * Enum, um den Status von Mitarbeietrn zu speichern
  */
 public enum MitarbeiterStatus {
 	

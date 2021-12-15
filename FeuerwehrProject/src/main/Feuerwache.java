@@ -9,7 +9,7 @@ import util.*;
 import mysql.*;
 
 /**
- * Hier werden alle fahrzeuge und Mitarbeiter verwaltet.
+ * Hier werden alle Fahrzeuge und Mitarbeiter verwaltet.
  */
 public class Feuerwache {
 	private ArrayList<Fahrzeug> fahrzeuge = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Feuerwache {
 	private final EinsatzTyp industrieunfall = new EinsatzTyp("Industrieunfall", 40, 3, 2, 2, 2);
 
 	/**
-	 * Der kontruktor der Klasse um Fahrzeuge und Mitarbeiter zu initialisieren.
+	 * Der Kontruktor der Klasse, um Fahrzeuge und Mitarbeiter zu initialisieren.
 	 */
 	public Feuerwache() {
 		if(Datenbank.verbinden()) {
@@ -98,12 +98,12 @@ public class Feuerwache {
 	}
 	
 	/**
-	 * Gibt die Absolute anzahl an fahrzeugen des angegeben status zurück.
-	 * Um z.b. alle Fahrzeuge zurückzugen die zu Hause sind:
+	 * Gibt die absolute Anzahl an Fahrzeugen des angegeben Status zurück.
+	 * Um z.B. alle Fahrzeuge zurückzugeben, die zu Hause sind:
 	 * new FahrzeugStatus[] { FahrzeugStatus.Bereit, FahrzeugStatus.Wartung }
 	 * 
 	 * @param status Ein Array an Status
-	 * @return Maximale anzahl an Fahrzeugen mit den Status
+	 * @return Maximale Anzahl an Fahrzeugen mit den Status
 	 */
 	public int getAbsFahrzeugStatus(FahrzeugStatus[] status) {
 		int sum = 0;
@@ -119,8 +119,8 @@ public class Feuerwache {
 	}
 	
 	/**
-	 * Gibt die Absolute anzahl an Mitarbeitern des angegeben status zurück.
-	 * Um z.b. alle mitarbeiter zurückzugen die zu absolut nicht zur verfügung stehen sind:
+	 * Gibt die Absolute Anzahl an Mitarbeitern des angegeben Status zurück.
+	 * Um z.b. alle Mitarbeiter zurückzugeben, die absolut nicht zur Verfügung stehen:
 	 * new MitarbeiterStatus[] { MitarbeiterStatus.Urlaub, MitarbeiterStatus.Krank }
 	 * 
 	 * @param status Ein Array an Status
@@ -140,11 +140,11 @@ public class Feuerwache {
 	}
 	
 	/**
-	 * Startet nach möglichkeit den Übergebenen Einsatz.
+	 * Startet nach Möglichkeit den übergebenen Einsatz.
 	 * @param einsatz
 	 * @param fahrzeuge
 	 * @param mitarbeiter
-	 * @return Ob der einsatz möglich wahr
+	 * @return Ob der Einsatz möglich war
 	 */
 	public boolean startEinsatz(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter) {
 		if(!istEinsatzAnforderung(typ, fahrzeuge, mitarbeiter))
@@ -226,15 +226,15 @@ public class Feuerwache {
 	}
 
 	/**
-	 * Gibt den Zuvor Erstellten Vorschlag zurück.
-	 * @return den Zuvor erstellten Vorschlag
+	 * Gibt den zuvor erstellten Vorschlag zurück.
+	 * @return den zuvor erstellten Vorschlag
 	 */
 	public Einsatz getVorschlag(){
 		return vorschlag;		
 	}
 	
 	/**
-	 * Erzeugt nach möglichkeit einen Einsatz Vorschlag.
+	 * Erzeugt nach Möglichkeit einen Einsatz Vorschlag.
 	 * @param einsatz
 	 * @return Ob der Vorschlag erstellt werden konnte
 	 */
@@ -347,7 +347,7 @@ public class Feuerwache {
 	
 	/**
 	 * Beendet den angegeben Einsatz
-	 * @param index Der index der position in der Liste
+	 * @param index Der Index der Position in der Liste
 	 */
 	public void beendeEinsatz(int index) {
 		// Resette die Einsatz Id
@@ -370,7 +370,7 @@ public class Feuerwache {
 	/**
 	 * Updatet den Status vom Fahrzeug
 	 * @param fahr das Fahrzeug
-	 * @param stat der ziel Status
+	 * @param stat der Ziel Status
 	 */
 	public void updateStatus(Fahrzeug fahr, FahrzeugStatus stat) {
 		fahr.setFahrzeugStatus(stat);
@@ -379,7 +379,7 @@ public class Feuerwache {
 	/**
 	 * Updatet den Status vom Mitarbeiter
 	 * @param mit der Mitarbiter
-	 * @param stat der ziel Status
+	 * @param stat der Ziel Status
 	 */
 	public void updateStatus(Feuerwehrmensch mit, MitarbeiterStatus stat) {
 		mit.setMitarbeiterStatus(stat);

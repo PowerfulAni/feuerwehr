@@ -163,7 +163,7 @@ public class Gui extends JFrame {
 	}
 	
 	/**
-	 * Diese Funktion aktualisiert den aktuellen View um die Änderungen anzuzeigen
+	 * Diese Funktion aktualisiert den aktuellen View, um die Änderungen anzuzeigen.
 	 */
 	public void refreshView() {
 		switch (aktuellerView) {

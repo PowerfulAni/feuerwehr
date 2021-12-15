@@ -6,7 +6,7 @@ import gui.Gui;
  */
 public class Main {
 	/**
-	 * Wird nur zum Starten verwendet
+	 * Wird nur zum starten verwendet
 	 * @param args
 	 */
 	public static void main(String[] args) {

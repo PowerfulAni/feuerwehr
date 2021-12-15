@@ -30,7 +30,7 @@ public class ButtonAktion extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Diese Funktion hört auf Events und ruft entsprechend dem gedrückten Knopf eine Funktion auf.
+	 * Diese Funktion hört auf Events und ruft, entsprechend dem gedrückten Knopf, eine Funktion auf.
 	 */
 	public void actionPerformed(ActionEvent ae) {
 		String buttonText = this.button.getText();

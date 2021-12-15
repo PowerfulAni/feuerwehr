@@ -1,7 +1,7 @@
 package mysql;
 
 /**
- * Für die datenbank als Rückgabewert der Einsätze (Hilfsobjekt)
+ * Für die Datenbank als Rückgabewert der Einsätze (Hilfsobjekt)
  */
 public class EinsatzDaten {
 
@@ -19,14 +19,14 @@ public class EinsatzDaten {
 	}
 	
 	/**
-	 * Bekomme die id
+	 * Bekomme die ID
 	 * @return Einsatz Id
 	 */
 	public int getID() {
 		return id;
 	}
 	/**
-	 * Bekomme den namen
+	 * Bekomme den Namen
 	 * @return Einsatz namen
 	 */
 	public String getName() {

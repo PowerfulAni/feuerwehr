@@ -20,8 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 /**
  * Datenbank-Verwaltungsklasse
- * How To: MySQL Connection mit dem connect aufbauen, danach daraus entstandenes objekt für andere Methoden nutzen
- *
+ * 
  */
 public class Datenbank {
 	private static Connection con;
@@ -155,7 +154,7 @@ public class Datenbank {
 	}
 	
 	/**
-	 * Löscht Einsatz aus DB und stellt zugehörige 
+	 * Löscht Einsatz aus DB
 	 * @param con  MySQL Connect Objekt
 	 * @param einsatz Einsatz welcher aus DB gelöscht werden soll
 	 */
@@ -174,7 +173,7 @@ public class Datenbank {
 	/**
 	 * Initialisiert Fahrzeuge aus der DB
 	 * @param con MySQL Connection Object
-	 * @return ArrayList mit ALLEN Fahrzeugen aus der DB
+	 * @return ArrayList mit allen Fahrzeugen aus der DB
 	 */
 	public static ArrayList<Fahrzeug> initFahrzeug(){
 		ArrayList<Fahrzeug> fList = new ArrayList<Fahrzeug>();
@@ -189,7 +188,7 @@ public class Datenbank {
 	/**
 	 * Initialisiert Feuerwehrmenschen aus DB
 	 * @param con MySQL Connection Object
-	 * @return Arraylist der Initialisierten Feuerwehrmenschen
+	 * @return Arraylist der initialisierten Feuerwehrmenschen
 	 */
 	public static ArrayList<Feuerwehrmensch> initFeuerwehrmensch() {
 		ArrayList<Feuerwehrmensch> fwList = new ArrayList<Feuerwehrmensch>();
@@ -213,7 +212,7 @@ public class Datenbank {
 	}
 	/**
 	 * Initialisiert Leiterwagen aus DB
-	 * @return Arraylist der Initialisierten Leiterwagen
+	 * @return Arraylist der initialisierten Leiterwagen
 	 */
 	public static ArrayList<Leiterwagen> initLeiterwagen() {
 		ArrayList<Leiterwagen> fwList = new ArrayList<Leiterwagen>();
@@ -240,7 +239,7 @@ public class Datenbank {
 	}
 	/**
 	 * Initialisiert TankLoeschfahrzeug aus DB
-	 * @return Arraylist der Initialisierten TankLoeschfahrzeug
+	 * @return Arraylist der initialisierten TankLoeschfahrzeug
 	 */
 	public static ArrayList<TankLoeschfahrzeug> initTankLoeschfahrzeug() {
 		ArrayList<TankLoeschfahrzeug> fwList = new ArrayList<TankLoeschfahrzeug>();
@@ -267,7 +266,7 @@ public class Datenbank {
 	}
 	/**
 	 * Initialisiert Mannschaftstransporter aus DB
-	 * @return Arraylist der Initialisierten Mannschaftstransporter
+	 * @return Arraylist der initialisierten Mannschaftstransporter
 	 */
 	public static ArrayList<Mannschaftstransporter> initMannschaftstransporter() {
 		ArrayList<Mannschaftstransporter> fwList = new ArrayList<Mannschaftstransporter>();
@@ -344,7 +343,7 @@ public class Datenbank {
 	
 	/**
 	 * Verbindet sich mit der Datenbank
-	 * @return Status ob verbunden wererden konnte
+	 * @return Status ob sich erfolgreich mit der DB verbunden werden konnte
 	 */
 	public static Boolean verbinden() {
 		String url = "jdbc:mysql://134.255.253.141/PowerfulAni-906454";

@@ -1,7 +1,7 @@
 package util;
 
 /**
- * Enum um den fahrzeug Status zu speichern
+ * Enum, um den Fahrzeug Status zu speichern
  */
 public enum FahrzeugStatus {
 	

@@ -17,7 +17,7 @@ public class Feuerwehrmensch {
 	/**
 	 * Erstellt einen Mitarbeiter ohne EinsatzID
 	 * @param id des Mitarbeiters
-	 * @param mitarbeiterStatus ob grade verfügbar
+	 * @param mitarbeiterStatus ob gerade verfügbar
 	 * @param name des Mitarbeiters
 	 * @param fahrerlaubnis für PKW oder LKW
 	 */
@@ -31,7 +31,7 @@ public class Feuerwehrmensch {
 	/**
 	 * Erstellt einen Mitarbeiter mit EinsatzID
 	 * @param id des Mitarbeiters
-	 * @param mitarbeiterStatus ob grade verfügbar
+	 * @param mitarbeiterStatus ob gerade verfügbar
 	 * @param name des Mitarbeiters
 	 * @param fahrerlaubnis für PKW oder LKW
 	 * @param einsatzID um in der Init dies zuzuweisen

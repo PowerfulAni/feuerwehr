@@ -1,7 +1,7 @@
 package util;
 
 /**
- * Enum und den Fahrzeug typen zu speichern
+ * Enum, um den Fahrzeug Typen zu speichern
  */
 public enum FahrzeugTyp {
 	
