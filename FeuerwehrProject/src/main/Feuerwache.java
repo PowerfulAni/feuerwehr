@@ -25,7 +25,7 @@ public class Feuerwache {
 	 * Der kontruktor der Klasse um Fahrzeuge und Mitarbeiter zu initialisieren.
 	 */
 	public Feuerwache() {
-		if(Datenbank.connect()) {
+		if(Datenbank.verbinden()) {
 			fahrzeuge = Datenbank.initFahrzeug();
 			mitarbeiter = Datenbank.initFeuerwehrmensch();
 			// Erstelle die gestarteten Einsätze
@@ -151,7 +151,7 @@ public class Feuerwache {
 			return false;
 		einsaetze.add(new Einsatz(typ, fahrzeuge, mitarbeiter, false));
 		// Fühge Einsatz hinzu und setze ID
-		int id = Datenbank.insertEinsatz(mitarbeiter, fahrzeuge, typ);
+		int id = Datenbank.einfuegenEinsatz(mitarbeiter, fahrzeuge, typ);
 		for (int i = 0; i < fahrzeuge.size(); i++) {
 			fahrzeuge.get(i).setEinsatzID(id);
 			Datenbank.updateEinsatz(fahrzeuge.get(i), id);
@@ -369,7 +369,7 @@ public class Feuerwache {
 			mit.setEinsatzID(0);
 			Datenbank.updateEinsatz(mit, 0);
 		}
-		Datenbank.deleteEinsatz(einsaetze.get(index));
+		Datenbank.entfernEinsatz(einsaetze.get(index));
 		einsaetze.remove(index);
 		
 	}

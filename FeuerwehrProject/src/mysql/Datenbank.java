@@ -124,7 +124,7 @@ public class Datenbank {
 	 * @param einsatzTyp EinsatzTyp
 	 * @return ID des einsatzes in DB
 	 */
-	public static int insertEinsatz(ArrayList<Feuerwehrmensch> fwList, ArrayList<Fahrzeug> fList, EinsatzTyp einsatzTyp) {
+	public static int einfuegenEinsatz(ArrayList<Feuerwehrmensch> fwList, ArrayList<Fahrzeug> fList, EinsatzTyp einsatzTyp) {
 		PreparedStatement bs;
 		int id=0;
 		try {
@@ -137,20 +137,6 @@ public class Datenbank {
 				System.out.println("ID: "+rs.getInt(1));
 				id=rs.getInt(1);
 				}
-			/*int count=0;
-			while(fwList.size() > count) {
-				Feuerwehrmensch fw = updateStatus(fwList.get(count), MitarbeiterStatus.Einsatz);
-				fw= updateEinsatz(fwList.get(count),id);
-				fwList.get(count).setMitarbeiterStatus(fw.getMitarbeiterStatus());
-				fwList.get(count).setEinsatzID(id);
-				count++;
-			}
-			count=0;
-			while(fList.size()>count) {
-				updateStatus(fList.get(count), FahrzeugStatus.Einsatz);
-				updateEinsatz(fList.get(count), id);
-				count++;
-			}*/
 			return id;
 		} catch(SQLException e){
 			System.out.println(e.getMessage());
@@ -163,26 +149,12 @@ public class Datenbank {
 	 * @param con  MySQL Connect Objekt
 	 * @param einsatz Einsatz welcher aus DB gelöscht werden soll
 	 */
-	public static void deleteEinsatz(Einsatz einsatz) {
+	public static void entfernEinsatz(Einsatz einsatz) {
 		PreparedStatement bs;
 		try {
 			bs = con.prepareStatement("DELETE FROM `PowerfulAni-906454`.`mission` WHERE  `id`="+einsatz.getID()+";");
 			bs.executeUpdate();
 			Statement stm = con.createStatement();
-			/*int count=0;
-			while(einsatz.getMitarbeiter().size() > count) {
-				Feuerwehrmensch fw = updateStatus(einsatz.getMitarbeiter().get(count), MitarbeiterStatus.Bereit);
-				fw= updateEinsatz(einsatz.getMitarbeiter().get(count),0);
-				einsatz.getMitarbeiter().get(count).setMitarbeiterStatus(fw.getMitarbeiterStatus());
-				einsatz.getMitarbeiter().get(count).setEinsatzID(0);
-				count++;
-			}
-			count=0;
-			while(einsatz.getFahrzeuge().size()>count) {
-				updateStatus(einsatz.getFahrzeuge().get(count), FahrzeugStatus.Bereit);
-				updateEinsatz(einsatz.getFahrzeuge().get(count), 0);
-				count++;
-			}*/
 		} catch(SQLException e){
 			System.out.println(e.getMessage());
 		}
@@ -360,7 +332,7 @@ public class Datenbank {
 	 * Verbindet sich mit der Datenbank
 	 * @return Status ob verbunden wererden konnte
 	 */
-	public static Boolean connect() {
+	public static Boolean verbinden() {
 		String url = "jdbc:mysql://134.255.253.141/PowerfulAni-906454";
 	    String user = "PowerfulAni-906454";
 	    String pass = "PeuDrMdjpmjFdfmnKBuymrJ6K";
