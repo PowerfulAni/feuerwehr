@@ -286,10 +286,7 @@ public class Feuerwache {
 			|| curFahr[2] < typ.minManschaftstransporter
 			|| curFahr[3] < typ.minLeiterwagen)
 			return false;
-//		System.out.println("minEinsatzfahrzeug - !"+typ.minEinsatzfahrzeug +" < "+curFahr[0]);
-//		System.out.println("minTankLoeschfahrzeug - !"+typ.minTankLoeschfahrzeug +" < "+curFahr[1]);
-//		System.out.println("minManschaftstransporter - !"+typ.minManschaftstransporter +" < "+curFahr[2]);
-//		System.out.println("minLeiterwagen - !"+typ.minLeiterwagen +" < "+curFahr[3]);
+		
 		ArrayList<Feuerwehrmensch> mit = new ArrayList<>();
 		int minLKW = typ.minTankLoeschfahrzeug + typ.minManschaftstransporter + typ.minLeiterwagen;
 		/*
@@ -323,11 +320,7 @@ public class Feuerwache {
 				}
 			}
 		}
-//		System.out.println("Wenn True Abbruch");
-//		System.out.println("1. "+curWagen[0] +" < "+minLKW +" => "+(curWagen[0] < minLKW));
-//		System.out.println("2."+curWagen[1] +" < "+typ.minEinsatzfahrzeug+(curWagen[1] < typ.minEinsatzfahrzeug));
-//		System.out.println("3. "+mit.size() +" < "+typ.minMitarbeiter+(mit.size() < typ.minMitarbeiter));
-//		System.out.println("4 "+mit.size()+">"+(curFahr[0] * 2 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2)+" => "+(mit.size() > (curFahr[0] * 2 + curFahr[1] * 4 + curFahr[2] * 14 + curFahr[3] * 2)));
+
 		if(curWagen[0] < minLKW
 			|| curWagen[1] < typ.minEinsatzfahrzeug
 			|| mit.size() < typ.minMitarbeiter

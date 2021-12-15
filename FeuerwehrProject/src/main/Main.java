@@ -14,6 +14,5 @@ public class Main {
 		Gui feuerwehrApp = new Gui(fw);
 		feuerwehrApp.setResizable(false);
 		feuerwehrApp.setVisible(true);
-		//Debug
 	}
 }
