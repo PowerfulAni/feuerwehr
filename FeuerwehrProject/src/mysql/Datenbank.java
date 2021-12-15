@@ -73,13 +73,13 @@ public class Datenbank {
 			case "Einsatz-Leitfahrzeug":
 				cmd= "UPDATE `commandVehicle` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
 				break;
-			case "Tank-Löschfahrzeug":
+			case "Leiterwagen":
 				cmd="UPDATE `turntableLadder` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
 				break;
 			case "Mannschaftstransporter":
 				cmd = "UPDATE `crewTransport` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
 				break;
-			case "Leiterwagen":
+			case "Tank-Löschfahrzeug":
 				cmd = "UPDATE `fireEngine` SET `missionID`='"+id+"' WHERE id="+fg.getID()+";";
 				break;
 		}
@@ -94,19 +94,18 @@ public class Datenbank {
 	public static void updateStatus(Fahrzeug fg, FahrzeugStatus status) {
 		PreparedStatement bs;
 		String cmd="";
-		System.out.println(fg.getClass().toString());
 		switch(fg.getFahrzeugName()) {
 		case "Einsatz-Leitfahrzeug":
 			cmd= "UPDATE `commandVehicle` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
 			break;
-		case "Tank-Löschfahrzeug":
+		case "Leiterwagen":
 			cmd="UPDATE `turntableLadder` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
 			break;
 		case "Mannschaftstransporter":
 			cmd = "UPDATE `crewTransport` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
 			break;
-		case "Leiterwagen":
-			cmd = "UPDATE `commandVehicle` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
+		case "Tank-Löschfahrzeug":
+			cmd = "UPDATE `fireEngine` SET `vehicleStatus`='"+status.toString()+"' WHERE id="+fg.getID()+";";
 			break;
 		}
 		try {
