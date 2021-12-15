@@ -33,7 +33,7 @@ public class Gui extends JFrame {
 	public Gui(Feuerwache feuerwache) {
 		this.feuerwache = feuerwache;
 
-		this.setTitle("Feuerwehr Management Tool by <#ToDo Cooler Name hier einfügen>");
+		this.setTitle("Feuerwehr Management Tool by FireByter");
 		this.setSize(800, 600);
 		this.setLayout(new FlowLayout());
 

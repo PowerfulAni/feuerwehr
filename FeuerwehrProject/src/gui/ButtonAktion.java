@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import einsaetze.Einsatz;
+
 public class ButtonAktion extends JFrame implements ActionListener {
 
 	JButton button;
@@ -37,11 +38,12 @@ public class ButtonAktion extends JFrame implements ActionListener {
 		case "Einsatz Verkehrsunfall starten":
 		case "Einsatz Naturkatastrophe starten":
 		case "Einsatz Industrieunfall starten":
-			if(gui.feuerwache.kannErzeugeVorschlag(buttonText.split(" ")[1])) {
+			if (gui.feuerwache.kannErzeugeVorschlag(buttonText.split(" ")[1])) {
 				Einsatz vorschlag = gui.feuerwache.getVorschlag();
 				gui.showVorschlag(vorschlag);
-				//gui.feuerwache.startEinsatz(einsatz.getEinsatzTyp(), einsatz.getFahrzeuge(), einsatz.getMitarbeiter());
-				//gui.refreshView();
+				// gui.feuerwache.startEinsatz(einsatz.getEinsatzTyp(), einsatz.getFahrzeuge(),
+				// einsatz.getMitarbeiter());
+				// gui.refreshView();
 			}
 			break;
 

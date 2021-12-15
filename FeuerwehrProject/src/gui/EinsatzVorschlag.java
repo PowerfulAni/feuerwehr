@@ -33,24 +33,21 @@ public class EinsatzVorschlag extends JScrollPane {
 	int addleutepkw;
 	int addleutelkw;
 	int sitzplatze;
+	int anzahllkw;
+	int anzahlpkw;
+
 	ArrayList<Fahrzeug> einsatzleiterfahrzeugFrei = new ArrayList<>();
 	ArrayList<Fahrzeug> leiterwagenFrei = new ArrayList<>();
 	ArrayList<Fahrzeug> transporterFrei = new ArrayList<>();
 	ArrayList<Fahrzeug> tankloeschFrei = new ArrayList<>();
 	ArrayList<Feuerwehrmensch> leutepkwFrei = new ArrayList<>();
 	ArrayList<Feuerwehrmensch> leutelkwFrei = new ArrayList<>();
-	int anzahllkw;
-	int anzahlpkw;
-	
+
 	public EinsatzVorschlag(Gui gui, JTextPane panelMain, Feuerwache feuerwache, Einsatz vorschlag) {
 		this.feuerwache = feuerwache;
 		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.setPreferredSize(new Dimension(700, 420));
-		ArrayList<Fahrzeug> fahrzeuge = vorschlag.getFahrzeuge();
-		ArrayList<Feuerwehrmensch> leute = vorschlag.getMitarbeiter();
-		ArrayList<Fahrzeug> fahrzeugeGes = feuerwache.getFahrzeuge();
-		ArrayList<Feuerwehrmensch> leuteGes = feuerwache.getMitarbeiter();
 		this.einsatzleiterfahrzeug = 0;
 		this.leiterwagen = 0;
 		this.transporter = 0;
@@ -64,6 +61,12 @@ public class EinsatzVorschlag extends JScrollPane {
 		this.addleutepkw = 0;
 		this.addleutelkw = 0;
 		this.sitzplatze = 0;
+
+		ArrayList<Fahrzeug> fahrzeuge = vorschlag.getFahrzeuge();
+		ArrayList<Feuerwehrmensch> leute = vorschlag.getMitarbeiter();
+		ArrayList<Fahrzeug> fahrzeugeGes = feuerwache.getFahrzeuge();
+		ArrayList<Feuerwehrmensch> leuteGes = feuerwache.getMitarbeiter();
+
 		for (int i = 0; i < fahrzeuge.size(); i++) {
 
 			switch (fahrzeuge.get(i).getFahrzeugName()) {
@@ -87,9 +90,10 @@ public class EinsatzVorschlag extends JScrollPane {
 				break;
 			}
 		}
-		
+
 		for (int i = 0; i < fahrzeugeGes.size(); i++) {
-			if ((fahrzeugeGes.get(i).getFahrzeugStatus().equals(FahrzeugStatus.Bereit)) && !fahrzeuge.contains(fahrzeugeGes.get(i))) {
+			if ((fahrzeugeGes.get(i).getFahrzeugStatus().equals(FahrzeugStatus.Bereit))
+					&& !fahrzeuge.contains(fahrzeugeGes.get(i))) {
 				switch (fahrzeugeGes.get(i).getFahrzeugName()) {
 				case "Tank-Löschfahrzeug":
 					tankloeschFrei.add(fahrzeugeGes.get(i));
@@ -124,7 +128,8 @@ public class EinsatzVorschlag extends JScrollPane {
 			}
 		}
 		for (int i = 0; i < leuteGes.size(); i++) {
-			if ((leuteGes.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Bereit)) && !leute.contains(leuteGes.get(i))) {
+			if ((leuteGes.get(i).getMitarbeiterStatus().equals(MitarbeiterStatus.Bereit))
+					&& !leute.contains(leuteGes.get(i))) {
 				switch (leuteGes.get(i).getFahrerlaubnis()) {
 				case PKW:
 					leutepkwFrei.add(leuteGes.get(i));
@@ -136,16 +141,18 @@ public class EinsatzVorschlag extends JScrollPane {
 					break;
 				}
 			}
-			
+
 		}
-		
+
 		berecheSitzplatze();
 		panelMain.setPreferredSize(new Dimension(700, 300));
 		String content = generateContent(vorschlag);
 		panelMain.setText(content);
 		this.getViewport().add(panelMain);
+		
 		HTMLEditorKit kit = (HTMLEditorKit) panelMain.getEditorKit();
 		kit.setAutoFormSubmission(false);
+		
 		panelMain.addHyperlinkListener(new HyperlinkListener() {
 			@Override
 			public void hyperlinkUpdate(HyperlinkEvent e) {
@@ -225,7 +232,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						panelMain.setText(generateContent(vorschlag));
 						break;
 					case "add_leutelkw":
-						if (addleutelkw < (leutelkwFrei.size()) && (leutepkw+leutelkw < sitzplatze)) {
+						if (addleutelkw < (leutelkwFrei.size()) && (leutepkw + leutelkw < sitzplatze)) {
 							leutelkw++;
 							addleutelkw++;
 						}
@@ -240,7 +247,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						panelMain.setText(generateContent(vorschlag));
 						break;
 					case "add_leutepkw":
-						if (addleutepkw < (leutepkwFrei.size()) && (leutepkw+leutelkw < sitzplatze)) {
+						if (addleutepkw < (leutepkwFrei.size()) && (leutepkw + leutelkw < sitzplatze)) {
 							leutepkw++;
 							addleutepkw++;
 						}
@@ -266,7 +273,7 @@ public class EinsatzVorschlag extends JScrollPane {
 							addleiterwagen--;
 							i++;
 						}
-						
+
 						i = 0;
 						while (addtransporter != 0) {
 							fahrzeuge.add(transporterFrei.get(i));
@@ -282,14 +289,14 @@ public class EinsatzVorschlag extends JScrollPane {
 						i = 0;
 						ArrayList<Feuerwehrmensch> temppkw = new ArrayList<>();
 						while (addleutepkw != 0) {
-							
+
 							if (addleutepkw > 0) {
 								leute.add(leutepkwFrei.get(i));
 								addleutepkw--;
 							} else {
-								
+
 								for (int z = 0; z < leute.size(); z++) {
-									if(addleutepkw != 0) {
+									if (addleutepkw != 0) {
 										switch (leute.get(z).getFahrerlaubnis()) {
 										case PKW:
 											temppkw.add(leute.get(z));
@@ -299,13 +306,13 @@ public class EinsatzVorschlag extends JScrollPane {
 											break;
 										}
 									}
-									
+
 								}
 							}
 
 							i++;
 						}
-						for(Feuerwehrmensch pkwmensch : temppkw) {
+						for (Feuerwehrmensch pkwmensch : temppkw) {
 							leute.remove(temppkw);
 						}
 						i = 0;
@@ -317,18 +324,18 @@ public class EinsatzVorschlag extends JScrollPane {
 
 							i++;
 						}
-						if(addeinsatzleiterfahrzeug == 0 && addleiterwagen == 0 && addtransporter == 0 && addtankloesch == 0 && addleutepkw == 0 && addleutelkw == 0) {
-					
+						if (addeinsatzleiterfahrzeug == 0 && addleiterwagen == 0 && addtransporter == 0
+								&& addtankloesch == 0 && addleutepkw == 0 && addleutelkw == 0) {
+
 							feuerwache.startEinsatz(vorschlag.getEinsatzTyp(), fahrzeuge, leute);
 							gui.refreshView();
 							break;
-						}else {
+						} else {
 							break;
 						}
 					default:
 						break;
 					}
-					
 
 				}
 			}
@@ -338,36 +345,59 @@ public class EinsatzVorschlag extends JScrollPane {
 
 	private void berecheSitzplatze() {
 		sitzplatze = 0;
-		sitzplatze += (einsatzleiterfahrzeug*2);
-		sitzplatze += (leiterwagen*2);
-		sitzplatze += (transporter*14);
-		sitzplatze += (tankloesch*4);
+		sitzplatze += (einsatzleiterfahrzeug * 2);
+		sitzplatze += (leiterwagen * 2);
+		sitzplatze += (transporter * 14);
+		sitzplatze += (tankloesch * 4);
 	}
+
 	private String generateContent(Einsatz vorschlag) {
 		String content = "<html>";
 		content += "<body>";
-		content += "<h1 style='font-size: 25px; text-align: center;'>Einsatzplanung - "+vorschlag.getEinsatzTyp().getName()+"</h1>";
+		content += "<h1 style='font-size: 25px; text-align: center;'>Einsatzplanung - "
+				+ vorschlag.getEinsatzTyp().getName() + "</h1>";
 
 		content += "<center><table style='font-size: 12px; margin: 10px; width: 400px;'>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Einsatz-Leitfahrzeug</b></td><form action='#'><input type='submit' value='-' name='sub_einsatzleiterfahrzeug' "+((einsatzleiterfahrzeug > vorschlag.getEinsatzTyp().minEinsatzfahrzeug  && sitzplatze-2>=leutepkw+leutelkw?"":"hidden"))+"></form><td><td style='font-size: 12px;'>"
-				+ einsatzleiterfahrzeug
-				+ "</td></td><form action='#'><input type='submit' value='+' name='add_einsatzleiterfahrzeug' "+(addeinsatzleiterfahrzeug < einsatzleiterfahrzeugFrei.size()?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Tank-Löschfahrzeug</b></td><form action='#'><input type='submit' value='-' name='sub_tankloesch' "+((tankloesch > vorschlag.getEinsatzTyp().minTankLoeschfahrzeug) && sitzplatze-4>=leutepkw+leutelkw?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
-				+ tankloesch
-				+ "</td></td><form action='#'><input type='submit' value='+' name='add_tankloesch' "+((addtankloesch < tankloeschFrei.size() && leutelkw > anzahllkw)?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Leiterwagen</b></td><form action='#'><input type='submit' value='-' name='sub_leiterwagen' "+((leiterwagen > vorschlag.getEinsatzTyp().minLeiterwagen) && sitzplatze-2>=leutepkw+leutelkw?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
-				+ leiterwagen
-				+ "</td></td><form action='#'><input type='submit' value='+' name='add_leiterwagen' "+((addleiterwagen < leiterwagenFrei.size() && leutelkw > anzahllkw)?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Mannschaftstransporter</b></td><form action='#'><input type='submit' value='-' name='sub_transporter' "+((transporter > vorschlag.getEinsatzTyp().minManschaftstransporter) && sitzplatze-14>=leutepkw+leutelkw?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
-				+ transporter
-				+ "</td></td><form action='#'><input type='submit' value='+' name='add_transporter' "+((addtransporter < transporterFrei.size() && leutelkw > anzahllkw)?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Feuerwehrleute (LKW)</b></td><form action='#'><input type='submit' value='-' name='sub_leutelkw' "+((addleutelkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter) && anzahllkw < leutelkw?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
-				+ leutelkw
-				+ "</td></td><form action='#'><input type='submit' value='+' name='add_leutelkw' "+((addleutelkw < (leutelkwFrei.size()) && (leutepkw+leutelkw < sitzplatze))?"":"hidden"))+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Feuerwehrleute (PKW)</b></td><form action='#'><input type='submit' value='-' name='sub_leutepkw' "+((leutepkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter))&& anzahlpkw < leutepkw + (leutelkw-anzahllkw)?"":"hidden")+"'></form><td><td style='font-size: 12px;'>"
-				+ leutepkw
-				+ "</td></td><form action='#'><input type='submit' value='+' name='add_leutepkw' "+((addleutepkw < (leutepkwFrei.size()) && (leutepkw+leutelkw < sitzplatze))?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4ƒƒpx;'></td><td colspan='2'>Sitzplätze:</td><td>"+(leutepkw+leutelkw)+"/"+sitzplatze+"</td></tr>";
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Einsatz-Leitfahrzeug</b></td><form action='#'><input type='submit' value='-' name='sub_einsatzleiterfahrzeug' "
+				+ ((einsatzleiterfahrzeug > vorschlag.getEinsatzTyp().minEinsatzfahrzeug
+						&& sitzplatze - 2 >= leutepkw + leutelkw ? "" : "hidden"))
+				+ "></form><td><td style='font-size: 12px;'>" + einsatzleiterfahrzeug
+				+ "</td></td><form action='#'><input type='submit' value='+' name='add_einsatzleiterfahrzeug' "
+				+ (addeinsatzleiterfahrzeug < einsatzleiterfahrzeugFrei.size() ? "" : "hidden") + "></form><td>";
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Tank-Löschfahrzeug</b></td><form action='#'><input type='submit' value='-' name='sub_tankloesch' "
+				+ ((tankloesch > vorschlag.getEinsatzTyp().minTankLoeschfahrzeug)
+						&& sitzplatze - 4 >= leutepkw + leutelkw ? "" : "hidden")
+				+ "></form><td><td style='font-size: 12px;'>" + tankloesch
+				+ "</td></td><form action='#'><input type='submit' value='+' name='add_tankloesch' "
+				+ ((addtankloesch < tankloeschFrei.size() && leutelkw > anzahllkw) ? "" : "hidden") + "></form><td>";
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Leiterwagen</b></td><form action='#'><input type='submit' value='-' name='sub_leiterwagen' "
+				+ ((leiterwagen > vorschlag.getEinsatzTyp().minLeiterwagen) && sitzplatze - 2 >= leutepkw + leutelkw
+						? ""
+						: "hidden")
+				+ "></form><td><td style='font-size: 12px;'>" + leiterwagen
+				+ "</td></td><form action='#'><input type='submit' value='+' name='add_leiterwagen' "
+				+ ((addleiterwagen < leiterwagenFrei.size() && leutelkw > anzahllkw) ? "" : "hidden") + "></form><td>";
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Mannschaftstransporter</b></td><form action='#'><input type='submit' value='-' name='sub_transporter' "
+				+ ((transporter > vorschlag.getEinsatzTyp().minManschaftstransporter)
+						&& sitzplatze - 14 >= leutepkw + leutelkw ? "" : "hidden")
+				+ "></form><td><td style='font-size: 12px;'>" + transporter
+				+ "</td></td><form action='#'><input type='submit' value='+' name='add_transporter' "
+				+ ((addtransporter < transporterFrei.size() && leutelkw > anzahllkw) ? "" : "hidden") + "></form><td>";
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Feuerwehrleute (LKW)</b></td><form action='#'><input type='submit' value='-' name='sub_leutelkw' "
+				+ ((addleutelkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter)
+						&& anzahllkw < leutelkw ? "" : "hidden") + "></form><td><td style='font-size: 12px;'>"
+						+ leutelkw + "</td></td><form action='#'><input type='submit' value='+' name='add_leutelkw' "
+						+ ((addleutelkw < (leutelkwFrei.size()) && (leutepkw + leutelkw < sitzplatze)) ? "" : "hidden"))
+				+ "></form><td>";
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Feuerwehrleute (PKW)</b></td><form action='#'><input type='submit' value='-' name='sub_leutepkw' "
+				+ ((leutepkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter))
+						&& anzahlpkw < leutepkw + (leutelkw - anzahllkw) ? "" : "hidden")
+				+ "'></form><td><td style='font-size: 12px;'>" + leutepkw
+				+ "</td></td><form action='#'><input type='submit' value='+' name='add_leutepkw' "
+				+ ((addleutepkw < (leutepkwFrei.size()) && (leutepkw + leutelkw < sitzplatze)) ? "" : "hidden")
+				+ "></form><td>";
+		content += "<tr><td style='width: 200px; padding: 4ƒƒpx;'></td><td colspan='2'>Sitzplätze:</td><td>"
+				+ (leutepkw + leutelkw) + "/" + sitzplatze + "</td></tr>";
 		content += "<tr><td colspan='5'>* Achtung: Es lassen sich nur realisierbare Kombinationen einstellen.</td></tr>";
 		content += "</table>";
 
