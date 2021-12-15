@@ -57,7 +57,6 @@ public class FeuerwehrleuteView extends JScrollPane {
 			}
 
 			content += "</tr>";
-			// panelMain.add(new JLabel("Test"));
 		}
 		
 		content += "</table></center></body></html>";
