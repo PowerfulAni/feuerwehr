@@ -3,8 +3,10 @@ package gui;
 import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.net.URL;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -38,11 +40,8 @@ public class Gui extends JFrame {
 		this.setSize(800, 600);
 		this.setLayout(new FlowLayout());
 		
-		URL iconURL = getClass().getResource("/gui/logo.png");
-		System.out.println(iconURL);
-		// iconURL is null when not found
-		ImageIcon icon = new ImageIcon(iconURL);
-		this.setIconImage(icon.getImage());
+		   ImageIcon icon = new ImageIcon("/gui/logo.png");
+		    this.setIconImage(icon.getImage());
 
 		panelMain = new JTextPane();
 		panelStatus = new JPanel();
