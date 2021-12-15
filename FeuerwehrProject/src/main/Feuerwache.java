@@ -357,9 +357,6 @@ public class Feuerwache {
 	 * @param index Der index der position in der Liste
 	 */
 	public void beendeEinsatz(int index) {
-		
-		einsaetze.get(index).einsatzBeenden();
-		
 		// Resette die Einsatz Id
 		for (Fahrzeug fahr : einsaetze.get(index).getFahrzeuge()) {
 			fahr.setEinsatzID(0);
@@ -369,6 +366,9 @@ public class Feuerwache {
 			mit.setEinsatzID(0);
 			Datenbank.updateEinsatz(mit, 0);
 		}
+		
+		einsaetze.get(index).einsatzBeenden();
+		
 		Datenbank.entfernEinsatz(einsaetze.get(index));
 		einsaetze.remove(index);
 		
