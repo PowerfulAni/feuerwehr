@@ -41,7 +41,6 @@ public class Gui extends JFrame {
 		this.setLayout(new FlowLayout());
 		
 		URL url = getClass().getResource("/gui/logo.png");
-		System.out.println(url);
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Image img = kit.createImage(url);
 		this.setIconImage(img);
@@ -70,7 +69,6 @@ public class Gui extends JFrame {
 		this.add(new MainView(panelMain, feuerwache));
 		JButton alarm = new JButton("Alarm");
 		alarm.setPreferredSize(new Dimension(700, 60));
-		//this.add(alarm);
 		this.revalidate();
 		this.getContentPane().repaint();
 	}
@@ -81,7 +79,6 @@ public class Gui extends JFrame {
 		removeListener(panelMain);
 		this.add(new ButtonView(this));
 		this.add(new FahrzeugView(panelMain, feuerwache));
-		//this.add(new FahrzeugZusatz(panelMain, feuerwache));
 		this.revalidate();
 		this.getContentPane().repaint();
 	}
