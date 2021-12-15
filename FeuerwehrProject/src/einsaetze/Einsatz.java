@@ -18,10 +18,10 @@ public class Einsatz {
 	
 	/**
 	 * Erstellt einen neuen Einsatz.
-	 * @param typ Der Einsatz der ausgeführt werden soll.
-	 * @param fahrzeuge Die Fahrzeuge die verwendet werden sollen.
-	 * @param mitarbeiter Die Mitarbeiter die zugeteilt wurden.
-	 * @param istVorschlag auf true setzen um den Einsatz nicht zu Starten.
+	 * @param typ Der Einsatz, der ausgeführt werden soll.
+	 * @param fahrzeuge Die Fahrzeuge, die verwendet werden sollen.
+	 * @param mitarbeiter Die Mitarbeiter, die zugeteilt wurden.
+	 * @param istVorschlag auf true setzen, um den Einsatz nicht zu Starten.
 	 */
 	public Einsatz(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter, boolean istVorschlag) {
 		einsatzTyp = typ;
@@ -32,10 +32,10 @@ public class Einsatz {
 	}
 	/**
 	 * Erstellt einen neuen Einsatz.
-	 * @param typ Der Einsatz der ausgeführt werden soll.
-	 * @param fahrzeuge Die Fahrzeuge die verwendet werden sollen.
-	 * @param mitarbeiter Die Mitarbeiter die zugeteilt wurden.
-	 * @param istVorschlag auf true setzen um den Einsatz nicht zu Starten.
+	 * @param typ Der Einsatz, der ausgeführt werden soll.
+	 * @param fahrzeuge Die Fahrzeuge, die verwendet werden sollen.
+	 * @param mitarbeiter Die Mitarbeiter, die zugeteilt wurden.
+	 * @param istVorschlag auf true setzen, um den Einsatz nicht zu Starten.
 	 * @param einsatzID um den Einsatz bei der Init zuzuweisen.
 	 */
 	public Einsatz(EinsatzTyp typ, ArrayList<Fahrzeug> fahrzeuge, ArrayList<Feuerwehrmensch> mitarbeiter, boolean istVorschlag, int einsatzID) {
@@ -57,7 +57,7 @@ public class Einsatz {
 	}
 	
 	/**
-	 * Beendet den Laufenden Einsatz und macht Mitarbeiter / Fahrzeuge wieder verfügbar.
+	 * Beendet den Laufenden Einsatz und macht Mitarbeiter und Fahrzeuge wieder verfügbar.
 	 */
 	public void einsatzBeenden() {
 		for (Fahrzeug fahrzeug : fahrzeuge) {

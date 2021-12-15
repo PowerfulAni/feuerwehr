@@ -4,7 +4,7 @@ import util.FahrzeugStatus;
 import util.FahrzeugTyp;
 
 /**
- * konzept vom Einsatz-Leitfahrzeug
+ * Konzept vom Einsatz-Leitfahrzeug
  */
 public class EinsatzLeitfahrzeug extends Fahrzeug {
 	
@@ -12,8 +12,8 @@ public class EinsatzLeitfahrzeug extends Fahrzeug {
 	
 	/**
 	 * Ertselle ein neues Fahrzeug
-	 * @param id des fahrzeuges
-	 * @param sitzplaetze Die zuverfügung stehen
+	 * @param id des Fahrzeuges
+	 * @param sitzplaetze, die zu Verfügung stehen
 	 * @param fahrzeugTyp ob LKW oder PKW
 	 * @param fahrzeugstatus ob zuzeit verfügbar
 	 * @param kennzeichen als erkennungs merkmal

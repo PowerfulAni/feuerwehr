@@ -12,13 +12,13 @@ public class EinsatzTyp {
 	public final int minLeiterwagen;
 	
 	/**
-	 * Ertelle einen neuen EinsatzTypen
+	 * Erstelle einen neuen EinsatzTypen
 	 * @param name des Einsatzes
-	 * @param minMA minimum an mitarbeitern
-	 * @param minEI minimum an Einsatz-Leitfahrzeugen
-	 * @param minTL minimum an Tank-Löschfahrzeugen
-	 * @param minMT minimum an Mannschaftstransporter
-	 * @param minLT minimum an leiterwagen
+	 * @param minMA Minimum an Mitarbeitern
+	 * @param minEI Minimum an Einsatz-Leitfahrzeugen
+	 * @param minTL Minimum an Tank-Löschfahrzeugen
+	 * @param minMT Minimum an Mannschaftstransporter
+	 * @param minLT Minimum an Leiterwagen
 	 */
 	public EinsatzTyp(String name, int minMA, int minEI, int minTL, int minMT, int minLT) {
 		this.bezeichnung = name;
@@ -30,7 +30,7 @@ public class EinsatzTyp {
 	}
 	
 	/**
-	 * Bekomme den Einsatz namen
+	 * Bekomme den Einsatznamen
 	 * @return Einsatz name
 	 */
 	public String getName(){
