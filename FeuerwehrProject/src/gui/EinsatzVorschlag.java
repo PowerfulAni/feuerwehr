@@ -346,7 +346,7 @@ public class EinsatzVorschlag extends JScrollPane {
 	private String generateContent(Einsatz vorschlag) {
 		String content = "<html>";
 		content += "<body>";
-		content += "<h1 style='font-size: 25px; text-align: center;'>Einsatzplanung</h1>";
+		content += "<h1 style='font-size: 25px; text-align: center;'>Einsatzplanung - "+vorschlag.getEinsatzTyp().getName()+"</h1>";
 
 		content += "<center><table style='font-size: 12px; margin: 10px; width: 400px;'>";
 		content += "<tr><td style='width: 200px; padding: 4px;'><b>Einsatz-Leitfahrzeug</b></td><form action='#'><input type='submit' value='-' name='sub_einsatzleiterfahrzeug' "+((einsatzleiterfahrzeug > vorschlag.getEinsatzTyp().minEinsatzfahrzeug  && sitzplatze-2>=leutepkw+leutelkw?"":"hidden"))+"></form><td><td style='font-size: 12px;'>"
