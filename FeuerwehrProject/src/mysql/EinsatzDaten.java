@@ -1,7 +1,7 @@
 package mysql;
 
 /**
- * Für die datenbank als Rückgabewert der Einsätze
+ * Für die datenbank als Rückgabewert der Einsätze (Hilfsobjekt)
  */
 public class EinsatzDaten {
 

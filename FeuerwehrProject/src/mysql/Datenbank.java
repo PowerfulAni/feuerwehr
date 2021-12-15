@@ -66,6 +66,11 @@ public class Datenbank {
 		return fw;
 	}
 	
+	/**
+	 * Aktualisiert den Fahrzeugstatus eines Einsatz-ID in der Datenbank
+	 * @param fg Fahrzeug welches aktualisiert werden soll
+	 * @param id Einsatz-ID
+	 */
 	public static void updateEinsatz(Fahrzeug fg, int id) {
 		PreparedStatement bs;
 		String cmd="";
@@ -91,6 +96,11 @@ public class Datenbank {
 		}
 	}
 	
+	/**
+	 * Aktualisiert den Fahrzeugstatus eines Fahrzeugs in der Datenbank
+	 * @param fg Fahrzeug welches aktualisiert werden soll
+	 * @param status neuer Status
+	 */
 	public static void updateStatus(Fahrzeug fg, FahrzeugStatus status) {
 		PreparedStatement bs;
 		String cmd="";
@@ -310,6 +320,10 @@ public class Datenbank {
 		return fwList;
 	}
 	
+	/**
+	 * Initialisiert EinsatzDaten aus der DB
+	 * @return EinsatzDaten(Hilfsobjekt)
+	 */
 	public static ArrayList<EinsatzDaten> initEinsatz(){
 		ArrayList<EinsatzDaten> edList = new ArrayList<EinsatzDaten>();
 		try {

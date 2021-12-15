@@ -15,7 +15,7 @@ public class Feuerwehrmensch {
 	private int einsatzID=0;
 	
 	/**
-	 * Erstellt einen Mitarbeiter
+	 * Erstellt einen Mitarbeiter ohne EinsatzID
 	 * @param id des Mitarbeiters
 	 * @param mitarbeiterStatus ob grade verfügbar
 	 * @param name des Mitarbeiters
@@ -29,7 +29,7 @@ public class Feuerwehrmensch {
 		this.id = id;
 	}
 	/**
-	 * Erstellt einen Mitarbeiter
+	 * Erstellt einen Mitarbeiter mit EinsatzID
 	 * @param id des Mitarbeiters
 	 * @param mitarbeiterStatus ob grade verfügbar
 	 * @param name des Mitarbeiters
