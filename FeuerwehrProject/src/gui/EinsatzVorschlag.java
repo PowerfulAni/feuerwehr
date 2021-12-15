@@ -40,7 +40,8 @@ public class EinsatzVorschlag extends JScrollPane {
 	ArrayList<Feuerwehrmensch> leutepkwFrei = new ArrayList<>();
 	ArrayList<Feuerwehrmensch> leutelkwFrei = new ArrayList<>();
 	int anzahllkw;
-
+	int anzahlpkw;
+	
 	public EinsatzVorschlag(Gui gui, JTextPane panelMain, Feuerwache feuerwache, Einsatz vorschlag) {
 		this.feuerwache = feuerwache;
 		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -80,6 +81,7 @@ public class EinsatzVorschlag extends JScrollPane {
 				break;
 			case "Einsatz-Leitfahrzeug":
 				einsatzleiterfahrzeug++;
+				anzahlpkw++;
 				break;
 			default:
 				break;
@@ -154,6 +156,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						if (addeinsatzleiterfahrzeug < einsatzleiterfahrzeugFrei.size()) {
 							einsatzleiterfahrzeug++;
 							addeinsatzleiterfahrzeug++;
+							anzahlpkw++;
 							berecheSitzplatze();
 						}
 						panelMain.setText(generateContent(vorschlag));
@@ -162,6 +165,7 @@ public class EinsatzVorschlag extends JScrollPane {
 						if (einsatzleiterfahrzeug > vorschlag.getEinsatzTyp().minEinsatzfahrzeug) {
 							einsatzleiterfahrzeug--;
 							addeinsatzleiterfahrzeug--;
+							anzahlpkw--;
 							berecheSitzplatze();
 						}
 						panelMain.setText(generateContent(vorschlag));
@@ -314,12 +318,7 @@ public class EinsatzVorschlag extends JScrollPane {
 							i++;
 						}
 						if(addeinsatzleiterfahrzeug == 0 && addleiterwagen == 0 && addtransporter == 0 && addtankloesch == 0 && addleutepkw == 0 && addleutelkw == 0) {
-//							System.out.println("Einsatzleitwagen: "+einsatzleiterfahrzeug);
-//							System.out.println("Tankwagen: "+tankloesch);
-//							System.out.println("Transporter: "+transporter);
-//							System.out.println("Leiterwagen: "+leiterwagen);
-//							System.out.println("PKW Leute: "+leutepkw);
-//							System.out.println("LKW Leute: "+leutelkw);
+					
 							feuerwache.startEinsatz(vorschlag.getEinsatzTyp(), fahrzeuge, leute);
 							gui.refreshView();
 							break;
@@ -350,29 +349,29 @@ public class EinsatzVorschlag extends JScrollPane {
 		content += "<h1 style='font-size: 25px; text-align: center;'>Einsatzplanung</h1>";
 
 		content += "<center><table style='font-size: 12px; margin: 10px; width: 400px;'>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Einsatz-Leitfahrzeug</b></td><form action='#'><input type='submit' value='-' name='sub_einsatzleiterfahrzeug' "+((einsatzleiterfahrzeug > vorschlag.getEinsatzTyp().minEinsatzfahrzeug?"":"hidden"))+"></form><td><td style='font-size: 12px;'>"
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Einsatz-Leitfahrzeug</b></td><form action='#'><input type='submit' value='-' name='sub_einsatzleiterfahrzeug' "+((einsatzleiterfahrzeug > vorschlag.getEinsatzTyp().minEinsatzfahrzeug  && sitzplatze-2>=leutepkw+leutelkw?"":"hidden"))+"></form><td><td style='font-size: 12px;'>"
 				+ einsatzleiterfahrzeug
 				+ "</td></td><form action='#'><input type='submit' value='+' name='add_einsatzleiterfahrzeug' "+(addeinsatzleiterfahrzeug < einsatzleiterfahrzeugFrei.size()?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Tank-Löschfahrzeug</b></td><form action='#'><input type='submit' value='-' name='sub_tankloesch' "+((tankloesch > vorschlag.getEinsatzTyp().minTankLoeschfahrzeug)?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Tank-Löschfahrzeug</b></td><form action='#'><input type='submit' value='-' name='sub_tankloesch' "+((tankloesch > vorschlag.getEinsatzTyp().minTankLoeschfahrzeug) && sitzplatze-4>=leutepkw+leutelkw?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
 				+ tankloesch
 				+ "</td></td><form action='#'><input type='submit' value='+' name='add_tankloesch' "+((addtankloesch < tankloeschFrei.size() && leutelkw > anzahllkw)?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Leiterwagen</b></td><form action='#'><input type='submit' value='-' name='sub_leiterwagen' "+((leiterwagen > vorschlag.getEinsatzTyp().minLeiterwagen)?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Leiterwagen</b></td><form action='#'><input type='submit' value='-' name='sub_leiterwagen' "+((leiterwagen > vorschlag.getEinsatzTyp().minLeiterwagen) && sitzplatze-2>=leutepkw+leutelkw?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
 				+ leiterwagen
 				+ "</td></td><form action='#'><input type='submit' value='+' name='add_leiterwagen' "+((addleiterwagen < leiterwagenFrei.size() && leutelkw > anzahllkw)?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Mannschaftstransporter</b></td><form action='#'><input type='submit' value='-' name='sub_transporter' "+((transporter > vorschlag.getEinsatzTyp().minManschaftstransporter)?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Mannschaftstransporter</b></td><form action='#'><input type='submit' value='-' name='sub_transporter' "+((transporter > vorschlag.getEinsatzTyp().minManschaftstransporter) && sitzplatze-14>=leutepkw+leutelkw?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
 				+ transporter
 				+ "</td></td><form action='#'><input type='submit' value='+' name='add_transporter' "+((addtransporter < transporterFrei.size() && leutelkw > anzahllkw)?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Feuerwehrleute (LKW)</b></td><form action='#'><input type='submit' value='-' name='sub_leutelkw' "+((addleutelkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter)?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Feuerwehrleute (LKW)</b></td><form action='#'><input type='submit' value='-' name='sub_leutelkw' "+((addleutelkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter) && anzahllkw < leutelkw?"":"hidden")+"></form><td><td style='font-size: 12px;'>"
 				+ leutelkw
 				+ "</td></td><form action='#'><input type='submit' value='+' name='add_leutelkw' "+((addleutelkw < (leutelkwFrei.size()) && (leutepkw+leutelkw < sitzplatze))?"":"hidden"))+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4px;'><b>Feuerwehrleute (PKW)</b></td><form action='#'><input type='submit' value='-' name='sub_leutepkw' "+((leutepkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter))?"":"hidden")+"'></form><td><td style='font-size: 12px;'>"
+		content += "<tr><td style='width: 200px; padding: 4px;'><b>Feuerwehrleute (PKW)</b></td><form action='#'><input type='submit' value='-' name='sub_leutepkw' "+((leutepkw > 0 && (leutepkw + leutelkw > vorschlag.getEinsatzTyp().minMitarbeiter))&& anzahlpkw < leutepkw + (leutelkw-anzahllkw)?"":"hidden")+"'></form><td><td style='font-size: 12px;'>"
 				+ leutepkw
 				+ "</td></td><form action='#'><input type='submit' value='+' name='add_leutepkw' "+((addleutepkw < (leutepkwFrei.size()) && (leutepkw+leutelkw < sitzplatze))?"":"hidden")+"></form><td>";
-		content += "<tr><td style='width: 200px; padding: 4ƒƒpx;'></td><td colspan='2'>Sitzplätze</td><td>"+sitzplatze+"</td></tr>";
+		content += "<tr><td style='width: 200px; padding: 4ƒƒpx;'></td><td colspan='2'>Sitzplätze:</td><td>"+(leutepkw+leutelkw)+"/"+sitzplatze+"</td></tr>";
 		content += "<tr><td colspan='5'>* Achtung: Es lassen sich nur realisierbare Kombinationen einstellen.</td></tr>";
 		content += "</table>";
 
-		content += "<form action='#'><input type='submit' name='starte_einsatz' value='Einsatz starten'></form>";
+		content += "<form action='#'><input type='submit' name='starte_einsatz' value='Einsatz starten' disabled='true'></form>";
 		content += "</center></body>";
 		content += "</html>";
 		return content;
